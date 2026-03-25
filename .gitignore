@@ -48,3 +48,4 @@ dist
 .agents/skills/.local/
 .claude/skills/.local/
 .github/skills/.local/
+node_modules_old/

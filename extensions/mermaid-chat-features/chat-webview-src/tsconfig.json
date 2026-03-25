@@ -9,11 +9,10 @@
 			"DOM",
 			"DOM.Iterable"
 		],
-		"types": [
-			"node"
-		],
+		"types": ["node", "mocha"],
 		"typeRoots": [
 			"../node_modules/@types"
 		]
 	}
 }
+

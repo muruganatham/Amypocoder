@@ -3,9 +3,7 @@
 	"compilerOptions": {
 		"rootDir": "./src",
 		"outDir": "./out",
-		"typeRoots": [
-			"./node_modules/@types"
-		]
+		"types": ["node", "mocha"]
 	},
 	"include": [
 		"src/**/*",
@@ -13,3 +11,5 @@
 		"../../src/vscode-dts/vscode.proposed.externalUriOpener.d.ts",
 	]
 }
+
+

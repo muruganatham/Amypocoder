@@ -1,6 +1,6 @@
 {
 	"extends": "../../tsconfig.base.json",
-	"compilerOptions": {
+	"compilerOptions": { "types": ["node", "mocha"],
 		"rootDir": ".",
 		"outDir": "./dist/",
 		"jsx": "react",
@@ -14,3 +14,5 @@
 		]
 	}
 }
+
+

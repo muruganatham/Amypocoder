@@ -1,6 +1,6 @@
 {
 	"extends": "../tsconfig.base.json",
-	"compilerOptions": {
+	"compilerOptions": { "types": ["node", "mocha"],
 		"rootDir": "./src",
 		"outDir": "./out",
 		"noFallthroughCasesInSwitch": true,
@@ -15,3 +15,5 @@
 		"../../src/vscode-dts/vscode.proposed.authenticationChallenges.d.ts"
 	]
 }
+
+

@@ -3,13 +3,8 @@
 	"compilerOptions": {
 		"rootDir": "./src",
 		"outDir": "./out",
-		"typeRoots": [
-			"./node_modules/@types"
-		],
 		"esModuleInterop": true,
-		"types": [
-			"node"
-		]
+		"types": ["node", "mocha"]
 	},
 	"include": [
 		"src/**/*",
@@ -21,3 +16,7 @@
 		"../../src/vscode-dts/vscode.proposed.editorHoverVerbosityLevel.d.ts",
 	]
 }
+
+
+
+

@@ -1,11 +1,8 @@
 {
 	"extends": "../tsconfig.base.json",
-	"compilerOptions": {
+	"compilerOptions": { "types": ["node", "mocha"],
 		"rootDir": "./src",
 		"outDir": "./out",
-		"typeRoots": [
-			"./node_modules/@types"
-		],
 		"skipLibCheck": true
 	},
 	"include": [
@@ -36,3 +33,8 @@
 		"../types/lib.textEncoder.d.ts"
 	]
 }
+
+
+
+
+

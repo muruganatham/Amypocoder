@@ -1,14 +1,11 @@
 {
 	"extends": "../tsconfig.base.json",
-	"compilerOptions": {
+	"compilerOptions": { "types": ["node", "mocha"],
 		"rootDir": "./src",
 		"outDir": "./out",
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
 		"skipLibCheck": true,
-		"typeRoots": [
-			"./node_modules/@types"
-		]
 	},
 	"include": [
 		"src/**/*",
@@ -19,3 +16,7 @@
 		"../../src/vscode-dts/vscode.proposed.timeline.d.ts"
 	]
 }
+
+
+
+

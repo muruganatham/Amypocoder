@@ -4,11 +4,10 @@
 		"rootDir": "./src",
 		"outDir": "../../out",
 		"esModuleInterop": true,
-		"types": [
-			"node"
-		]
+		"types": ["node", "mocha"]
 	},
 	"include": [
 		"src/**/*.ts"
 	]
 }
+

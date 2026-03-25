@@ -1,11 +1,8 @@
 {
 	"extends": "../tsconfig.base.json",
-	"compilerOptions": {
+	"compilerOptions": { "types": ["node", "mocha"],
 		"rootDir": "./src",
 		"outDir": "./out",
-		"typeRoots": [
-			"./node_modules/@types"
-		],
 		"lib": [
 			"WebWorker"
 		]
@@ -18,3 +15,8 @@
 		"../../src/vscode-dts/vscode.proposed.agentSessionsWorkspace.d.ts"
 	]
 }
+
+
+
+
+

@@ -1,6 +1,6 @@
 {
 	"extends": "../../tsconfig.base.json",
-	"compilerOptions": {
+	"compilerOptions": { "types": ["node", "mocha"],
 		"rootDir": "./src",
 		"outDir": "./out",
 		"lib": [
@@ -17,3 +17,5 @@
 		"../../../src/vscode-dts/vscode.proposed.extensionsAny.d.ts"
 	]
 }
+
+

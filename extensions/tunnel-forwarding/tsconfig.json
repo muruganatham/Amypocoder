@@ -3,12 +3,7 @@
 	"compilerOptions": {
 		"rootDir": "./src",
 		"outDir": "./out",
-		"typeRoots": [
-			"./node_modules/@types"
-		],
-		"types": [
-			"node"
-		]
+		"types": ["node", "mocha"]
 	},
 	"include": [
 		"src/**/*",
@@ -17,3 +12,7 @@
 		"../../src/vscode-dts/vscode.proposed.tunnelFactory.d.ts"
 	]
 }
+
+
+
+
