@@ -528,6 +528,7 @@ async function copyAllNonTsFiles(outDir: string, excludeTests: boolean): Promise
 	const ignorePatterns = [
 		// Exclude .ts files but keep .d.ts files (they're needed at runtime for type references)
 		'**/*.ts',
+		'**/tsconfig*.json',
 	];
 	if (excludeTests) {
 		ignorePatterns.push('**/test/**');

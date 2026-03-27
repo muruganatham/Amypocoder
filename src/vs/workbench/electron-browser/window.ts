@@ -135,6 +135,8 @@ export class NativeWindow extends BaseWindow {
 
 		this.configuredWindowZoomLevel = this.resolveConfiguredWindowZoomLevel();
 
+		console.log("Welcome to Amypo Coder 🚀");
+
 		this.registerListeners();
 		this.create();
 	}

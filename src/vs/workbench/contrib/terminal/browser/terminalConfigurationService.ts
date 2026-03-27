@@ -159,7 +159,7 @@ export class TerminalFontMetrics extends Disposable {
 
 		// Get the character dimensions from xterm if it's available
 		if (xtermCore?._renderService?._renderer.value) {
-			const cellDims = xtermCore._renderService.dimensions.css.cell;
+			const cellDims = xtermCore._renderService.dimensions?.css?.cell;
 			if (cellDims?.width && cellDims?.height) {
 				return {
 					fontFamily,

@@ -411,6 +411,24 @@ class ShowAboutDialogAction extends Action2 {
 	}
 }
 
+class AmypoAboutAction extends Action2 {
+
+	constructor() {
+		super({
+			id: 'amypo.about',
+			title: localize2('amypo.about', "About Amypo Coder"),
+			category: Categories.Help,
+			f1: true
+		});
+	}
+
+	override run(accessor: ServicesAccessor): Promise<void> {
+		const dialogService = accessor.get(IDialogService);
+
+		return dialogService.about();
+	}
+}
+
 class NewWindowAction extends Action2 {
 
 	constructor() {
@@ -466,6 +484,7 @@ registerAction2(QuickPickRecentAction);
 registerAction2(OpenRecentAction);
 registerAction2(ReloadWindowAction);
 registerAction2(ShowAboutDialogAction);
+registerAction2(AmypoAboutAction);
 registerAction2(BlurAction);
 
 // --- Commands/Keybindings Registration

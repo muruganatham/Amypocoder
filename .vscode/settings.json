@@ -128,6 +128,8 @@
 	"css.format.spaceAroundSelectorSeparator": true,
 	// --- Git ---
 	"git.ignoreLimitWarning": true,
+	"git.terminalAuthentication": false,
+	"terminal.integrated.shellIntegration.enabled": true,
 	"git.branchProtection": [
 		"main",
 		"main-*",

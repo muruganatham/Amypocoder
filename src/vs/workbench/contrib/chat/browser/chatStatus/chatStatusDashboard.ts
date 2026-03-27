@@ -174,7 +174,7 @@ export class ChatStatusDashboard extends DomWidget {
 				label: localize('quotaLabel', "Manage Chat"),
 				tooltip: localize('quotaTooltip', "Manage Chat"),
 				class: ThemeIcon.asClassName(Codicon.settings),
-				run: () => this.runCommandAndClose(() => this.openerService.open(URI.parse(defaultChat.manageSettingsUrl))),
+				run: () => this.runCommandAndClose(() => this.openerService.open(URI.parse(defaultChat?.manageSettingsUrl ?? ''))),
 			}));
 
 			const completionsQuotaIndicator = completionsQuota && (completionsQuota.total > 0 || completionsQuota.unlimited) ? this.createQuotaIndicator(this.element, this._store, completionsQuota, localize('completionsLabel', "Inline Suggestions"), false) : undefined;
@@ -273,12 +273,12 @@ export class ChatStatusDashboard extends DomWidget {
 		// Settings
 		{
 			const chatSentiment = this.chatEntitlementService.sentiment;
-			addSeparator(localize('inlineSuggestions', "Inline Suggestions"), chatSentiment.installed && !chatSentiment.disabled && !chatSentiment.untrusted ? toAction({
+			addSeparator(localize('inlineSuggestions', "Inline Suggestions"), chatSentiment.installed && !chatSentiment.disabled && !chatSentiment.untrusted && defaultChat?.completionsEnablementSetting ? toAction({
 				id: 'workbench.action.openChatSettings',
 				label: localize('settingsLabel', "Settings"),
 				tooltip: localize('settingsTooltip', "Open Settings"),
 				class: ThemeIcon.asClassName(Codicon.settingsGear),
-				run: () => this.runCommandAndClose(() => this.commandService.executeCommand('workbench.action.openSettings', { query: `@id:${defaultChat.completionsEnablementSetting} @id:${defaultChat.nextEditSuggestionsSetting}` })),
+				run: () => this.runCommandAndClose(() => this.commandService.executeCommand('workbench.action.openSettings', { query: `@id:${defaultChat?.completionsEnablementSetting} @id:${defaultChat?.nextEditSuggestionsSetting}` })),
 			}) : undefined);
 
 			this.createSettings(this.element, this._store);
@@ -359,7 +359,7 @@ export class ChatStatusDashboard extends DomWidget {
 				let descriptionText: string | MarkdownString;
 				let descriptionClass = '.description';
 				if (newUser && anonymousUser) {
-					descriptionText = new MarkdownString(localize({ key: 'activeDescriptionAnonymous', comment: ['{Locked="]({2})"}', '{Locked="]({3})"}'] }, "By continuing with {0} Copilot, you agree to {1}'s [Terms]({2}) and [Privacy Statement]({3})", defaultChat.provider.default.name, defaultChat.provider.default.name, defaultChat.termsStatementUrl, defaultChat.privacyStatementUrl), { isTrusted: true });
+					descriptionText = new MarkdownString(localize({ key: 'activeDescriptionAnonymous', comment: ['{Locked="]({2})"}', '{Locked="]({3})"}'] }, "By continuing with {0} Copilot, you agree to {1}'s [Terms]({2}) and [Privacy Statement]({3})", defaultChat?.provider?.default?.name ?? 'GitHub', defaultChat?.provider?.default?.name ?? 'GitHub', defaultChat?.termsStatementUrl ?? '', defaultChat?.privacyStatementUrl ?? ''), { isTrusted: true });
 					descriptionClass = `${descriptionClass}.terms`;
 				} else if (newUser) {
 					descriptionText = localize('activateDescription', "Set up Copilot to use AI features.");
@@ -503,7 +503,7 @@ export class ChatStatusDashboard extends DomWidget {
 		if (supportsOverage && (this.chatEntitlementService.entitlement === ChatEntitlement.Pro || this.chatEntitlementService.entitlement === ChatEntitlement.ProPlus)) {
 			const manageOverageButton = disposables.add(new Button(quotaIndicator, { ...defaultButtonStyles, secondary: true, hoverDelegate: nativeHoverDelegate }));
 			manageOverageButton.label = localize('enableAdditionalUsage', "Manage paid premium requests");
-			disposables.add(manageOverageButton.onDidClick(() => this.runCommandAndClose(() => this.openerService.open(URI.parse(defaultChat.manageOverageUrl)))));
+			disposables.add(manageOverageButton.onDidClick(() => this.runCommandAndClose(() => this.openerService.open(URI.parse(defaultChat?.manageOverageUrl ?? '')))));
 		}
 
 		const update = (quota: IQuotaSnapshot | string) => {
@@ -624,7 +624,7 @@ export class ChatStatusDashboard extends DomWidget {
 	}
 
 	private getCompletionsSettingAccessor(modeId = '*'): ISettingsAccessor {
-		const settingId = defaultChat.completionsEnablementSetting;
+		const settingId = defaultChat?.completionsEnablementSetting ?? 'missing.setting';
 
 		return {
 			readSetting: () => isCompletionsEnabled(this.configurationService, modeId),
@@ -646,8 +646,8 @@ export class ChatStatusDashboard extends DomWidget {
 	}
 
 	private createNextEditSuggestionsSetting(container: HTMLElement, label: string, completionsSettingAccessor: ISettingsAccessor, disposables: DisposableStore): void {
-		const nesSettingId = defaultChat.nextEditSuggestionsSetting;
-		const completionsSettingId = defaultChat.completionsEnablementSetting;
+		const nesSettingId = defaultChat?.nextEditSuggestionsSetting ?? '';
+		const completionsSettingId = defaultChat?.completionsEnablementSetting ?? '';
 		const resource = EditorResourceAccessor.getOriginalUri(this.editorService.activeEditor, { supportSideBySide: SideBySideEditor.PRIMARY });
 
 		const checkbox = this.createSetting(container, [nesSettingId, completionsSettingId], label, {
@@ -752,7 +752,7 @@ export class ChatStatusDashboard extends DomWidget {
 		}));
 
 		disposables.add(this.configurationService.onDidChangeConfiguration(e => {
-			if (e.affectsConfiguration(defaultChat.completionsEnablementSetting)) {
+			if (defaultChat?.completionsEnablementSetting && e.affectsConfiguration(defaultChat.completionsEnablementSetting)) {
 				button.enabled = isEnabled();
 			}
 			updateIntervalTimer();

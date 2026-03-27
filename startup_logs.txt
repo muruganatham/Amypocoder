@@ -1,0 +1,30 @@
+﻿
+> amypo-coder-dev@1.113.0 electron
+> node build/lib/electron.ts
+
+
+.\scripts\code.bat : (node:13044) [DEP0180] DeprecationWarning: fs.Stats constructor is deprecated.
+At line:1 char:1
++ .\scripts\code.bat --verbose *>&1 | Out-File -Encoding UTF8 C:\Users\ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:13044) [D... is deprecated.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[[90m15:53:55[39m] Synchronizing built-in extensions...
+[[90m15:53:55[39m] You can manage built-in extensions with the [36m--builtin[39m flag
+[[90m15:53:55[39m] [34m[marketplace][39m ms-vscode.js-debug-companion@1.1.3 [32mΓ£ö∩╕Ä[39m
+[[90m15:53:55[39m] Downloading extension: [33mms-vscode.js-debug@1.112.0[39m ...
+[[90m15:53:55[39m] [34m[marketplace][39m ms-vscode.vscode-js-profile-table@1.0.10 [32mΓ£ö∩╕Ä[39m
+(node:25808) [DEP0180] DeprecationWarning: fs.Stats constructor is deprecated.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+file:///C:/Users/Admin/Documents/CustomVsCode/out/main.js:11
+import { app, protocol, crashReporter, Menu, contentTracing } from 'electron';
+                                       ^^^^
+SyntaxError: The requested module 'electron' does not provide an export named 'Menu'
+    at ModuleJob._instantiate (node:internal/modules/esm/module_job:226:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:335:5)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:665:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:132:5)
+
+Node.js v22.22.1

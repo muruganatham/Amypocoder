@@ -49,3 +49,4 @@ dist
 .claude/skills/.local/
 .github/skills/.local/
 node_modules_old/
+*.log

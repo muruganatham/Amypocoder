@@ -1,0 +1,43 @@
+[[90m11:05:05[39m] Using gulpfile ~\Documents\CustomVsCode\gulpfile.mjs
+[[90m11:05:05[39m] Starting 'vscode-win32-x64'...
+[[90m11:05:05[39m] Starting [36mcopy-codicons[39m ...
+[[90m11:05:05[39m] Finished [36mcopy-codicons[39m after [35m5 ms[39m
+[[90m11:05:05[39m] Starting [36mclean-extensions-build[39m ...
+[[90m11:05:05[39m] Finished [36mclean-extensions-build[39m after [35m129 ms[39m
+[[90m11:05:05[39m] Starting [36mbundle-marketplace-extensions-build[39m ...
+[[90m11:05:05[39m] [extensions] ms-vscode.js-debug-companion@1.1.3 up to date [32m✔︎[39m
+[[90m11:05:05[39m] [extensions] ms-vscode.js-debug@1.112.0 up to date [32m✔︎[39m
+[[90m11:05:05[39m] [extensions] ms-vscode.vscode-js-profile-table@1.0.10 up to date [32m✔︎[39m
+(node:38532) [DEP0180] DeprecationWarning: fs.Stats constructor is deprecated.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[[90m11:05:06[39m] Finished [36mbundle-marketplace-extensions-build[39m after [35m1035 ms[39m
+[[90m11:05:06[39m] Starting [36mbundle-non-native-extensions-build[39m ...
+[[90m11:05:41[39m] Bundled extension: [33mgit-base\esbuild.mts[39m with 0 errors.
+[[90m11:05:44[39m] Bundled extension: [33mcss-language-features\esbuild.mts[39m with 0 errors.
+[[90m11:05:48[39m] Bundled extension: [33mgulp\esbuild.mts[39m with 0 errors.
+[[90m11:05:48[39m] Bundled extension: [33mdebug-server-ready\esbuild.mts[39m with 0 errors.
+[[90m11:05:52[39m] Bundled extension: [33mconfiguration-editing\esbuild.mts[39m with 0 errors.
+[[90m11:05:55[39m] Bundled extension: [33mmermaid-chat-features\esbuild.mts[39m with 0 errors.
+[[90m11:05:56[39m] Bundled extension: [33mgrunt\esbuild.mts[39m with 0 errors.
+[[90m11:05:56[39m] Bundled extension: [33mjake\esbuild.mts[39m with 0 errors.
+[[90m11:05:59[39m] Bundled extension: [33mdebug-auto-launch\esbuild.mts[39m with 0 errors.
+[[90m11:06:04[39m] Bundled extension: [33mmedia-preview\esbuild.mts[39m with 0 errors.
+[[90m11:06:04[39m] Bundled extension: [33memmet\esbuild.mts[39m with 0 errors.
+[[90m11:06:10[39m] Bundled extension: [33msearch-result\esbuild.mts[39m with 0 errors.
+[[90m11:06:33[39m] Bundled extension: [33mipynb\esbuild.mts[39m with 0 errors.
+[[90m11:06:37[39m] Bundled extension: [33mreferences-view\esbuild.mts[39m with 0 errors.
+[[90m11:06:38[39m] Bundled extension: [33mextension-editing\esbuild.mts[39m with 0 errors.
+[[90m11:06:38[39m] Bundled extension: [33mphp-language-features\esbuild.mts[39m with 0 errors.
+[[90m11:06:38[39m] Bundled extension: [33msimple-browser\esbuild.mts[39m with 0 errors.
+[[90m11:06:38[39m] Bundled extension: [33mtunnel-forwarding\esbuild.mts[39m with 0 errors.
+[[90m11:06:39[39m] Bundled extension: [33mmarkdown-math\esbuild.mts[39m with 0 errors.
+[[90m11:06:43[39m] Bundled extension: [33mterminal-suggest\esbuild.mts[39m with 0 errors.
+[[90m11:07:31[39m] Bundled extension: [33mmerge-conflict\esbuild.mts[39m with 0 errors.
+[[90m11:07:33[39m] Bundled extension: [33mtypescript-language-features\esbuild.mts[39m with 0 errors.
+[[90m11:07:33[39m] Bundled extension: [33mnpm\esbuild.mts[39m with 0 errors.
+[[90m11:07:35[39m] Bundled extension: [33mgithub\esbuild.mts[39m with 0 errors.
+[[90m11:07:36[39m] Bundled extension: [33mhtml-language-features\esbuild.mts[39m with 0 errors.
+[[90m11:07:36[39m] Bundled extension: [33mgithub-authentication\esbuild.mts[39m with 0 errors.
+[[90m11:07:37[39m] Bundled extension: [33mjson-language-features\esbuild.mts[39m with 0 errors.
+[[90m11:07:43[39m] 'vscode-win32-x64' errored after 2.62 min
+[[90m11:07:43[39m] Error: EISDIR: illegal operation on a directory, read
