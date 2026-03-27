@@ -3,35 +3,32 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
+import es from 'event-stream';
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
-import rimraf from 'rimraf';
-import es from 'event-stream';
-import rename from 'gulp-rename';
 import vfs from 'vinyl-fs';
-import * as ext from './extensions.ts';
+import rimraf from 'rimraf';
 import fancyLog from 'fancy-log';
 import ansiColors from 'ansi-colors';
 import { Stream } from 'stream';
+import _glob from 'glob';
+const glob = (_glob as any).default || _glob;
+import File from 'vinyl';
+import rename from 'gulp-rename';
+import vzip from 'gulp-vinyl-zip';
+import filter from 'gulp-filter';
+import * as util from './util.ts';
+import * as ext from './extensions.ts';
+import { fetchUrl } from './fetch.ts';
 
 export interface IExtensionDefinition {
 	name: string;
 	version: string;
-	sha256: string;
 	repo: string;
+	metadata: any;
 	platforms?: string[];
-	vsix?: string;
-	metadata: {
-		id: string;
-		publisherId: {
-			publisherId: string;
-			publisherName: string;
-			displayName: string;
-			flags: string;
-		};
-		publisherDisplayName: string;
-	};
+	sha256?: string;
 }
 
 const root = path.dirname(path.dirname(import.meta.dirname));
@@ -58,131 +55,113 @@ function isUpToDate(extension: IExtensionDefinition): boolean {
 		return false;
 	}
 
-	const packageContents = fs.readFileSync(packagePath, { encoding: 'utf8' });
-
-	try {
-		const diskVersion = JSON.parse(packageContents).version;
-		return (diskVersion === extension.version);
-	} catch (err) {
-		return false;
-	}
+	const packageJson = JSON.parse(fs.readFileSync(packagePath, 'utf8'));
+	return packageJson.version === extension.version;
 }
 
-function getExtensionDownloadStream(extension: IExtensionDefinition) {
-	let input: Stream;
-
-	if (extension.vsix) {
-		input = ext.fromVsix(path.join(root, extension.vsix), extension);
-	} else if (productjson.extensionsGallery?.serviceUrl) {
-		input = ext.fromMarketplace(productjson.extensionsGallery.serviceUrl, extension);
-	} else {
-		input = ext.fromGithub(extension);
-	}
-
-	return input.pipe(rename(p => p.dirname = `${extension.name}/${p.dirname}`));
+function getExtensionDownloadStream(extension: IExtensionDefinition): Stream {
+	const galleryServiceUrl = productjson.extensionsGallery?.serviceUrl;
+	return (galleryServiceUrl ? ext.fromMarketplace(galleryServiceUrl, extension) : ext.fromGithub(extension))
+		.pipe(util.skipDirectories())
+		.pipe(rename((p: any) => p.dirname = `${extension.name}/${p.dirname}`));
 }
 
-export function getExtensionStream(extension: IExtensionDefinition) {
+export function getExtensionStream(extension: IExtensionDefinition): Stream {
 	// if the extension exists on disk, use those files instead of downloading anew
 	if (isUpToDate(extension)) {
 		log('[extensions]', `${extension.name}@${extension.version} up to date`, ansiColors.green('✔︎'));
-		return vfs.src(['**'], { cwd: getExtensionPath(extension), dot: true })
-			.pipe(rename(p => p.dirname = `${extension.name}/${p.dirname}`));
+		const cwd = getExtensionPath(extension);
+		const files = glob.sync('**', { cwd, nodir: true, dot: true }) as string[];
+		return es.readArray(files.map((f: string) => {
+			const filePath = path.join(cwd, f);
+			return new File({
+				path: f,
+				base: '.',
+				contents: fs.readFileSync(filePath),
+				stat: fs.statSync(filePath)
+			});
+		})).pipe(rename((p: any) => p.dirname = `${extension.name}/${p.dirname}`));
 	}
 
 	return getExtensionDownloadStream(extension);
 }
 
-function syncMarketplaceExtension(extension: IExtensionDefinition): Stream {
+async function syncMarketplaceExtension(extension: IExtensionDefinition): Promise<void> {
 	const galleryServiceUrl = productjson.extensionsGallery?.serviceUrl;
 	const source = ansiColors.blue(galleryServiceUrl ? '[marketplace]' : '[github]');
 	if (isUpToDate(extension)) {
 		log(source, `${extension.name}@${extension.version}`, ansiColors.green('✔︎'));
-		return es.readArray([]);
+		return;
 	}
 
-	rimraf.sync(getExtensionPath(extension));
+	const extensionPath = getExtensionPath(extension);
+	rimraf.sync(extensionPath);
 
-	return getExtensionDownloadStream(extension)
-		.pipe(vfs.dest('.build/builtInExtensions'))
-		.on('end', () => log(source, extension.name, ansiColors.green('✔︎')));
+	const [publisher, name] = extension.name.split('.');
+	const url = galleryServiceUrl ? `${galleryServiceUrl}/publishers/${publisher}/vsextensions/${name}/${extension.version}/vspackage` : extension.repo;
+
+	log(source, `Downloading extension: ${extension.name}@${extension.version}...`);
+
+	const file = await fetchUrl(url, { checksumSha256: extension.sha256, verbose: true });
+	const extractStream = es.readArray([file])
+		.pipe(vzip.src())
+		.pipe(filter('extension/**'))
+		.pipe(rename((p: any) => p.dirname = p.dirname!.replace(/^extension\/?/, '')))
+		.pipe(vfs.dest(extensionPath));
+
+	await util.streamToPromise(extractStream as any);
+	log(source, extension.name, ansiColors.green('✔︎'));
 }
 
-function syncExtension(extension: IExtensionDefinition, controlState: 'disabled' | 'marketplace'): Stream {
+async function syncExtension(extension: IExtensionDefinition, controlState: 'disabled' | 'marketplace'): Promise<void> {
 	if (extension.platforms) {
 		const platforms = new Set(extension.platforms);
-
 		if (!platforms.has(process.platform)) {
-			log(ansiColors.gray('[skip]'), `${extension.name}@${extension.version}: Platform '${process.platform}' not supported: [${extension.platforms}]`, ansiColors.green('✔︎'));
-			return es.readArray([]);
+			log(ansiColors.gray('[skip]'), `${extension.name}@${extension.version}: Platform '${process.platform}' not supported`, ansiColors.green('✔︎'));
+			return;
 		}
 	}
 
-	switch (controlState) {
-		case 'disabled':
-			log(ansiColors.blue('[disabled]'), ansiColors.gray(extension.name));
-			return es.readArray([]);
-
-		case 'marketplace':
-			return syncMarketplaceExtension(extension);
-
-		default:
-			if (!fs.existsSync(controlState)) {
-				log(ansiColors.red(`Error: Built-in extension '${extension.name}' is configured to run from '${controlState}' but that path does not exist.`));
-				return es.readArray([]);
-
-			} else if (!fs.existsSync(path.join(controlState, 'package.json'))) {
-				log(ansiColors.red(`Error: Built-in extension '${extension.name}' is configured to run from '${controlState}' but there is no 'package.json' file in that directory.`));
-				return es.readArray([]);
-			}
-
-			log(ansiColors.blue('[local]'), `${extension.name}: ${ansiColors.cyan(controlState)}`, ansiColors.green('✔︎'));
-			return es.readArray([]);
+	if (controlState === 'disabled') {
+		log(ansiColors.blue('[disabled]'), ansiColors.gray(extension.name));
+		return;
 	}
+
+	await syncMarketplaceExtension(extension);
 }
 
-interface IControlFile {
-	[name: string]: 'disabled' | 'marketplace';
-}
-
-function readControlFile(): IControlFile {
+function writeControlFile(control: { [name: string]: 'disabled' | 'marketplace' }): void {
 	try {
-		return JSON.parse(fs.readFileSync(controlFilePath, 'utf8'));
+		fs.mkdirSync(path.dirname(controlFilePath), { recursive: true });
+		fs.writeFileSync(controlFilePath, JSON.stringify(control, null, 2));
 	} catch (err) {
-		return {};
+		// ignore
 	}
 }
 
-function writeControlFile(control: IControlFile): void {
-	fs.mkdirSync(path.dirname(controlFilePath), { recursive: true });
-	fs.writeFileSync(controlFilePath, JSON.stringify(control, null, 2));
-}
+export async function getBuiltInExtensions(): Promise<void> {
+	const control: { [name: string]: 'disabled' | 'marketplace' } = {};
 
-export function getBuiltInExtensions(): Promise<void> {
-	log('Synchronizing built-in extensions...');
-	log(`You can manage built-in extensions with the ${ansiColors.cyan('--builtin')} flag`);
+	for (const extension of builtInExtensions) {
+		control[extension.name] = 'marketplace';
+	}
 
-	const control = readControlFile();
-	const streams: Stream[] = [];
-
-	for (const extension of [...builtInExtensions, ...webBuiltInExtensions]) {
-		const controlState = control[extension.name] || 'marketplace';
-		control[extension.name] = controlState;
-
-		streams.push(syncExtension(extension, controlState));
+	for (const extension of webBuiltInExtensions) {
+		control[extension.name] = 'marketplace';
 	}
 
 	writeControlFile(control);
 
-	return new Promise((resolve, reject) => {
-		es.merge(streams)
-			.on('error', reject)
-			.on('end', resolve);
-	});
+	const allExtensions = [...builtInExtensions, ...webBuiltInExtensions];
+
+	// Sequential synchronization for absolute reliability
+	for (const extension of allExtensions) {
+		await syncExtension(extension, 'marketplace');
+	}
 }
 
 if (import.meta.main) {
-	getBuiltInExtensions().then(() => process.exit(0)).catch(err => {
+	getBuiltInExtensions().catch(err => {
 		console.error(err);
 		process.exit(1);
 	});

@@ -1233,7 +1233,9 @@ export class ChatSessionsService extends Disposable implements IChatSessionsServ
 	}
 }
 
-registerSingleton(IChatSessionsService, ChatSessionsService, InstantiationType.Delayed);
+import { ChatSessionsServiceStub } from '../chatStubs.js';
+registerSingleton(IChatSessionsService, ChatSessionsServiceStub as any, InstantiationType.Delayed);
+
 
 
 

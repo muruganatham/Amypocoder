@@ -68,9 +68,9 @@ import './services/configuration/common/jsonEditingService.js';
 import './services/textmodelResolver/common/textModelResolverService.js';
 import './services/editor/browser/editorService.js';
 import './services/editor/browser/editorResolverService.js';
-import './services/aiEmbeddingVector/common/aiEmbeddingVectorService.js';
-import './services/aiRelatedInformation/common/aiRelatedInformationService.js';
-import './services/aiSettingsSearch/common/aiSettingsSearchService.js';
+// import './services/aiEmbeddingVector/common/aiEmbeddingVectorService.js';
+// import './services/aiRelatedInformation/common/aiRelatedInformationService.js';
+// import './services/aiSettingsSearch/common/aiSettingsSearchService.js';
 import './services/history/browser/historyService.js';
 import './services/activity/browser/activityService.js';
 import './services/keybinding/browser/keybindingService.js';
@@ -132,7 +132,7 @@ import './services/editor/browser/editorPaneService.js';
 import './services/editor/common/customEditorLabelService.js';
 import './services/dataChannel/browser/dataChannelService.js';
 import './services/inlineCompletions/common/inlineCompletionsUnification.js';
-import './services/chat/common/chatEntitlementService.js';
+// import './services/chat/common/chatEntitlementService.js';
 import './services/log/common/defaultLogLevels.js';
 
 import { InstantiationType, registerSingleton } from '../platform/instantiation/common/extensions.js';
@@ -204,15 +204,15 @@ import './contrib/performance/browser/performance.contribution.js';
 import './contrib/notebook/browser/notebook.contribution.js';
 
 // Speech
-import './contrib/speech/browser/speech.contribution.js';
+// import './contrib/speech/browser/speech.contribution.js';
 
 // Chat
-import './contrib/chat/browser/chat.contribution.js';
-import './contrib/inlineChat/browser/inlineChat.contribution.js';
-import './contrib/mcp/browser/mcp.contribution.js';
-import './contrib/chat/browser/chatSessions/chatSessions.contribution.js';
-import './contrib/chat/browser/contextContrib/chatContext.contribution.js';
-import './contrib/imageCarousel/browser/imageCarousel.contribution.js';
+// import './contrib/chat/browser/chat.contribution.js';
+// import './contrib/inlineChat/browser/inlineChat.contribution.js';
+// import './contrib/mcp/browser/mcp.contribution.js';
+// import './contrib/chat/browser/chatSessions/chatSessions.contribution.js';
+// import './contrib/chat/browser/contextContrib/chatContext.contribution.js';
+// import './contrib/imageCarousel/browser/imageCarousel.contribution.js';
 
 // Interactive
 import './contrib/interactive/browser/interactive.contribution.js';
@@ -431,7 +431,7 @@ import './contrib/share/browser/share.contribution.js';
 import './contrib/scrollLocking/browser/scrollLocking.contribution.js';
 
 // Inline Completions
-import './contrib/inlineCompletions/browser/inlineCompletions.contribution.js';
+// import './contrib/inlineCompletions/browser/inlineCompletions.contribution.js';
 
 // Drop or paste into
 import './contrib/dropOrPasteInto/browser/dropOrPasteInto.contribution.js';

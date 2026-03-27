@@ -371,6 +371,8 @@ export function streamToPromise(stream: NodeJS.ReadWriteStream): Promise<void> {
 	return new Promise((c, e) => {
 		stream.on('error', err => e(err));
 		stream.on('end', () => c());
+		stream.on('finish', () => c());
+		stream.on('close', () => c());
 	});
 }
 

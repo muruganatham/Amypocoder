@@ -17,6 +17,7 @@ import sourcemaps from 'gulp-sourcemaps';
 import * as path from 'path';
 import * as nodeUtil from 'util';
 import * as ext from './lib/extensions.ts';
+import * as builtInExtensions from './lib/builtInExtensions.ts';
 import { getVersion } from './lib/getVersion.ts';
 import { createReporter } from './lib/reporter.ts';
 import * as task from './lib/task.ts';
@@ -259,7 +260,10 @@ export const cleanExtensionsBuildTask = task.define('clean-extensions-build', ut
 /**
  * brings in the marketplace extensions for the build
  */
-const bundleMarketplaceExtensionsBuildTask = task.define('bundle-marketplace-extensions-build', () => ext.packageMarketplaceExtensionsStream(false).pipe(gulp.dest('.build')));
+const bundleMarketplaceExtensionsBuildTask = task.define('bundle-marketplace-extensions-build', gulp.series(
+	() => builtInExtensions.getBuiltInExtensions(),
+	() => ext.packageMarketplaceExtensionsStream(false).pipe(gulp.dest('.build'))
+));
 
 /**
  * Compiles the non-native extensions for the build

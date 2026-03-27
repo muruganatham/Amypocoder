@@ -10,7 +10,7 @@ import _glob from 'glob';
 const glob = (_glob as any).default || _glob;
 import gulp from 'gulp';
 import path from 'path';
-import crypto from 'crypto';
+// import crypto from 'crypto';
 import { Stream } from 'stream';
 import File from 'vinyl';
 import { createStatsStream } from './stats.ts';
@@ -23,7 +23,7 @@ import buffer from 'gulp-buffer';
 import * as jsoncParser from 'jsonc-parser';
 import { getProductionDependencies } from './dependencies.ts';
 import { type IExtensionDefinition, getExtensionStream } from './builtInExtensions.ts';
-import { fetchUrls, fetchGithub } from './fetch.ts';
+import { fetchUrl, fetchGithub } from './fetch.ts';
 import { createTsgoStream, spawnTsgo } from './tsgo.ts';
 import vzip from 'gulp-vinyl-zip';
 
@@ -37,11 +37,13 @@ const root = path.dirname(path.dirname(import.meta.dirname));
 function minifyExtensionResources(input: Stream): Stream {
 	const jsonFilter = filter(['**/*.json', '**/*.code-snippets'], { restore: true });
 	return input
+		.pipe(util2.skipDirectories())
 		.pipe(jsonFilter)
 		.pipe(buffer())
 		.pipe(es.mapSync((f: File) => {
+			if (!f.contents) { return f; }
 			const errors: jsoncParser.ParseError[] = [];
-			const value = jsoncParser.parse(f.contents!.toString('utf8'), errors, { allowTrailingComma: true });
+			const value = jsoncParser.parse(f.contents.toString('utf8'), errors, { allowTrailingComma: true });
 			if (errors.length === 0) {
 				// file parsed OK => just stringify to drop whitespace and comments
 				f.contents = Buffer.from(JSON.stringify(value));
@@ -115,25 +117,17 @@ export function typeCheckExtensionStream(extensionPath: string, forWeb: boolean)
 
 
 function fromLocalNormal(extensionPath: string): Stream {
-	const vsce = require('@vscode/vsce') as typeof import('@vscode/vsce');
-	const result = es.through();
-
-	vsce.listFiles({ cwd: extensionPath, packageManager: vsce.PackageManager.Npm })
-		.then(fileNames => {
-			const files = fileNames
-				.map(fileName => path.join(extensionPath, fileName))
-				.map(filePath => new File({
-					path: filePath,
-					stat: fs.statSync(filePath),
-					base: extensionPath,
-					contents: fs.createReadStream(filePath)
-				}));
-
-			es.readArray(files).pipe(result);
-		})
-		.catch(err => result.emit('error', err));
-
-	return result.pipe(createStatsStream(path.basename(extensionPath)));
+	const files = glob.sync('**', { cwd: extensionPath, nodir: true, dot: true });
+	const vinylFiles = files.map((f: string) => {
+		const filePath = path.join(extensionPath, f);
+		return new File({
+			path: f,
+			base: '.',
+			contents: fs.readFileSync(filePath),
+			stat: fs.statSync(filePath)
+		});
+	});
+	return es.readArray(vinylFiles).pipe(createStatsStream(path.basename(extensionPath)));
 }
 
 function fromLocalEsbuild(extensionPath: string, esbuildConfigFileName: string): Stream {
@@ -172,11 +166,12 @@ function fromLocalEsbuild(extensionPath: string, esbuildConfigFileName: string):
 		// After esbuild completes, collect all files using vsce
 		return vsce.listFiles({ cwd: extensionPath, packageManager: vsce.PackageManager.None });
 	}).then(fileNames => {
+		let finalFileNames = fileNames;
 		if (packagedDependencies.length > 0) {
 			const packagedDependencyFileNames = packagedDependencies.flatMap(dependency =>
 				glob.sync(path.join(extensionPath, 'node_modules', dependency, '**'), { nodir: true, dot: true })
-					.map(filePath => path.relative(extensionPath, filePath))
-					.filter(filePath => {
+					.map((filePath: string) => path.relative(extensionPath, filePath))
+					.filter((filePath: string) => {
 						// Exclude non-.node files from build directories to avoid timestamp-sensitive
 						// artifacts (e.g. Makefile) that break macOS universal builds due to SHA mismatches.
 						const parts = filePath.split(path.sep);
@@ -188,10 +183,10 @@ function fromLocalEsbuild(extensionPath: string, esbuildConfigFileName: string):
 					})
 			);
 
-			fileNames = Array.from(new Set([...fileNames, ...packagedDependencyFileNames]));
+			finalFileNames = Array.from(new Set([...fileNames, ...packagedDependencyFileNames]));
 		}
 
-		const files = fileNames
+		const files = finalFileNames
 			.map(fileName => path.join(extensionPath, fileName))
 			.map(filePath => new File({
 				path: filePath,
@@ -210,66 +205,33 @@ function fromLocalEsbuild(extensionPath: string, esbuildConfigFileName: string):
 	return result.pipe(createStatsStream(path.basename(extensionPath)));
 }
 
-const userAgent = 'VSCode Build';
-const baseHeaders = {
-	'X-Market-Client-Id': 'VSCode Build',
-	'User-Agent': userAgent,
-	'X-Market-User-Id': '291C1CD0-051A-4123-9B4B-30D60EF52EE2',
-};
 
 export function fromMarketplace(serviceUrl: string, { name: extensionName, version, sha256, metadata }: IExtensionDefinition): Stream {
 	const json = require('gulp-json-editor') as typeof import('gulp-json-editor');
-
 	const [publisher, name] = extensionName.split('.');
 	const url = `${serviceUrl}/publishers/${publisher}/vsextensions/${name}/${version}/vspackage`;
 
 	fancyLog('Downloading extension:', ansiColors.yellow(`${extensionName}@${version}`), '...');
 
 	const packageJsonFilter = filter('package.json', { restore: true });
+	const result = es.through();
 
-	return fetchUrls('', {
-		base: url,
-		nodeFetchOptions: {
-			headers: baseHeaders
-		},
-		checksumSha256: sha256
-	})
-		.pipe(vzip.src())
-		.pipe(filter('extension/**'))
-		.pipe(rename(p => p.dirname = p.dirname!.replace(/^extension\/?/, '')))
-		.pipe(packageJsonFilter)
-		.pipe(buffer())
-		.pipe(json({ __metadata: metadata }))
-		.pipe(packageJsonFilter.restore);
+	fetchUrl(url, { checksumSha256: sha256, verbose: true }).then((file: File) => {
+		es.readArray([file])
+			.pipe(vzip.src())
+			.pipe(filter('extension/**'))
+			.pipe(rename(p => p.dirname = p.dirname!.replace(/^extension\/?/, '')))
+			.pipe(packageJsonFilter)
+			.pipe(buffer())
+			.pipe(json({ __metadata: metadata }))
+			.pipe(packageJsonFilter.restore)
+			.pipe(result);
+	}).catch((err: any) => {
+		result.emit('error', err);
+	});
+
+	return result.pipe(util2.skipDirectories());
 }
-
-export function fromVsix(vsixPath: string, { name: extensionName, version, sha256, metadata }: IExtensionDefinition): Stream {
-	const json = require('gulp-json-editor') as typeof import('gulp-json-editor');
-
-	fancyLog('Using local VSIX for extension:', ansiColors.yellow(`${extensionName}@${version}`), '...');
-
-	const packageJsonFilter = filter('package.json', { restore: true });
-
-	return gulp.src(vsixPath)
-		.pipe(buffer())
-		.pipe(es.mapSync((f: File) => {
-			const hash = crypto.createHash('sha256');
-			hash.update(f.contents as Buffer);
-			const checksum = hash.digest('hex');
-			if (checksum !== sha256) {
-				throw new Error(`Checksum mismatch for ${vsixPath} (expected ${sha256}, actual ${checksum}))`);
-			}
-			return f;
-		}))
-		.pipe(vzip.src())
-		.pipe(filter('extension/**'))
-		.pipe(rename(p => p.dirname = p.dirname!.replace(/^extension\/?/, '')))
-		.pipe(packageJsonFilter)
-		.pipe(buffer())
-		.pipe(json({ __metadata: metadata }))
-		.pipe(packageJsonFilter.restore);
-}
-
 
 export function fromGithub({ name, version, repo, sha256, metadata }: IExtensionDefinition): Stream {
 	const json = require('gulp-json-editor') as typeof import('gulp-json-editor');
@@ -302,6 +264,7 @@ const nativeExtensions = [
 	'microsoft-authentication',
 ];
 
+/*
 const excludedExtensions = [
 	'vscode-api-tests',
 	'vscode-colorize-tests',
@@ -310,6 +273,7 @@ const excludedExtensions = [
 	'ms-vscode.node-debug',
 	'ms-vscode.node-debug2',
 ];
+*/
 
 const marketplaceWebExtensionsExclude = new Set([
 	'ms-vscode.node-debug',
@@ -411,11 +375,20 @@ function doPackageLocalExtensionsStream(forWeb: boolean, disableMangle: boolean,
 				return { name: extensionName, path: extensionPath, manifestPath: absoluteManifestPath };
 			})
 			.filter(({ name }) => native ? nativeExtensionsSet.has(name) : !nativeExtensionsSet.has(name))
-			.filter(({ name }) => excludedExtensions.indexOf(name) === -1)
+			.filter(({ name }) => {
+				const isAI = ['mermaid-chat-features', 'prompt-basics'].includes(name);
+				const isTest = [
+					'vscode-api-tests',
+					'vscode-colorize-tests',
+					'vscode-colorize-perf-tests',
+					'vscode-test-resolver'
+				].includes(name);
+				return !isAI && !isTest;
+			})
 			.filter(({ name }) => builtInExtensions.every(b => b.name !== name))
 			.filter(({ manifestPath }) => (forWeb ? isWebExtension(require(manifestPath)) : true))
 	);
-	const localExtensionsStream = minifyExtensionResources(
+	const localExtensionsStream = localExtensionsDescriptions.length === 0 ? es.readArray([]) : minifyExtensionResources(
 		es.merge(
 			...localExtensionsDescriptions.map(extension => {
 				return fromLocal(extension.path, forWeb, disableMangle)

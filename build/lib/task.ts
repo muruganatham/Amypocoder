@@ -75,6 +75,7 @@ async function _doExecute(task: Task): Promise<void> {
 
 		// this is a stream returning task
 		taskResult.on('end', _ => resolve());
+		taskResult.on('finish', _ => resolve());
 		taskResult.on('error', err => reject(err));
 	});
 }

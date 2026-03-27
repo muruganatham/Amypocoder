@@ -81,6 +81,10 @@ Registry.as<IConfigurationRegistry>(ConfigurationExtensions.Configuration)
 			'[yaml]': {
 				'editor.insertSpaces': true,
 				'editor.tabSize': 2
+			},
+			'[rust]': {
+				'editor.defaultFormatter': 'rust-lang.rust-analyzer',
+				'editor.formatOnSave': true
 			}
 		}
 	}]);

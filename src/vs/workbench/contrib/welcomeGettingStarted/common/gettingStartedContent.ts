@@ -209,6 +209,7 @@ export const startEntries: GettingStartedStartEntryContent = [
 			command: 'command:workbench.action.remote.showWebStartEntryActions',
 		}
 	},
+	/*
 	{
 		id: 'topLevelNewWorkspaceChat',
 		title: localize('gettingStarted.newWorkspaceChat.title', "Generate New Workspace..."),
@@ -220,33 +221,14 @@ export const startEntries: GettingStartedStartEntryContent = [
 			command: 'command:welcome.newWorkspaceChat',
 		}
 	},
+	*/
 ];
 
 const Button = (title: string, href: string) => `[${title}](${href})`;
 
-const CopilotStepTitle = localize('gettingStarted.copilotSetup.title', "Use AI features with Copilot for free");
-const CopilotDescription = localize({ key: 'gettingStarted.copilotSetup.description', comment: ['{Locked="["}', '{Locked="]({0})"}'] }, "You can use [Copilot]({0}) to generate code across multiple files, fix errors, ask questions about your code, and much more using natural language.", defaultChat.documentationUrl ?? '');
-const CopilotTermsString = localize({ key: 'gettingStarted.copilotSetup.terms', comment: ['{Locked="]({2})"}', '{Locked="]({3})"}'] }, "By continuing with {0} Copilot, you agree to {1}'s [Terms]({2}) and [Privacy Statement]({3})", defaultChat.provider.default.name, defaultChat.provider.default.name, defaultChat.termsStatementUrl, defaultChat.privacyStatementUrl);
-const CopilotAnonymousButton = Button(localize('setupCopilotButton.setup', "Use AI Features"), `command:workbench.action.chat.triggerSetupAnonymousWithoutDialog`);
-const CopilotSignedOutButton = Button(localize('setupCopilotButton.setup', "Use AI Features"), `command:workbench.action.chat.triggerSetup`);
-const CopilotSignedInButton = Button(localize('setupCopilotButton.setup', "Use AI Features"), `command:workbench.action.chat.triggerSetup`);
-const CopilotCompleteButton = Button(localize('setupCopilotButton.chatWithCopilot', "Start to Chat"), 'command:workbench.action.chat.open');
 
-function createCopilotSetupStep(id: string, button: string, when: string, includeTerms: boolean): BuiltinGettingStartedStep {
-	const description = includeTerms ?
-		`${CopilotDescription}\n${CopilotTermsString}\n${button}` :
-		`${CopilotDescription}\n${button}`;
 
-	return {
-		id,
-		title: CopilotStepTitle,
-		description,
-		when: `${when} && !chatSetupHidden`,
-		media: {
-			type: 'svg', altText: 'VS Code Copilot multi file edits', path: 'multi-file-edits.svg'
-		},
-	};
-}
+
 
 export const walkthroughs: GettingStartedWalkthroughContent = [
 	{
@@ -261,10 +243,10 @@ export const walkthroughs: GettingStartedWalkthroughContent = [
 		content: {
 			type: 'steps',
 			steps: [
-				createCopilotSetupStep('CopilotSetupAnonymous', CopilotAnonymousButton, 'chatAnonymous && !chatSetupInstalled', true),
-				createCopilotSetupStep('CopilotSetupSignedOut', CopilotSignedOutButton, 'chatEntitlementSignedOut && !chatAnonymous', false),
-				createCopilotSetupStep('CopilotSetupComplete', CopilotCompleteButton, 'chatSetupInstalled && !chatSetupDisabled && (chatAnonymous || chatPlanPro || chatPlanProPlus || chatPlanBusiness || chatPlanEnterprise || chatPlanFree)', false),
-				createCopilotSetupStep('CopilotSetupSignedIn', CopilotSignedInButton, '!chatEntitlementSignedOut && (!chatSetupInstalled || chatSetupDisabled || chatPlanCanSignUp)', false),
+				// createCopilotSetupStep('CopilotSetupAnonymous', CopilotAnonymousButton, 'chatAnonymous && !chatSetupInstalled', true),
+				// createCopilotSetupStep('CopilotSetupSignedOut', CopilotSignedOutButton, 'chatEntitlementSignedOut && !chatAnonymous', false),
+				// createCopilotSetupStep('CopilotSetupComplete', CopilotCompleteButton, 'chatSetupInstalled && !chatSetupDisabled && (chatAnonymous || chatPlanPro || chatPlanProPlus || chatPlanBusiness || chatPlanEnterprise || chatPlanFree)', false),
+				// createCopilotSetupStep('CopilotSetupSignedIn', CopilotSignedInButton, '!chatEntitlementSignedOut && (!chatSetupInstalled || chatSetupDisabled || chatPlanCanSignUp)', false),
 				{
 					id: 'pickColorTheme',
 					title: localize('gettingStarted.pickColor.title', "Choose your theme"),
