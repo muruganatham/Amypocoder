@@ -19,7 +19,7 @@ import { localize, localize2 } from '../../../../../nls.js';
 import { Action2, IMenuService, MenuId, MenuItemAction, MenuRegistry, registerAction2 } from '../../../../../platform/actions/common/actions.js';
 import { ContextKeyExpr, IContextKey, IContextKeyService } from '../../../../../platform/contextkey/common/contextkey.js';
 import { IRelaxedExtensionDescription } from '../../../../../platform/extensions/common/extensions.js';
-import { InstantiationType, registerSingleton } from '../../../../../platform/instantiation/common/extensions.js';
+
 import { ServicesAccessor } from '../../../../../platform/instantiation/common/instantiation.js';
 import { ILabelService } from '../../../../../platform/label/common/label.js';
 import { ILogService } from '../../../../../platform/log/common/log.js';
@@ -1233,8 +1233,7 @@ export class ChatSessionsService extends Disposable implements IChatSessionsServ
 	}
 }
 
-import { ChatSessionsServiceStub } from '../chatStubs.js';
-registerSingleton(IChatSessionsService, ChatSessionsServiceStub as any, InstantiationType.Delayed);
+// registerSingleton(IChatSessionsService, ChatSessionsServiceStub as any, InstantiationType.Delayed);
 
 
 

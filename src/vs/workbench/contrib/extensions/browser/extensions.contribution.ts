@@ -48,7 +48,7 @@ import { IUserDataProfilesService } from '../../../../platform/userDataProfile/c
 import { EditorPaneDescriptor, IEditorPaneRegistry } from '../../../browser/editor.js';
 import { Extensions as ConfigurationMigrationExtensions, IConfigurationMigrationRegistry } from '../../../common/configuration.js';
 import { ResourceContextKey, WorkbenchStateContext } from '../../../common/contextkeys.js';
-import { IWorkbenchContribution, IWorkbenchContributionsRegistry, registerWorkbenchContribution2, Extensions as WorkbenchExtensions, WorkbenchPhase } from '../../../common/contributions.js';
+import { IWorkbenchContribution, IWorkbenchContributionsRegistry, Extensions as WorkbenchExtensions } from '../../../common/contributions.js';
 import { EditorExtensions } from '../../../common/editor.js';
 import { IViewContainersRegistry, Extensions as ViewContainerExtensions, ViewContainerLocation } from '../../../common/views.js';
 import { DEFAULT_ACCOUNT_SIGN_IN_COMMAND } from '../../../services/accounts/browser/defaultAccount.js';
@@ -1015,24 +1015,8 @@ class ExtensionsContributions extends Disposable implements IWorkbenchContributi
 			run: () => this.extensionsWorkbenchService.openSearch('@featured ')
 		});
 
-		this.registerExtensionAction({
-			id: 'workbench.extensions.action.showPopularExtensions',
-			title: localize2('showPopularExtensions', 'Show Popular Extensions'),
-			category: ExtensionsLocalizedLabel,
-			menu: [{
-				id: MenuId.CommandPalette,
-				when: CONTEXT_HAS_GALLERY
-			}, {
-				id: extensionsFilterSubMenu,
-				when: CONTEXT_HAS_GALLERY,
-				group: '1_predefined',
-				order: 2,
-			}],
-			menuTitles: {
-				[extensionsFilterSubMenu.id]: localize('most popular filter', "Most Popular")
-			},
-			run: () => this.extensionsWorkbenchService.openSearch('@popular ')
-		});
+
+
 
 		this.registerExtensionAction({
 			id: 'workbench.extensions.action.showRecommendedExtensions',
@@ -2027,7 +2011,7 @@ class TrustedPublishersInitializer implements IWorkbenchContribution {
 	}
 }
 
-class ExtensionToolsContribution extends Disposable implements IWorkbenchContribution {
+export class ExtensionToolsContribution extends Disposable implements IWorkbenchContribution {
 
 	static readonly ID = 'extensions.chat.toolsContribution';
 
@@ -2059,7 +2043,7 @@ if (isWeb) {
 	workbenchRegistry.registerWorkbenchContribution(ExtensionStorageCleaner, LifecyclePhase.Eventually);
 }
 
-registerWorkbenchContribution2(ExtensionToolsContribution.ID, ExtensionToolsContribution, WorkbenchPhase.AfterRestored);
+// registerWorkbenchContribution2(ExtensionToolsContribution.ID, ExtensionToolsContribution, WorkbenchPhase.AfterRestored);
 
 
 // Running Extensions

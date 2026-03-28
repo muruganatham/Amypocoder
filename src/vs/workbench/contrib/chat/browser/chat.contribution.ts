@@ -34,27 +34,18 @@ import { IPathService } from '../../../services/path/common/pathService.js';
 import { IViewsService } from '../../../services/views/common/viewsService.js';
 import { AddConfigurationType, AssistedTypes } from '../../mcp/browser/mcpCommandsAddConfiguration.js';
 import { allDiscoverySources, discoverySourceSettingsLabel, mcpDiscoverySection, mcpServerSamplingSection } from '../../mcp/common/mcpConfiguration.js';
-import { IChatAgentNameService, IChatAgentService } from '../common/participants/chatAgents.js';
-import { ICodeMapperService } from '../common/editing/chatCodeMapperService.js';
 import '../common/widget/chatColors.js';
-import { IChatEditingService } from '../common/editing/chatEditingService.js';
 import { IChatLayoutService } from '../common/widget/chatLayoutService.js';
 import { ChatModeService, IChatMode, IChatModeService } from '../common/chatModes.js';
 import { ChatResponseResourceFileSystemProvider, ChatResponseResourceWorkbenchContribution, IChatResponseResourceFileSystemProvider } from '../common/widget/chatResponseResourceFileSystemProvider.js';
-import { IChatService } from '../common/chatService/chatService.js';
 import { IChatSessionsService } from '../common/chatSessionsService.js';
 import { ChatSlashCommandService, IChatSlashCommandService } from '../common/participants/chatSlashCommands.js';
 import { ChatArtifactsService, IChatArtifactsService } from '../common/tools/chatArtifactsService.js';
 import { ChatTodoListService, IChatTodoListService } from '../common/tools/chatTodoListService.js';
 import { ChatTransferService, IChatTransferService } from '../common/model/chatTransferService.js';
 import { ChatWidgetHistoryService, IChatWidgetHistoryService } from '../common/widget/chatWidgetHistoryService.js';
-import { IChatVariablesService } from '../common/attachments/chatVariables.js';
 import { ChatAgentLocation, ChatConfiguration, ChatNotificationMode } from '../common/constants.js';
 import { ILanguageModelIgnoredFilesService, LanguageModelIgnoredFilesService } from '../common/ignoredFiles.js';
-import { ILanguageModelsService } from '../common/languageModels.js';
-import { ILanguageModelStatsService, LanguageModelStatsService } from '../common/languageModelStats.js';
-import { ILanguageModelToolsConfirmationService } from '../common/tools/languageModelToolsConfirmationService.js';
-import { ILanguageModelToolsService } from '../common/tools/languageModelToolsService.js';
 import { agentPluginDiscoveryRegistry, IAgentPluginService } from '../common/plugins/agentPluginService.js';
 import { ChatPromptFilesExtensionPointHandler } from '../common/promptSyntax/chatPromptFilesContribution.js';
 import { isTildePath, PromptsConfig } from '../common/promptSyntax/config/config.js';
@@ -64,8 +55,8 @@ import { AGENT_DOCUMENTATION_URL, INSTRUCTIONS_DOCUMENTATION_URL, PROMPT_DOCUMEN
 import { hookFileSchema, HOOK_SCHEMA_URI } from '../common/promptSyntax/hookSchema.js';
 import { IConfigurationService } from '../../../../platform/configuration/common/configuration.js';
 import { Extensions as JSONExtensions, IJSONContributionRegistry } from '../../../../platform/jsonschemas/common/jsonContributionRegistry.js';
-import { IPromptsService } from '../common/promptSyntax/service/promptsService.js';
 import { LanguageModelToolsExtensionPointHandler } from '../common/tools/languageModelToolsContribution.js';
+import { ILanguageModelToolsService } from '../common/tools/languageModelToolsService.js';
 import { BuiltinToolsContribution } from '../common/tools/builtinTools/tools.js';
 import { RenameToolContribution } from './tools/renameTool.js';
 import { UsagesToolContribution } from './tools/usagesTool.js';
@@ -112,7 +103,7 @@ import './widget/input/chatStatusWidget.js';
 import { ChatAttachmentResolveService, IChatAttachmentResolveService } from './attachments/chatAttachmentResolveService.js';
 import { ChatAttachmentWidgetRegistry, IChatAttachmentWidgetRegistry } from './attachments/chatAttachmentWidgetRegistry.js';
 import { ChatMarkdownAnchorService, IChatMarkdownAnchorService } from './widget/chatContentParts/chatMarkdownAnchorService.js';
-import { IChatContextPickService } from './attachments/chatContextPickService.js';
+// import { IChatContextPickService } from './attachments/chatContextPickService.js';
 import { ChatInputBoxContentProvider } from './widget/input/editor/chatEditorInputContentProvider.js';
 import { ChatEditingEditorAccessibility } from './chatEditing/chatEditingEditorAccessibility.js';
 import { registerChatEditorActions } from './chatEditing/chatEditingEditorActions.js';
@@ -146,7 +137,6 @@ import './widget/input/editor/chatInputEditorContrib.js';
 import './widget/input/editor/chatInputEditorHover.js';
 import { AgentPluginService, ConfiguredAgentPluginDiscovery, MarketplaceAgentPluginDiscovery } from '../common/plugins/agentPluginServiceImpl.js';
 import { IAgentPluginRepositoryService } from '../common/plugins/agentPluginRepositoryService.js';
-import { IPluginInstallService } from '../common/plugins/pluginInstallService.js';
 import { IPluginMarketplaceService, PluginMarketplaceService } from '../common/plugins/pluginMarketplaceService.js';
 import { WorkspacePluginSettingsService, IWorkspacePluginSettingsService } from '../common/plugins/workspacePluginSettingsService.js';
 import { AgentPluginsViewsContribution } from './agentPluginsView.js';
@@ -154,7 +144,6 @@ import { AgentPluginRecommendations } from './claudePluginRecommendations.js';
 import { AgentPluginEditor } from './agentPluginEditor/agentPluginEditor.js';
 import { AgentPluginEditorInput } from './agentPluginEditor/agentPluginEditorInput.js';
 import { AgentPluginRepositoryService } from './agentPluginRepositoryService.js';
-import { PluginInstallService } from './pluginInstallService.js';
 import './promptSyntax/promptCodingAgentActionContribution.js';
 import './promptSyntax/promptToolsCodeLensProvider.js';
 import { ChatSlashCommandsContribution } from './chatSlashCommands.js';
@@ -171,7 +160,7 @@ import { ChatQueuePickerRendering } from './widget/input/chatQueuePickerActionIt
 import { ExploreAgentDefaultModel } from './exploreAgentDefaultModel.js';
 import { PlanAgentDefaultModel } from './planAgentDefaultModel.js';
 import { IChatImageCarouselService, ChatImageCarouselService } from './chatImageCarouselService.js';
-import { ChatAgentServiceStub, ChatAgentNameServiceStub, LanguageModelToolsServiceStub, ChatWidgetServiceStub, ChatContextPickServiceStub, LanguageModelToolsConfirmationServiceStub, ChatServiceStub, LanguageModelsServiceStub, PromptsServiceStub, CodeMapperServiceStub, ChatEditingServiceStub, ChatVariablesServiceStub } from './chatStubs.js';
+
 
 const toolReferenceNameEnumValues: string[] = [];
 const toolReferenceNameEnumDescriptions: string[] = [];
@@ -1764,11 +1753,12 @@ class ToolReferenceNamesContribution extends Disposable implements IWorkbenchCon
 		toolReferenceNameEnumDescriptions.length = 0;
 		for (const tool of tools) {
 			toolReferenceNameEnumValues.push(tool.toolReferenceName);
+			const description = (tool as any).userDescription || (tool as any).displayName || tool.toolReferenceName;
 			toolReferenceNameEnumDescriptions.push(nls.localize(
 				'chat.toolReferenceName.description',
 				"{0} - {1}",
 				tool.toolReferenceName,
-				tool.userDescription || tool.displayName
+				description
 			));
 		}
 		configurationRegistry.notifyConfigurationSchemaUpdated({
@@ -1867,33 +1857,33 @@ agentPluginDiscoveryRegistry.register(new SyncDescriptor(MarketplaceAgentPluginD
 
 registerSingleton(IChatResponseResourceFileSystemProvider, ChatResponseResourceFileSystemProvider, InstantiationType.Delayed);
 registerSingleton(IChatTransferService, ChatTransferService, InstantiationType.Delayed);
-registerSingleton(IChatService, ChatServiceStub as any, InstantiationType.Delayed);
-registerSingleton(IChatWidgetService, ChatWidgetServiceStub as any, InstantiationType.Delayed);
+// registerSingleton(IChatService, ChatServiceStub as any, InstantiationType.Delayed);
+// registerSingleton(IChatWidgetService, ChatWidgetServiceStub as any, InstantiationType.Delayed);
 registerSingleton(IQuickChatService, QuickChatService, InstantiationType.Delayed);
 registerSingleton(IChatAccessibilityService, ChatAccessibilityService, InstantiationType.Delayed);
 registerSingleton(IChatWidgetHistoryService, ChatWidgetHistoryService, InstantiationType.Delayed);
 registerSingleton(ILanguageModelsConfigurationService, LanguageModelsConfigurationService, InstantiationType.Delayed);
-registerSingleton(ILanguageModelsService, LanguageModelsServiceStub as any, InstantiationType.Delayed);
-registerSingleton(ILanguageModelStatsService, LanguageModelStatsService, InstantiationType.Delayed);
+// registerSingleton(ILanguageModelsService, LanguageModelsServiceStub as any, InstantiationType.Delayed);
+// registerSingleton(ILanguageModelStatsService, LanguageModelStatsService, InstantiationType.Delayed);
 registerSingleton(IChatSlashCommandService, ChatSlashCommandService, InstantiationType.Delayed);
-registerSingleton(IChatAgentService, ChatAgentServiceStub as any, InstantiationType.Delayed);
-registerSingleton(IChatAgentNameService, ChatAgentNameServiceStub as any, InstantiationType.Delayed);
-registerSingleton(IChatVariablesService, ChatVariablesServiceStub as any, InstantiationType.Delayed);
+// registerSingleton(IChatAgentService, ChatAgentServiceStub as any, InstantiationType.Delayed);
+// registerSingleton(IChatAgentNameService, ChatAgentNameServiceStub as any, InstantiationType.Delayed);
+// registerSingleton(IChatVariablesService, ChatVariablesServiceStub as any, InstantiationType.Delayed);
 registerSingleton(IAgentPluginService, AgentPluginService, InstantiationType.Delayed);
 registerSingleton(IPluginMarketplaceService, PluginMarketplaceService, InstantiationType.Delayed);
 registerSingleton(IWorkspacePluginSettingsService, WorkspacePluginSettingsService, InstantiationType.Delayed);
 registerSingleton(IAgentPluginRepositoryService, AgentPluginRepositoryService, InstantiationType.Delayed);
-registerSingleton(IPluginInstallService, PluginInstallService, InstantiationType.Delayed);
-registerSingleton(ILanguageModelToolsService, LanguageModelToolsServiceStub as any, InstantiationType.Delayed);
-registerSingleton(ILanguageModelToolsConfirmationService, LanguageModelToolsConfirmationServiceStub as any, InstantiationType.Delayed);
+// registerSingleton(IPluginInstallService, PluginInstallService, InstantiationType.Delayed);
+// registerSingleton(ILanguageModelToolsService, LanguageModelToolsServiceStub as any, InstantiationType.Delayed);
+// registerSingleton(ILanguageModelToolsConfirmationService, LanguageModelToolsConfirmationServiceStub as any, InstantiationType.Delayed);
 registerSingleton(IVoiceChatService, VoiceChatService, InstantiationType.Delayed);
 registerSingleton(IChatCodeBlockContextProviderService, ChatCodeBlockContextProviderService, InstantiationType.Delayed);
-registerSingleton(ICodeMapperService, CodeMapperServiceStub as any, InstantiationType.Delayed);
-registerSingleton(IChatEditingService, ChatEditingServiceStub as any, InstantiationType.Delayed);
+// registerSingleton(ICodeMapperService, CodeMapperServiceStub as any, InstantiationType.Delayed);
+// registerSingleton(IChatEditingService, ChatEditingServiceStub as any, InstantiationType.Delayed);
 registerSingleton(IChatMarkdownAnchorService, ChatMarkdownAnchorService, InstantiationType.Delayed);
 registerSingleton(ILanguageModelIgnoredFilesService, LanguageModelIgnoredFilesService, InstantiationType.Delayed);
-registerSingleton(IPromptsService, PromptsServiceStub as any, InstantiationType.Delayed);
-registerSingleton(IChatContextPickService, ChatContextPickServiceStub as any, InstantiationType.Delayed);
+// registerSingleton(IPromptsService, PromptsServiceStub as any, InstantiationType.Delayed);
+// registerSingleton(IChatContextPickService, ChatContextPickServiceStub as any, InstantiationType.Delayed);
 registerSingleton(IChatModeService, ChatModeService, InstantiationType.Delayed);
 registerSingleton(IChatAttachmentResolveService, ChatAttachmentResolveService, InstantiationType.Delayed);
 registerSingleton(IChatAttachmentWidgetRegistry, ChatAttachmentWidgetRegistry, InstantiationType.Delayed);

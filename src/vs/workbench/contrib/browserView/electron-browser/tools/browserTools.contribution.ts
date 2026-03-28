@@ -9,7 +9,7 @@ import { localize } from '../../../../../nls.js';
 import { IPlaywrightService } from '../../../../../platform/browserView/common/playwrightService.js';
 import { IConfigurationService } from '../../../../../platform/configuration/common/configuration.js';
 import { IInstantiationService } from '../../../../../platform/instantiation/common/instantiation.js';
-import { registerWorkbenchContribution2, WorkbenchPhase, type IWorkbenchContribution } from '../../../../common/contributions.js';
+import { type IWorkbenchContribution } from '../../../../common/contributions.js';
 import { IEditorService } from '../../../../services/editor/common/editorService.js';
 import { IChatContextService } from '../../../chat/browser/contextContrib/chatContextService.js';
 import { ILanguageModelToolsService, ToolDataSource, ToolSet } from '../../../chat/common/tools/languageModelToolsService.js';
@@ -26,7 +26,7 @@ import { RunPlaywrightCodeTool, RunPlaywrightCodeToolData } from './runPlaywrigh
 import { ScreenshotBrowserTool, ScreenshotBrowserToolData } from './screenshotBrowserTool.js';
 import { TypeBrowserTool, TypeBrowserToolData } from './typeBrowserTool.js';
 
-class BrowserChatAgentToolsContribution extends Disposable implements IWorkbenchContribution {
+export class BrowserChatAgentToolsContribution extends Disposable implements IWorkbenchContribution {
 
 	static readonly ID = 'browserView.chatAgentTools';
 	private static readonly CONTEXT_ID = 'browserView.trackedPages';
@@ -137,4 +137,4 @@ class BrowserChatAgentToolsContribution extends Disposable implements IWorkbench
 		}]);
 	}
 }
-registerWorkbenchContribution2(BrowserChatAgentToolsContribution.ID, BrowserChatAgentToolsContribution, WorkbenchPhase.AfterRestored);
+// registerWorkbenchContribution2(BrowserChatAgentToolsContribution.ID, BrowserChatAgentToolsContribution, WorkbenchPhase.AfterRestored);

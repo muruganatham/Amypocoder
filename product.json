@@ -1,12 +1,12 @@
 {
-	"nameShort": "Amypo",
+	"nameShort": "Amypo Coder",
 	"nameLong": "Amypo Coder",
 	"applicationName": "amypo-coder",
 	"dataFolderName": ".amypo-coder",
 	"win32MutexName": "amypocoder",
 	"licenseName": "MIT",
-	"licenseUrl": "https://github.com/microsoft/vscode/blob/main/LICENSE.txt",
-	"serverLicenseUrl": "https://github.com/microsoft/vscode/blob/main/LICENSE.txt",
+	"licenseUrl": "https://github.com/amypo-coder/amypo-coder/blob/main/LICENSE.txt",
+	"serverLicenseUrl": "https://github.com/amypo-coder/amypo-coder/blob/main/LICENSE.txt",
 	"serverGreeting": [],
 	"serverLicense": [],
 	"serverLicensePrompt": "",
@@ -32,7 +32,7 @@
 	"darwinProfilePayloadUUID": "CF808BE7-53F3-46C6-A7E2-7EDB98A5E959",
 	"linuxIconName": "amypo-coder",
 	"licenseFileName": "LICENSE.txt",
-	"reportIssueUrl": "https://github.com/microsoft/vscode/issues/new",
+	"reportIssueUrl": "https://github.com/amypo-coder/amypo-coder/issues/new",
 	"nodejsRepository": "https://nodejs.org",
 	"urlProtocol": "amypo-coder",
 	"extensionsGallery": {
@@ -43,143 +43,38 @@
 		"controlUrl": "https://az764295.vo.msecnd.net/extensions/marketplace.json",
 		"recommendationsUrl": "https://az764295.vo.msecnd.net/extensions/workspaceRecommendations.json.gz"
 	},
-	"webviewContentExternalBaseUrlTemplate": "https://{{uuid}}.vscode-cdn.net/insider/ef65ac1ba57f57f2a3961bfe94aa20481caca4c6/out/vs/workbench/contrib/webview/browser/pre/",
-	"builtInExtensions": [
-		{
-			"name": "esbenp.prettier-vscode",
-			"version": "12.4.0",
-			"repo": "https://github.com/prettier/prettier-vscode.git",
-			"metadata": {
-				"id": "96fa4707-6983-4489-b7c5-d5ffdfdcce90",
-				"publisherId": {
-					"publisherId": "d16f4e39-2ffb-44e3-9c0d-79d873570e3a",
-					"publisherName": "esbenp",
-					"displayName": "Prettier",
-					"flags": "verified"
-				},
-				"publisherDisplayName": "Prettier"
-			}
+	"webviewContentExternalBaseUrlTemplate": "",
+	"builtInExtensions": [],
+	"webBuiltInExtensions": [],
+	"extensionTips": {
+		"dsznajder.es7-react-js-snippets": "ES7+ React/Redux/React-Native snippets",
+		"esbenp.prettier-vscode": "Code formatter using prettier",
+		"dbaeumer.vscode-eslint": "Integrates ESLint JavaScript into VS Code.",
+		"rangav.vscode-thunder-client": "Thunder Client for VS Code",
+		"vscjava.vscode-java-pack": "Extension Pack for Java",
+		"redhat.java": "Language Support for Java(TM) by Red Hat",
+		"vscjava.vscode-java-debug": "Debugger for Java",
+		"vscjava.vscode-maven": "Maven for Java"
+	},
+	"extensionImportantTips": {
+		"dsznajder.es7-react-js-snippets": {
+			"name": "ES7+ React Snippets",
+			"pattern": "**/*.{js,jsx,ts,tsx}"
 		},
-		{
-			"name": "redhat.java",
-			"version": "1.54.2026032508",
-			"repo": "https://github.com/redhat-developer/vscode-java.git",
-			"metadata": {
-				"id": "198a707e-28af-4e84-8610-6e2f628dd12d",
-				"publisherId": {
-					"publisherId": "eed56242-9699-4317-8bc7-e9f4b9bdd3ff",
-					"publisherName": "redhat",
-					"displayName": "Red Hat",
-					"flags": "verified"
-				},
-				"publisherDisplayName": "Red Hat"
-			}
-		},
-		{
-			"name": "dbaeumer.vscode-eslint",
-			"version": "3.0.24",
-			"repo": "https://github.com/Microsoft/vscode-eslint.git",
-			"metadata": {
-				"id": "583b2b34-2c1e-4634-8c0b-0b82e283ea3a",
-				"publisherId": {
-					"publisherId": "29859a75-d81b-4f0e-8578-2c80ecee6f99",
-					"publisherName": "dbaeumer",
-					"displayName": "Microsoft",
-					"flags": "verified"
-				},
-				"publisherDisplayName": "Microsoft"
-			}
-		},
-		{
-			"name": "vscjava.vscode-java-debug",
-			"version": "0.58.2026012907",
-			"repo": "https://github.com/Microsoft/vscode-java-debug.git",
-			"metadata": {
-				"id": "61fcd0cf-64d7-4836-8d6b-d55f4fb83281",
-				"publisherId": {
-					"publisherId": "bae08b87-578e-41ec-ab1c-0b036e7add88",
-					"publisherName": "vscjava",
-					"displayName": "Microsoft",
-					"flags": "verified"
-				},
-				"publisherDisplayName": "Microsoft"
-			}
-		},
-		{
-			"name": "vscjava.vscode-maven",
-			"version": "0.45.2025120808",
-			"repo": "https://github.com/Microsoft/vscode-maven.git",
-			"metadata": {
-				"id": "b0f06c6b-24fb-4d7b-bd79-bc5e2fa17312",
-				"publisherId": {
-					"publisherId": "bae08b87-578e-41ec-ab1c-0b036e7add88",
-					"publisherName": "vscjava",
-					"displayName": "Microsoft",
-					"flags": "verified"
-				},
-				"publisherDisplayName": "Microsoft"
-			}
-		},
-		{
-			"name": "vscjava.vscode-java-pack",
-			"version": "0.30.2025111702",
-			"repo": "https://github.com/Microsoft/vscode-java-pack.git",
-			"metadata": {
-				"id": "96f11e1f-1a46-4592-b084-f025b2c2a81f",
-				"publisherId": {
-					"publisherId": "bae08b87-578e-41ec-ab1c-0b036e7add88",
-					"publisherName": "vscjava",
-					"displayName": "Microsoft",
-					"flags": "verified"
-				},
-				"publisherDisplayName": "Microsoft"
-			}
-		},
-		{
-			"name": "dsznajder.es7-react-js-snippets",
-			"version": "4.4.3",
-			"repo": "https://github.com/dsznajder/vscode-es7-javascript-react-snippets.git",
-			"metadata": {
-				"id": "19804510-b475-4dae-b0f7-6ca08fd1af0c",
-				"publisherId": {
-					"publisherId": "7ea644b4-2d93-4979-aac5-a12afebeb762",
-					"publisherName": "dsznajder",
-					"displayName": "dsznajder",
-					"flags": "verified"
-				},
-				"publisherDisplayName": "dsznajder"
-			}
-		},
-		{
-			"name": "rangav.vscode-thunder-client",
-			"version": "2.39.13",
-			"repo": "https://github.com/thunderclient/thunder-client-support.git",
-			"metadata": {
-				"id": "2fd56207-78ef-49d4-95d2-9b801eee4dbf",
-				"publisherId": {
-					"publisherId": "f6503eef-4f6f-415c-b1e0-221209c035ee",
-					"publisherName": "rangav",
-					"displayName": "Thunder Client",
-					"flags": "verified"
-				},
-				"publisherDisplayName": "Thunder Client"
-			}
-		},
-		{
-			"name": "ms-vscode.js-debug",
-			"version": "2022.8.1217",
-			"repo": "https://github.com/Microsoft/vscode-pwa.git",
-			"metadata": {
-				"id": "25629058-ddac-4e17-abba-74678e126c5d",
-				"publisherId": {
-					"publisherId": "5f5636e7-69ed-4afe-b5d6-8d231fb3d3ee",
-					"publisherName": "ms-vscode",
-					"displayName": "Microsoft",
-					"flags": "verified"
-				},
-				"publisherDisplayName": "Microsoft"
+		"redhat.java": {
+			"name": "Java Support",
+			"pattern": "**/*.java"
+		}
+	},
+	"configBasedExtensionTips": {
+		"prettier": {
+			"configPath": ".prettierrc",
+			"recommendations": {
+				"esbenp.prettier-vscode": {
+					"name": "Prettier",
+					"isDefault": true
+				}
 			}
 		}
-	],
-	"webBuiltInExtensions": []
+	}
 }

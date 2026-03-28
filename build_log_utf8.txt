@@ -1,0 +1,53 @@
+﻿
+> amypo-coder-dev@1.113.0 gulp
+> node --max-old-space-size=8192 ./node_modules/gulp/bin/gulp.js vscode-win32-x64-user-setup
+
+[[90m17:38:07[39m] Using gulpfile ~\Documents\CustomVsCode\gulpfile.mjs
+[[90m17:38:07[39m] Starting 'vscode-win32-x64-user-setup'...
+[[90m17:38:07[39m] Starting [36mclean-user-setup[39m ...
+[[90m17:38:07[39m] Finished [36mclean-user-setup[39m after [35m8 ms[39m
+[[90m17:38:07[39m] Starting [36mvscode-win32-x64-user-setup[39m ...
+node.exe : 
+[[90m17:38:07[39m] 
+'vscode-win32-x64-user-setup' 
+errored after 12 ms
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
+    + CategoryInfo          : 
+    NotSpecified: ([[90m17:  
+  38:07...red after 12 ms:   
+ String) [], RemoteExcepti    
+on
+    + FullyQualifiedErrorId : 
+    NativeCommandError
+ 
+[[90m17:38:07[39m] Error: 
+ENOENT: no such file or 
+directory, open 'C:\Users\Admi
+n\Documents\VSCode-win32-x64\r
+esources\app\product.json'
+    at Module.readFileSync 
+(node:fs:440:20)
+    at C:\Users\Admin\Document
+s\CustomVsCode\build\gulpfile.
+vscode.win32.ts:81:37
+    at file:///C:/Users/Admin/
+Documents/CustomVsCode/build/l
+ib/task.ts:53:4
+    at new Promise 
+(<anonymous>)
+    at _doExecute (file:///C:/
+Users/Admin/Documents/CustomVs
+Code/build/lib/task.ts:50:9)
+    at _execute (file:///C:/Us
+ers/Admin/Documents/CustomVsCo
+de/build/lib/task.ts:40:8)
+    at result (file:///C:/User
+s/Admin/Documents/CustomVsCode
+/build/lib/task.ts:86:10)

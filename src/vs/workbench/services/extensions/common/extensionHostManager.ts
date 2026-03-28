@@ -35,6 +35,18 @@ import { IRPCProtocolLogger, RPCProtocol, RequestInitiator, ResponsiveState } fr
 const LOG_EXTENSION_HOST_COMMUNICATION = false;
 const LOG_USE_COLORS = true;
 
+// Services that are not available in this fork — customers depending on these will be skipped silently
+const SKIPPED_CUSTOMERS = new Set([
+	'MainThreadLanguageModels',
+	'MainThreadSpeechProvider',
+	'MainThreadAiRelatedInformation',
+	'MainThreadAiSettingsSearch',
+	'MainThreadMcpShape',
+	'MainThreadChatDebug',
+	'MainThreadChatSessions',
+	'MainThreadChatOutputRenderer',
+]);
+
 type ExtensionHostStartupClassification = {
 	owner: 'alexdima';
 	comment: 'The startup state of the extension host';
@@ -283,13 +295,20 @@ export class ExtensionHostManager extends Disposable implements IExtensionHostMa
 		const namedCustomers = ExtHostCustomersRegistry.getNamedCustomers();
 		for (let i = 0, len = namedCustomers.length; i < len; i++) {
 			const [id, ctor] = namedCustomers[i];
+
+			// Skip AI/chat customers that depend on services not available in this fork
+			if (SKIPPED_CUSTOMERS.has(id.sid)) {
+				this._logService.info(`[Amypo Coder] Skipping unavailable customer: '${id.sid}'`);
+				continue;
+			}
+
 			try {
 				const instance = this._instantiationService.createInstance(ctor, extHostContext);
 				this._customers.push(instance);
 				this._rpcProtocol.set(id, instance);
 			} catch (err) {
-				this._logService.error(`Cannot instantiate named customer: '${id.sid}'`);
-				this._logService.error(err);
+				console.error(`[CRITICAL BUG] Skipped broken named customer: '${id.sid}'`);
+				console.error('[CRITICAL BUG DETAILS]', err);
 				errors.onUnexpectedError(err);
 			}
 		}
@@ -301,6 +320,7 @@ export class ExtensionHostManager extends Disposable implements IExtensionHostMa
 				const instance = this._instantiationService.createInstance(ctor, extHostContext);
 				this._customers.push(instance);
 			} catch (err) {
+				this._logService.error(`[Amypo Coder] Skipped broken customer: '${(ctor as any).name ?? '<unknown>'}'`);
 				this._logService.error(err);
 				errors.onUnexpectedError(err);
 			}
@@ -311,7 +331,15 @@ export class ExtensionHostManager extends Disposable implements IExtensionHostMa
 		}
 
 		// Check that no named customers are missing
-		this._rpcProtocol.assertRegistered(mainProxyIdentifiers);
+		// Filter out skipped customers from the assertion check so it doesn't throw
+		const filteredProxyIdentifiers = mainProxyIdentifiers.filter(id => !SKIPPED_CUSTOMERS.has(id.sid));
+		try {
+			this._rpcProtocol.assertRegistered(filteredProxyIdentifiers);
+		} catch (err) {
+			this._logService.error('[Amypo Coder] assertRegistered found unregistered proxy identifiers — extension host will still start:');
+			this._logService.error(err);
+			errors.onUnexpectedError(err);
+		}
 
 		return extensionHostProxy;
 	}

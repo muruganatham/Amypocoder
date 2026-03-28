@@ -51,34 +51,38 @@ export class TerminalChatController extends Disposable implements ITerminalContr
 
 	constructor(
 		private readonly _ctx: ITerminalContributionContext,
-		@IChatCodeBlockContextProviderService chatCodeBlockContextProviderService: IChatCodeBlockContextProviderService,
-		@IChatEntitlementService chatEntitlementService: IChatEntitlementService,
+		@IChatCodeBlockContextProviderService chatCodeBlockContextProviderService: IChatCodeBlockContextProviderService | undefined,
+		@IChatEntitlementService chatEntitlementService: IChatEntitlementService | undefined,
 		@IContextKeyService private readonly _contextKeyService: IContextKeyService,
 		@IInstantiationService private readonly _instantiationService: IInstantiationService,
 		@ITerminalService private readonly _terminalService: ITerminalService,
 	) {
 		super();
 
-		this._register(chatEntitlementService.onDidChangeSentiment(() => {
-			if (chatEntitlementService.sentiment.hidden) {
-				this._terminalChatWidget?.value.clear();
-			}
-		}));
-
-		this._register(chatCodeBlockContextProviderService.registerProvider({
-			getCodeBlockContext: (editor) => {
-				if (!editor || !this._terminalChatWidget?.hasValue || !this.hasFocus()) {
-					return;
+		if (chatEntitlementService) {
+			this._register(chatEntitlementService.onDidChangeSentiment(() => {
+				if (chatEntitlementService.sentiment.hidden) {
+					this._terminalChatWidget?.value.clear();
 				}
-				return {
-					element: editor,
-					code: editor.getValue(),
-					codeBlockIndex: 0,
-					languageId: editor.getModel()!.getLanguageId(),
-					chatSessionResource: this._terminalChatWidget.value.inlineChatWidget.chatWidget.viewModel?.sessionResource
-				};
-			}
-		}, 'terminal'));
+			}));
+		}
+
+		if (chatCodeBlockContextProviderService) {
+			this._register(chatCodeBlockContextProviderService.registerProvider({
+				getCodeBlockContext: (editor) => {
+					if (!editor || !this._terminalChatWidget?.hasValue || !this.hasFocus()) {
+						return;
+					}
+					return {
+						element: editor,
+						code: editor.getValue(),
+						codeBlockIndex: 0,
+						languageId: editor.getModel()!.getLanguageId(),
+						chatSessionResource: this._terminalChatWidget.value.inlineChatWidget.chatWidget.viewModel?.sessionResource
+					};
+				}
+			}, 'terminal'));
+		}
 	}
 
 	xtermReady(xterm: IXtermTerminal & { raw: RawXtermTerminal }): void {

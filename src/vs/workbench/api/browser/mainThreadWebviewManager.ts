@@ -33,7 +33,7 @@ export class MainThreadWebviewManager extends Disposable {
 		const webviewViews = this._register(instantiationService.createInstance(MainThreadWebviewsViews, context, webviews));
 		context.set(extHostProtocol.MainContext.MainThreadWebviewViews, webviewViews);
 
-		const chatOutputRenderers = this._register(instantiationService.createInstance(MainThreadChatOutputRenderer, context, webviews));
+		const chatOutputRenderers = this._register(instantiationService.createInstance(MainThreadChatOutputRenderer, context));
 		context.set(extHostProtocol.MainContext.MainThreadChatOutputRenderer, chatOutputRenderers);
 	}
 }

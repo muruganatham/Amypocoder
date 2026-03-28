@@ -304,15 +304,10 @@ export class ExtensionsListView extends AbstractExtensionsListView<IExtension> {
 			return this.queryLocal(query, options);
 		}
 
-		if (ExtensionsListView.isSearchPopularQuery(query.value)) {
-			query.value = query.value.replace('@popular', '');
-			options.sortBy = !options.sortBy ? GallerySortBy.InstallCount : options.sortBy;
-		}
-		else if (ExtensionsListView.isSearchRecentlyPublishedQuery(query.value)) {
+		if (ExtensionsListView.isSearchRecentlyPublishedQuery(query.value)) {
 			query.value = query.value.replace('@recentlyPublished', '');
 			options.sortBy = !options.sortBy ? GallerySortBy.PublishedDate : options.sortBy;
 		}
-
 		const galleryQueryOptions: IGalleryQueryOptions = { ...options, sortBy: isLocalSortBy(options.sortBy) ? undefined : options.sortBy };
 		return this.queryGallery(query, galleryQueryOptions, token);
 	}
@@ -464,15 +459,15 @@ export class ExtensionsListView extends AbstractExtensionsListView<IExtension> {
 
 		value = value.replace(/@installed/g, '').replace(/@sort:(\w+)(-\w*)?/g, '').trim().toLowerCase();
 
-		const matchingText = (e: IExtension) => (e.name.toLowerCase().indexOf(value) > -1 || e.displayName.toLowerCase().indexOf(value) > -1 || e.description.toLowerCase().indexOf(value) > -1)
+		const matchingText = (e: IExtension) => (!e.isBuiltin) && (e.name.toLowerCase().indexOf(value) > -1 || e.displayName.toLowerCase().indexOf(value) > -1 || e.description.toLowerCase().indexOf(value) > -1)
 			&& this.filterExtensionByCategory(e, includedCategories, excludedCategories);
 		let result;
 
 		if (options.sortBy !== undefined) {
-			result = local.filter(e => !e.isBuiltin && matchingText(e));
+			result = local.filter(e => matchingText(e));
 			result = this.sortExtensions(result, options);
 		} else {
-			result = local.filter(e => (!e.isBuiltin || e.outdated || e.runtimeState !== undefined) && matchingText(e));
+			result = local.filter(e => matchingText(e));
 			const runningExtensionsById = runningExtensions.reduce((result, e) => { result.set(e.identifier.value, e); return result; }, new ExtensionIdentifierMap<IExtensionDescription>());
 
 			const defaultSort = (e1: IExtension, e2: IExtension) => {
@@ -748,8 +743,23 @@ export class ExtensionsListView extends AbstractExtensionsListView<IExtension> {
 
 		if (!text) {
 			options.source = 'viewlet';
-			const pager = await this.extensionsWorkbenchService.queryGallery(options, token);
-			return { model: new PagedModel(pager), disposables: new DisposableStore() };
+			try {
+				const pager = await this.extensionsWorkbenchService.queryGallery(options, token);
+				return { model: new PagedModel(pager), disposables: new DisposableStore() };
+			} catch (error) {
+				if (isCancellationError(error)) {
+					throw error;
+				}
+				if (!(error instanceof ExtensionGalleryError)) {
+					throw error;
+				}
+				const localExtensions = this.extensionsWorkbenchService.local;
+				if (localExtensions.length) {
+					const message = this.getMessage(error);
+					return { model: new PagedModel(localExtensions), disposables: new DisposableStore(), message: { text: localize('showing local extensions only', "{0} Showing local extensions.", message.text), severity: message.severity } };
+				}
+				throw error;
+			}
 		}
 
 		if (/\bext:([^\s]+)\b/g.test(text)) {
@@ -785,7 +795,7 @@ export class ExtensionsListView extends AbstractExtensionsListView<IExtension> {
 			}
 
 			const searchText = options.text.toLowerCase();
-			const localExtensions = this.extensionsWorkbenchService.local.filter(e => !e.isBuiltin && (e.name.toLowerCase().indexOf(searchText) > -1 || e.displayName.toLowerCase().indexOf(searchText) > -1 || e.description.toLowerCase().indexOf(searchText) > -1));
+			const localExtensions = this.extensionsWorkbenchService.local.filter(e => (e.name.toLowerCase().indexOf(searchText) > -1 || e.displayName.toLowerCase().indexOf(searchText) > -1 || e.description.toLowerCase().indexOf(searchText) > -1));
 			if (localExtensions.length) {
 				const message = this.getMessage(error);
 				return { model: new PagedModel(localExtensions), disposables: new DisposableStore(), message: { text: localize('showing local extensions only', "{0} Showing local extensions.", message.text), severity: message.severity } };
@@ -796,7 +806,7 @@ export class ExtensionsListView extends AbstractExtensionsListView<IExtension> {
 	}
 
 	private async getPreferredExtensions(searchText: string, token: CancellationToken): Promise<IExtension[]> {
-		const preferredExtensions = this.extensionsWorkbenchService.local.filter(e => !e.isBuiltin && (e.name.toLowerCase().indexOf(searchText) > -1 || e.displayName.toLowerCase().indexOf(searchText) > -1 || e.description.toLowerCase().indexOf(searchText) > -1));
+		const preferredExtensions = this.extensionsWorkbenchService.local.filter(e => (e.name.toLowerCase().indexOf(searchText) > -1 || e.displayName.toLowerCase().indexOf(searchText) > -1 || e.description.toLowerCase().indexOf(searchText) > -1));
 		const preferredExtensionUUIDs = new Set<string>();
 
 		if (preferredExtensions.length) {
@@ -1252,10 +1262,6 @@ export class ExtensionsListView extends AbstractExtensionsListView<IExtension> {
 		return (sortBy !== undefined && sortBy !== '' && query === '') || (!sortBy && /^@sort:\S*$/i.test(query));
 	}
 
-	static isSearchPopularQuery(query: string): boolean {
-		return /@popular/i.test(query);
-	}
-
 	static isSearchRecentlyPublishedQuery(query: string): boolean {
 		return /@recentlyPublished/i.test(query);
 	}
@@ -1293,11 +1299,53 @@ export class ExtensionsListView extends AbstractExtensionsListView<IExtension> {
 	}
 }
 
-export class DefaultPopularExtensionsView extends ExtensionsListView {
+export class DefaultRecommendedExtensionsView extends ExtensionsListView {
 
-	override async show(): Promise<IPagedModel<IExtension>> {
-		const query = this.extensionManagementServerService.webExtensionManagementServer && !this.extensionManagementServerService.localExtensionManagementServer && !this.extensionManagementServerService.remoteExtensionManagementServer ? '@web' : '';
-		return super.show(query);
+	// Curated list of recommended extension IDs
+	private static readonly CURATED_EXTENSION_IDS: string[] = [
+		'dsznajder.es7-react-js-snippets',
+		'esbenp.prettier-vscode',
+		'dbaeumer.vscode-eslint',
+		'msjsdiag.debugger-for-chrome',
+		'rangav.vscode-thunder-client',
+		'vscjava.vscode-java-pack',
+		'redhat.java',
+		'vscjava.vscode-java-debug',
+		'vscjava.vscode-maven',
+	];
+
+	protected override renderBody(container: HTMLElement): void {
+		super.renderBody(container);
+
+		// Refresh when extensions are installed/uninstalled
+		this._register(this.extensionsWorkbenchService.onChange(() => {
+			this.show('');
+		}));
+	}
+
+	override async show(query: string): Promise<IPagedModel<IExtension>> {
+		if (query && query.trim() !== '') {
+			return this.showEmptyModel();
+		}
+
+		// Get locally installed extensions
+		const local = (await this.extensionsWorkbenchService.queryLocal(this.options.server))
+			.map(e => e.identifier.id.toLowerCase());
+
+		// Filter out already-installed extensions
+		const notInstalledIds = DefaultRecommendedExtensionsView.CURATED_EXTENSION_IDS
+			.filter(id => !local.includes(id.toLowerCase()));
+
+		if (notInstalledIds.length === 0) {
+			this.setExpanded(false);
+			return this.showEmptyModel();
+		}
+
+		// Query the marketplace for these specific extensions
+		const idQuery = notInstalledIds.map(id => `@id:${id}`).join(' ');
+		const model = await super.show(idQuery);
+		this.setExpanded(model.length > 0);
+		return model;
 	}
 
 }
@@ -1476,30 +1524,7 @@ export class SearchMarketplaceExtensionsView extends ExtensionsListView {
 	}
 }
 
-export class DefaultRecommendedExtensionsView extends ExtensionsListView {
-	private readonly recommendedExtensionsQuery = '@recommended:all';
 
-	protected override renderBody(container: HTMLElement): void {
-		super.renderBody(container);
-
-		this._register(this.extensionRecommendationsService.onDidChangeRecommendations(() => {
-			this.show('');
-		}));
-	}
-
-	override async show(query: string): Promise<IPagedModel<IExtension>> {
-		if (query && query.trim() !== this.recommendedExtensionsQuery) {
-			return this.showEmptyModel();
-		}
-		const model = await super.show(this.recommendedExtensionsQuery);
-		if (!this.extensionsWorkbenchService.local.some(e => !e.isBuiltin)) {
-			// This is part of popular extensions view. Collapse if no installed extensions.
-			this.setExpanded(model.length > 0);
-		}
-		return model;
-	}
-
-}
 
 export class RecommendedExtensionsView extends ExtensionsListView {
 	private readonly recommendedExtensionsQuery = '@recommended';

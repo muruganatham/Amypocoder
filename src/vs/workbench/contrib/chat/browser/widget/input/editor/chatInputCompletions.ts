@@ -80,7 +80,7 @@ const SlashCommandWord = /\/[\p{L}0-9_.:-]*/gu;
  */
 const AgentOrSlashCommandWord = /(@|\/)[\p{L}0-9_.:-]*/gu;
 
-class SlashCommandCompletions extends Disposable {
+export class SlashCommandCompletions extends Disposable {
 	constructor(
 		@ILanguageFeaturesService private readonly languageFeaturesService: ILanguageFeaturesService,
 		@IChatWidgetService private readonly chatWidgetService: IChatWidgetService,
@@ -331,7 +331,7 @@ class SlashCommandCompletions extends Disposable {
 	}
 }
 
-Registry.as<IWorkbenchContributionsRegistry>(WorkbenchExtensions.Workbench).registerWorkbenchContribution(SlashCommandCompletions, LifecyclePhase.Eventually);
+// Registry.as<IWorkbenchContributionsRegistry>(WorkbenchExtensions.Workbench).registerWorkbenchContribution(SlashCommandCompletions, LifecyclePhase.Eventually);
 
 class AgentCompletions extends Disposable {
 	constructor(
@@ -850,7 +850,7 @@ interface IVariableCompletionsDetails {
 	range: IChatCompletionRangeResult;
 }
 
-class BuiltinDynamicCompletions extends Disposable {
+export class BuiltinDynamicCompletions extends Disposable {
 	private static readonly addReferenceCommand = '_addReferenceCmd';
 	private static readonly addDebugEventsSnapshotCommand = '_addDebugEventsSnapshotCmd';
 	private static readonly VariableNameDef = new RegExp(`${chatVariableLeader}[\\w:-]*`, 'g'); // MUST be using `g`-flag
@@ -1216,7 +1216,7 @@ class BuiltinDynamicCompletions extends Disposable {
 	}
 }
 
-Registry.as<IWorkbenchContributionsRegistry>(WorkbenchExtensions.Workbench).registerWorkbenchContribution(BuiltinDynamicCompletions, LifecyclePhase.Eventually);
+// Registry.as<IWorkbenchContributionsRegistry>(WorkbenchExtensions.Workbench).registerWorkbenchContribution(BuiltinDynamicCompletions, LifecyclePhase.Eventually);
 
 export interface IChatCompletionRangeResult {
 	insert: Range;
