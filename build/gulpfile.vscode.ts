@@ -351,7 +351,7 @@ function packageTask(platform: string, arch: string, sourceFolderName: string, d
 
 			const set = new Set((ext as { platforms?: string[] }).platforms);
 			return !set.has(platform);
-		}).map(ext => `!.build/extensions/${ext.name}/**`);
+		}).map((ext: { name: string }) => `!.build/extensions/${ext.name}/**`);
 
 		const extensions = gulp.src(['.build/extensions/**', ...platformSpecificBuiltInExtensionsExclusions], { base: '.build', dot: true });
 

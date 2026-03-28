@@ -681,11 +681,11 @@ export class TestContext {
 
 		switch (this.options.quality) {
 			case 'stable':
-				return path.join(parentDir, 'Microsoft VS Code');
+				return path.join(parentDir, 'Amypo Coder');
 			case 'insider':
-				return path.join(parentDir, 'Microsoft VS Code Insiders');
+				return path.join(parentDir, 'Amypo Coder - Insiders');
 			case 'exploration':
-				return path.join(parentDir, 'Microsoft VS Code Exploration');
+				return path.join(parentDir, 'Amypo Coder - Exploration');
 		}
 	}
 
@@ -703,13 +703,13 @@ export class TestContext {
 		let entryPoint: string;
 		switch (this.options.quality) {
 			case 'stable':
-				entryPoint = path.join(appDir, 'Code.exe');
+				entryPoint = path.join(appDir, 'Amypo Coder.exe');
 				break;
 			case 'insider':
-				entryPoint = path.join(appDir, 'Code - Insiders.exe');
+				entryPoint = path.join(appDir, 'Amypo Coder - Insiders.exe');
 				break;
 			case 'exploration':
-				entryPoint = path.join(appDir, 'Code - Exploration.exe');
+				entryPoint = path.join(appDir, 'Amypo Coder - Exploration.exe');
 				break;
 		}
 
@@ -894,16 +894,16 @@ export class TestContext {
 				let binaryName: string;
 				switch (this.options.quality) {
 					case 'stable':
-						appName = 'Visual Studio Code.app';
-						binaryName = 'Code';
+						appName = 'Amypo Coder.app';
+						binaryName = 'Amypo Coder';
 						break;
 					case 'insider':
-						appName = 'Visual Studio Code - Insiders.app';
-						binaryName = 'Code - Insiders';
+						appName = 'Amypo Coder - Insiders.app';
+						binaryName = 'Amypo Coder - Insiders';
 						break;
 					case 'exploration':
-						appName = 'Visual Studio Code - Exploration.app';
-						binaryName = 'Code - Exploration';
+						appName = 'Amypo Coder - Exploration.app';
+						binaryName = 'Amypo Coder - Exploration';
 						break;
 				}
 				filePath = path.join(dir, appName, 'Contents/MacOS', binaryName);
@@ -929,13 +929,13 @@ export class TestContext {
 				let exeName: string;
 				switch (this.options.quality) {
 					case 'stable':
-						exeName = 'Code.exe';
+						exeName = 'Amypo Coder.exe';
 						break;
 					case 'insider':
-						exeName = 'Code - Insiders.exe';
+						exeName = 'Amypo Coder - Insiders.exe';
 						break;
 					case 'exploration':
-						exeName = 'Code - Exploration.exe';
+						exeName = 'Amypo Coder - Exploration.exe';
 						break;
 				}
 				filePath = path.join(dir, exeName);

@@ -1,14 +1,8 @@
-<!-- BEGIN MICROSOFT SECURITY.MD V1.0.0 BLOCK -->
-
 ## Security
 
-Microsoft takes the security of our software products and services seriously, which
-includes all source code repositories in our GitHub organizations.
+Amypo Coder takes the security of our software products and services seriously.
 
-**Please do not report security vulnerabilities through public GitHub issues.**
+**Please report security vulnerabilities through our GitHub Issues by marking them as sensitive if possible, or by contacting the maintainers directly.**
 
-For security reporting information, locations, contact information, and policies,
-please review the latest guidance for Microsoft repositories at
-[https://aka.ms/SECURITY.md](https://aka.ms/SECURITY.md).
-
-<!-- END MICROSOFT SECURITY.MD BLOCK -->
+For security reporting information and policies, please review the latest guidance at
+[https://github.com/muruganatham/Amypocoder/issues](https://github.com/muruganatham/Amypocoder/issues).

@@ -1,6 +1,6 @@
 {
-	"nameShort": "Amypo Coder",
-	"nameLong": "Amypo Coder",
+	"nameShort": "AmypoCoder",
+	"nameLong": "AmypoCoder",
 	"applicationName": "amypo-coder",
 	"dataFolderName": ".amypo-coder",
 	"win32MutexName": "amypocoder",
@@ -17,7 +17,7 @@
 	"win32NameVersion": "Amypo Coder",
 	"win32RegValueName": "AmypoCoder",
 	"enableTelemetry": false,
-	"updateUrl": "",
+	"updateUrl": "https://raw.githubusercontent.com/muruganatham/Amypocoder/main/updates",
 	"quality": "stable",
 	"win32x64AppId": "{{D77B7E06-80BA-4137-BCF4-654B95CCEBC5}}",
 	"win32arm64AppId": "{{D1ACE434-89C5-48D1-88D3-E2991DF85475}}",

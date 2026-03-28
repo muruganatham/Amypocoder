@@ -1,13 +1,13 @@
-# Contributing to VS Code
+# Contributing to Amypo Coder
 
-Welcome, and thank you for your interest in contributing to VS Code!
+Welcome, and thank you for your interest in contributing to Amypo Coder!
 
 There are several ways in which you can contribute, beyond writing code. The goal of this document is to provide a high-level overview of how you can get involved.
 
 ## Asking Questions
 
 
-Have a question? Instead of opening an issue, please ask on [Stack Overflow](https://stackoverflow.com/questions/tagged/visual-studio-code) using the tag `visual-studio-code`.
+Have a question? Instead of opening an issue, please ask on [Stack Overflow](https://stackoverflow.com/questions/tagged/amypo-coder) using the tag `amypo-coder`.
 
 The active community will be eager to assist you. Your well-worded question will serve as a resource to others searching for help.
 
@@ -52,7 +52,7 @@ The built-in tool for reporting an issue, which you can access by using `Report 
 
 Please include the following with each issue:
 
-* Version of VS Code
+* Version of Amypo Coder
 * Your operating system
 * List of extensions that you have installed
 * Reproducible steps (1... 2... 3...) that cause the issue
