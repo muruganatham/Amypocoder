@@ -261,7 +261,8 @@ export class ExtensionsViewletViewsContribution extends Disposable implements IW
 			when: ContextKeyExpr.and(DefaultViewsContext),
 			weight: 40,
 			order: 2,
-			canToggleVisibility: true
+			canToggleVisibility: true,
+			collapsed: true
 		});
 
 		/* Installed views shall be default in multi server window  */
