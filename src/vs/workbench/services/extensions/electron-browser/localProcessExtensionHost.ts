@@ -302,11 +302,11 @@ export class NativeLocalProcessExtensionHost extends Disposable implements IExte
 		let startupTimeoutHandle: Timeout | undefined;
 		if (!this._environmentService.isBuilt && !this._environmentService.remoteAuthority || this._isExtensionDevHost) {
 			startupTimeoutHandle = setTimeout(() => {
-				this._logService.error(`[LocalProcessExtensionHost]: Extension host did not start in 10 seconds (debugBrk: ${this._isExtensionDevDebugBrk})`);
+				this._logService.error(`[LocalProcessExtensionHost]: Extension host did not start in 60 seconds (debugBrk: ${this._isExtensionDevDebugBrk})`);
 
 				const msg = this._isExtensionDevDebugBrk
-					? nls.localize('extensionHost.startupFailDebug', "Extension host did not start in 10 seconds, it might be stopped on the first line and needs a debugger to continue.")
-					: nls.localize('extensionHost.startupFail', "Extension host did not start in 10 seconds, that might be a problem.");
+					? nls.localize('extensionHost.startupFailDebug', "Extension host did not start in 60 seconds, it might be stopped on the first line and needs a debugger to continue.")
+					: nls.localize('extensionHost.startupFail', "Extension host did not start in 60 seconds, that might be a problem.");
 
 				this._notificationService.prompt(Severity.Warning, msg,
 					[{
@@ -318,7 +318,7 @@ export class NativeLocalProcessExtensionHost extends Disposable implements IExte
 						priority: NotificationPriority.URGENT
 					}
 				);
-			}, 10000);
+			}, 60000);
 		}
 
 		// Initialize extension host process with hand shakes

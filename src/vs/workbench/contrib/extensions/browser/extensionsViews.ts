@@ -53,6 +53,9 @@ import { isString } from '../../../../base/common/types.js';
 import { IUriIdentityService } from '../../../../platform/uriIdentity/common/uriIdentity.js';
 import { IHoverService } from '../../../../platform/hover/browser/hover.js';
 import { ExtensionsList } from './extensionsViewer.js';
+// import { Extension } from './extensionsWorkbenchService.js';
+import { AMYPO_RECOMMENDED_EXTENSIONS } from './amypoRecommendedExtensions.js';
+
 
 export const NONE_CATEGORY = 'none';
 
@@ -1090,7 +1093,7 @@ export class ExtensionsListView extends AbstractExtensionsListView<IExtension> {
 		return new PagedModel(this.sortExtensions(installableRecommendations, options));
 	}
 
-	private setModel(model: IPagedModel<IExtension>, message?: Message, donotResetScrollTop?: boolean) {
+	protected setModel(model: IPagedModel<IExtension>, message?: Message, donotResetScrollTop?: boolean) {
 		if (this.list) {
 			this.list.model = new DelayedPagedModel(model);
 			this.updateBody(message);
@@ -1301,53 +1304,68 @@ export class ExtensionsListView extends AbstractExtensionsListView<IExtension> {
 
 export class DefaultRecommendedExtensionsView extends ExtensionsListView {
 
-	// Curated list of recommended extension IDs
-	private static readonly CURATED_EXTENSION_IDS: string[] = [
-		'dsznajder.es7-react-js-snippets',
-		'esbenp.prettier-vscode',
-		'dbaeumer.vscode-eslint',
-		'msjsdiag.debugger-for-chrome',
-		'rangav.vscode-thunder-client',
-		'vscjava.vscode-java-pack',
-		'redhat.java',
-		'vscjava.vscode-java-debug',
-		'vscjava.vscode-maven',
-	];
+	private isRefreshing = false;
 
 	protected override renderBody(container: HTMLElement): void {
 		super.renderBody(container);
 
-		// Refresh when extensions are installed/uninstalled
-		this._register(this.extensionsWorkbenchService.onChange(() => {
-			this.show('');
+		// ✅ Only refresh when an extension is actually INSTALLED or UNINSTALLED
+		// NOT on every onChange (which fires too broadly)
+		this._register(Event.filter(
+			this.extensionsWorkbenchService.onChange,
+			e => e?.state === ExtensionState.Installed || e?.state === ExtensionState.Uninstalled
+		)(() => {
+			if (!this.isRefreshing) {
+				this.show('');
+			}
 		}));
 	}
 
 	override async show(query: string): Promise<IPagedModel<IExtension>> {
-		if (query && query.trim() !== '') {
+		if (query && query.trim() !== '' && !query.startsWith('@id:')) {
 			return this.showEmptyModel();
 		}
 
-		// Get locally installed extensions
-		const local = (await this.extensionsWorkbenchService.queryLocal(this.options.server))
-			.map(e => e.identifier.id.toLowerCase());
+		if (query.startsWith('@id:')) {
+			return super.show(query);
+		}
 
-		// Filter out already-installed extensions
-		const notInstalledIds = DefaultRecommendedExtensionsView.CURATED_EXTENSION_IDS
-			.filter(id => !local.includes(id.toLowerCase()));
-
-		if (notInstalledIds.length === 0) {
-			this.setExpanded(false);
+		if (this.isRefreshing) {
 			return this.showEmptyModel();
 		}
 
-		// Query the marketplace for these specific extensions
-		const idQuery = notInstalledIds.map(id => `@id:${id}`).join(' ');
-		const model = await super.show(idQuery);
-		this.setExpanded(model.length > 0);
-		return model;
+		this.isRefreshing = true;
+
+		try {
+			const local = (await this.extensionsWorkbenchService.queryLocal(this.options.server))
+				.filter(e => !e.isBuiltin)
+				.map(e => e.identifier.id.toLowerCase());
+
+			const notInstalledIds = AMYPO_RECOMMENDED_EXTENSIONS
+				.filter(id => !local.includes(id.toLowerCase()));
+
+			console.log('[Amypo] Installed count:', local.length);
+			console.log('[Amypo] Recommended total:', AMYPO_RECOMMENDED_EXTENSIONS.length);
+			console.log('[Amypo] Not installed count:', notInstalledIds.length);
+
+			if (notInstalledIds.length === 0) {
+				this.setExpanded(false);
+				return this.showEmptyModel();
+			}
+
+			const idQuery = notInstalledIds.map(id => `@id:${id}`).join(' ');
+			return super.show(idQuery);
+
+		} catch (error) {
+			if (isCancellationError(error)) {
+				return this.showEmptyModel();
+			}
+			console.log('[Amypo] Error:', error);
+			return this.showEmptyModel();
+		} finally {
+			this.isRefreshing = false;
+		}
 	}
-
 }
 
 export class ServerInstalledExtensionsView extends ExtensionsListView {

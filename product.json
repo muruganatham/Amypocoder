@@ -1,7 +1,13 @@
 {
-	"nameShort": "AmypoCoder",
-	"nameLong": "AmypoCoder",
+	"nameShort": "Code",
+	"nameLong": "Visual Studio Code",
+	"authenticationProviders": {
+		"github": {
+			"scopes": ["user:email", "repo"]
+		}
+	},
 	"applicationName": "amypo-coder",
+
 	"dataFolderName": ".amypo-coder",
 	"win32MutexName": "amypocoder",
 	"licenseName": "MIT",
@@ -17,6 +23,15 @@
 	"win32NameVersion": "Amypo Coder",
 	"win32RegValueName": "AmypoCoder",
 	"enableTelemetry": false,
+	"extensionSignatureVerification": false,
+	"trustedExtensionPublishers": [
+		"amypo-coder",
+		"amypo"
+	],
+	"trustedExtensionAuthors": [
+		"amypo-coder",
+		"amypo"
+	],
 	"updateUrl": "https://raw.githubusercontent.com/muruganatham/Amypocoder/main/updates",
 	"quality": "stable",
 	"win32x64AppId": "{{D77B7E06-80BA-4137-BCF4-654B95CCEBC5}}",
@@ -39,9 +54,9 @@
 		"serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery",
 		"cacheUrl": "https://vscode.blob.core.windows.net/gallery/index",
 		"itemUrl": "https://marketplace.visualstudio.com/items",
-		"resourceUrlTemplate": "https://{publisher}.vscode-unpkg.net/{publisher}/{name}/{version}/{path}",
 		"controlUrl": "https://az764295.vo.msecnd.net/extensions/marketplace.json",
-		"recommendationsUrl": "https://az764295.vo.msecnd.net/extensions/workspaceRecommendations.json.gz"
+		"recommendationsUrl": "https://az764295.vo.msecnd.net/extensions/workspaceRecommendations.json.gz",
+		"resourceUrlTemplate": "https://{publisher}.vscode-unpkg.net/{publisher}/{name}/{version}/{path}"
 	},
 	"webviewContentExternalBaseUrlTemplate": "",
 	"builtInExtensions": [],
@@ -50,7 +65,7 @@
 		"dsznajder.es7-react-js-snippets": "ES7+ React/Redux/React-Native snippets",
 		"esbenp.prettier-vscode": "Code formatter using prettier",
 		"dbaeumer.vscode-eslint": "Integrates ESLint JavaScript into VS Code.",
-		"rangav.vscode-thunder-client": "Thunder Client for VS Code",
+		"humao.rest-client": "REST Client for VS Code",
 		"vscjava.vscode-java-pack": "Extension Pack for Java",
 		"redhat.java": "Language Support for Java(TM) by Red Hat",
 		"vscjava.vscode-java-debug": "Debugger for Java",

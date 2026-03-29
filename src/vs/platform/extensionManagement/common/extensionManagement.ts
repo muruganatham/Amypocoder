@@ -792,6 +792,23 @@ Registry.as<IConfigurationRegistry>(Extensions.Configuration)
 						],
 					}
 				}
+			},
+			[VerifyExtensionSignatureConfigKey]: {
+				type: 'boolean',
+				description: localize('extensions.verifySignature', "When enabled, {0} will verify the signature of the extensions before installing them.", "Amypo Coder"),
+				default: false,
+				scope: ConfigurationScope.APPLICATION,
+				policy: {
+					name: 'VerifyExtensionSignature',
+					category: PolicyCategory.Extensions,
+					minimumVersion: '1.96',
+					localization: {
+						description: {
+							key: 'extensions.verifySignature.policy',
+							value: localize('extensions.verifySignature.policy', "When enabled, {0} will verify the signature of the extensions before installing them.", "Amypo Coder"),
+						}
+					}
+				}
 			}
 		}
 	});

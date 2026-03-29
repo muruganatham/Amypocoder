@@ -298,7 +298,7 @@ export class ExtensionHostManager extends Disposable implements IExtensionHostMa
 
 			// Skip AI/chat customers that depend on services not available in this fork
 			if (SKIPPED_CUSTOMERS.has(id.sid)) {
-				this._logService.info(`[Amypo Coder] Skipping unavailable customer: '${id.sid}'`);
+				// this._logService.info(`[Amypo Coder] Skipping unavailable customer: '${id.sid}'`);
 				continue;
 			}
 

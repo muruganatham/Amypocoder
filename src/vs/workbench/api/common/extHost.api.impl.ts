@@ -406,8 +406,9 @@ export function createApiFactoryAndRegisterActors(accessor: ServicesAccessor): I
 			get isAppPortable() { return initData.environment.isPortable ?? false; },
 			get sessionId() { return initData.telemetryInfo.sessionId; },
 			get language() { return initData.environment.appLanguage; },
-			get appName() { return initData.environment.appName; },
+			get appName() { return 'Visual Studio Code'; },
 			get appRoot() { return initData.environment.appRoot?.fsPath ?? ''; },
+
 			get appHost() { return initData.environment.appHost; },
 			get uriScheme() { return initData.environment.appUriScheme; },
 			get clipboard(): vscode.Clipboard { return extHostClipboard.value; },

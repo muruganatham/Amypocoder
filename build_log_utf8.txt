@@ -1,53 +1,1247 @@
 ﻿
 > amypo-coder-dev@1.113.0 gulp
-> node --max-old-space-size=8192 ./node_modules/gulp/bin/gulp.js vscode-win32-x64-user-setup
+> node --max-old-space-size=8192 ./node_modules/gulp/bin/gulp.js vscode-win32-x64-system-setup
 
-[[90m17:38:07[39m] Using gulpfile ~\Documents\CustomVsCode\gulpfile.mjs
-[[90m17:38:07[39m] Starting 'vscode-win32-x64-user-setup'...
-[[90m17:38:07[39m] Starting [36mclean-user-setup[39m ...
-[[90m17:38:07[39m] Finished [36mclean-user-setup[39m after [35m8 ms[39m
-[[90m17:38:07[39m] Starting [36mvscode-win32-x64-user-setup[39m ...
-node.exe : 
-[[90m17:38:07[39m] 
-'vscode-win32-x64-user-setup' 
-errored after 12 ms
+[[90m14:00:38[39m] Using gulpfile ~\Documents\CustomVsCode\gulpfile.mjs
+[[90m14:00:38[39m] Starting 'vscode-win32-x64-system-setup'...
+[[90m14:00:38[39m] Starting [36mclean-system-setup[39m ...
+[[90m14:00:38[39m] Finished [36mclean-system-setup[39m after [35m29 ms[39m
+[[90m14:00:38[39m] Starting [36mvscode-win32-x64-system-setup[39m ...
+Inno Setup 6 Command-Line Compiler
+Copyright (C) 1997-2025 Jordan Russell. All rights reserved.
+Portions Copyright (C) 2000-2025 Martijn Laan. All rights reserved.
+Portions Copyright (C) 2001-2004 Alex Yackimoff. All rights reserved.
+https://www.innosetup.com
+
+Compiler engine version: Inno Setup 6.4.1
+
+Preprocessing
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\node_modules\innosetup\bin\ISPPBuiltins.iss
+Parsing [Setup] section, line 8
+Parsing [Setup] section, line 9
+Parsing [Setup] section, line 10
+Parsing [Setup] section, line 11
+Parsing [Setup] section, line 12
+Parsing [Setup] section, line 13
+Parsing [Setup] section, line 14
+Parsing [Setup] section, line 15
+Parsing [Setup] section, line 16
+Parsing [Setup] section, line 17
+Parsing [Setup] section, line 18
+Parsing [Setup] section, line 19
+Parsing [Setup] section, line 20
+Parsing [Setup] section, line 21
+Parsing [Setup] section, line 22
+Parsing [Setup] section, line 23
+Parsing [Setup] section, line 24
+Parsing [Setup] section, line 25
+Parsing [Setup] section, line 26
+Parsing [Setup] section, line 27
+Parsing [Setup] section, line 28
+Parsing [Setup] section, line 29
+Parsing [Setup] section, line 30
+Parsing [Setup] section, line 31
+Parsing [Setup] section, line 32
+Parsing [Setup] section, line 33
+Parsing [Setup] section, line 34
+Parsing [Setup] section, line 35
+Parsing [Setup] section, line 36
+Parsing [Setup] section, line 41
+Parsing [Setup] section, line 51
+Reading file (WizardImageFile)
+   Reading file: c:\users\admin\documents\customvscode\resources\win32\inno-big-100.bmp
+   Reading file: c:\users\admin\documents\customvscode\resources\win32\inno-big-125.bmp
+   Reading file: c:\users\admin\documents\customvscode\resources\win32\inno-big-150.bmp
+   Reading file: c:\users\admin\documents\customvscode\resources\win32\inno-big-175.bmp
+   Reading file: c:\users\admin\documents\customvscode\resources\win32\inno-big-200.bmp
+   Reading file: c:\users\admin\documents\customvscode\resources\win32\inno-big-225.bmp
+   Reading file: c:\users\admin\documents\customvscode\resources\win32\inno-big-250.bmp
+Reading file (WizardSmallImageFile)
+   Reading file: c:\users\admin\documents\customvscode\resources\win32\inno-small-100.bmp
+   Reading file: c:\users\admin\documents\customvscode\resources\win32\inno-small-125.bmp
+   Reading file: c:\users\admin\documents\customvscode\resources\win32\inno-small-150.bmp
+   Reading file: c:\users\admin\documents\customvscode\resources\win32\inno-small-175.bmp
+   Reading file: c:\users\admin\documents\customvscode\resources\win32\inno-small-200.bmp
+   Reading file: c:\users\admin\documents\customvscode\resources\win32\inno-small-225.bmp
+   Reading file: c:\users\admin\documents\customvscode\resources\win32\inno-small-250.bmp
+Preparing Setup program executable
+   Updating icons (SETUP.E32)
+   Updating version info (SETUP.E32)
+Determining language code pages
+Parsing [Languages] section, line 55
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\node_modules\innosetup\bin\Default.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.en.isl
+Parsing [Languages] section, line 56
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\node_modules\innosetup\bin\Languages\German.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.de.isl
+Parsing [Languages] section, line 57
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\node_modules\innosetup\bin\Languages\Spanish.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.es.isl
+Parsing [Languages] section, line 58
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\node_modules\innosetup\bin\Languages\French.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.fr.isl
+Parsing [Languages] section, line 59
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\node_modules\innosetup\bin\Languages\Italian.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.it.isl
+Parsing [Languages] section, line 60
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\node_modules\innosetup\bin\Languages\Japanese.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.ja.isl
+Parsing [Languages] section, line 61
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\node_modules\innosetup\bin\Languages\Russian.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.ru.isl
+Parsing [Languages] section, line 62
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\Default.ko.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.ko.isl
+Parsing [Languages] section, line 63
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\Default.zh-cn.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.zh-cn.isl
+Parsing [Languages] section, line 64
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\Default.zh-tw.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.zh-tw.isl
+Parsing [Languages] section, line 65
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\node_modules\innosetup\bin\Languages\BrazilianPortuguese.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.pt-br.isl
+Parsing [Languages] section, line 66
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\Default.hu.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.hu.isl
+Parsing [Languages] section, line 67
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\node_modules\innosetup\bin\Languages\Turkish.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.tr.isl
+   Messages in script file
+Reading default messages from Default.isl
+Parsing [Languages] section, line 55
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\LICENSE.rtf
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\node_modules\innosetup\bin\Default.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.en.isl
+Parsing [Languages] section, line 56
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\LICENSE.rtf
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\node_modules\innosetup\bin\Languages\German.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.de.isl
+Parsing [Languages] section, line 57
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\LICENSE.rtf
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\node_modules\innosetup\bin\Languages\Spanish.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.es.isl
+Parsing [Languages] section, line 58
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\LICENSE.rtf
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\node_modules\innosetup\bin\Languages\French.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.fr.isl
+Parsing [Languages] section, line 59
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\LICENSE.rtf
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\node_modules\innosetup\bin\Languages\Italian.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.it.isl
+Parsing [Languages] section, line 60
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\LICENSE.rtf
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\node_modules\innosetup\bin\Languages\Japanese.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.ja.isl
+Parsing [Languages] section, line 61
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\LICENSE.rtf
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\node_modules\innosetup\bin\Languages\Russian.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.ru.isl
+Parsing [Languages] section, line 62
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\LICENSE.rtf
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\Default.ko.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.ko.isl
+Parsing [Languages] section, line 63
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\LICENSE.rtf
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\Default.zh-cn.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.zh-cn.isl
+Parsing [Languages] section, line 64
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\LICENSE.rtf
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\Default.zh-tw.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.zh-tw.isl
+Parsing [Languages] section, line 65
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\LICENSE.rtf
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\node_modules\innosetup\bin\Languages\BrazilianPortuguese.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.pt-br.isl
+Parsing [Languages] section, line 66
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\LICENSE.rtf
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\Default.hu.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.hu.isl
+Parsing [Languages] section, line 67
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\LICENSE.rtf
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\node_modules\innosetup\bin\Languages\Turkish.isl
+   Reading file: C:\Users\Admin\Documents\CustomVsCode\build\win32\i18n\messages.tr.isl
+Parsing [LangOptions], [Messages], and [CustomMessages] sections
+   Messages in script file
+Reading [Code] section
+Parsing [Tasks] section, line 86
+Parsing [Tasks] section, line 87
+Parsing [Tasks] section, line 88
+Parsing [Tasks] section, line 89
+Parsing [Tasks] section, line 90
+Parsing [Tasks] section, line 91
+Parsing [Tasks] section, line 92
+Parsing [Dirs] section, line 95
+Parsing [Icons] section, line 116
+Parsing [Icons] section, line 117
+Parsing [Icons] section, line 118
+Parsing [Registry] section, line 136
+Parsing [Registry] section, line 137
+Parsing [Registry] section, line 138
+Parsing [Registry] section, line 139
+Parsing [Registry] section, line 140
+Parsing [Registry] section, line 141
+Parsing [Registry] section, line 142
+Parsing [Registry] section, line 144
+Parsing [Registry] section, line 145
+Parsing [Registry] section, line 146
+Parsing [Registry] section, line 147
+Parsing [Registry] section, line 148
+Parsing [Registry] section, line 149
+Parsing [Registry] section, line 150
+Parsing [Registry] section, line 152
+Parsing [Registry] section, line 153
+Parsing [Registry] section, line 154
+Parsing [Registry] section, line 155
+Parsing [Registry] section, line 156
+Parsing [Registry] section, line 157
+Parsing [Registry] section, line 158
+Parsing [Registry] section, line 160
+Parsing [Registry] section, line 161
+Parsing [Registry] section, line 162
+Parsing [Registry] section, line 163
+Parsing [Registry] section, line 164
+Parsing [Registry] section, line 165
+Parsing [Registry] section, line 166
+Parsing [Registry] section, line 168
+Parsing [Registry] section, line 169
+Parsing [Registry] section, line 170
+Parsing [Registry] section, line 171
+Parsing [Registry] section, line 172
+Parsing [Registry] section, line 173
+Parsing [Registry] section, line 174
+Parsing [Registry] section, line 176
+Parsing [Registry] section, line 177
+Parsing [Registry] section, line 178
+Parsing [Registry] section, line 179
+Parsing [Registry] section, line 180
+Parsing [Registry] section, line 181
+Parsing [Registry] section, line 182
+Parsing [Registry] section, line 184
+Parsing [Registry] section, line 185
+Parsing [Registry] section, line 186
+Parsing [Registry] section, line 187
+Parsing [Registry] section, line 188
+Parsing [Registry] section, line 189
+Parsing [Registry] section, line 190
+Parsing [Registry] section, line 192
+Parsing [Registry] section, line 193
+Parsing [Registry] section, line 194
+Parsing [Registry] section, line 195
+Parsing [Registry] section, line 196
+Parsing [Registry] section, line 197
+Parsing [Registry] section, line 198
+Parsing [Registry] section, line 200
+Parsing [Registry] section, line 201
+Parsing [Registry] section, line 202
+Parsing [Registry] section, line 203
+Parsing [Registry] section, line 204
+Parsing [Registry] section, line 205
+Parsing [Registry] section, line 206
+Parsing [Registry] section, line 208
+Parsing [Registry] section, line 209
+Parsing [Registry] section, line 210
+Parsing [Registry] section, line 211
+Parsing [Registry] section, line 212
+Parsing [Registry] section, line 213
+Parsing [Registry] section, line 214
+Parsing [Registry] section, line 216
+Parsing [Registry] section, line 217
+Parsing [Registry] section, line 218
+Parsing [Registry] section, line 219
+Parsing [Registry] section, line 220
+Parsing [Registry] section, line 221
+Parsing [Registry] section, line 223
+Parsing [Registry] section, line 224
+Parsing [Registry] section, line 225
+Parsing [Registry] section, line 226
+Parsing [Registry] section, line 227
+Parsing [Registry] section, line 228
+Parsing [Registry] section, line 229
+Parsing [Registry] section, line 231
+Parsing [Registry] section, line 232
+Parsing [Registry] section, line 233
+Parsing [Registry] section, line 234
+Parsing [Registry] section, line 235
+Parsing [Registry] section, line 236
+Parsing [Registry] section, line 237
+Parsing [Registry] section, line 239
+Parsing [Registry] section, line 240
+Parsing [Registry] section, line 241
+Parsing [Registry] section, line 242
+Parsing [Registry] section, line 243
+Parsing [Registry] section, line 244
+Parsing [Registry] section, line 245
+Parsing [Registry] section, line 247
+Parsing [Registry] section, line 248
+Parsing [Registry] section, line 249
+Parsing [Registry] section, line 250
+Parsing [Registry] section, line 251
+Parsing [Registry] section, line 252
+Parsing [Registry] section, line 253
+Parsing [Registry] section, line 255
+Parsing [Registry] section, line 256
+Parsing [Registry] section, line 257
+Parsing [Registry] section, line 258
+Parsing [Registry] section, line 259
+Parsing [Registry] section, line 260
+Parsing [Registry] section, line 261
+Parsing [Registry] section, line 263
+Parsing [Registry] section, line 264
+Parsing [Registry] section, line 265
+Parsing [Registry] section, line 266
+Parsing [Registry] section, line 267
+Parsing [Registry] section, line 268
+Parsing [Registry] section, line 269
+Parsing [Registry] section, line 271
+Parsing [Registry] section, line 272
+Parsing [Registry] section, line 273
+Parsing [Registry] section, line 274
+Parsing [Registry] section, line 275
+Parsing [Registry] section, line 276
+Parsing [Registry] section, line 277
+Parsing [Registry] section, line 279
+Parsing [Registry] section, line 280
+Parsing [Registry] section, line 281
+Parsing [Registry] section, line 282
+Parsing [Registry] section, line 283
+Parsing [Registry] section, line 284
+Parsing [Registry] section, line 285
+Parsing [Registry] section, line 287
+Parsing [Registry] section, line 288
+Parsing [Registry] section, line 289
+Parsing [Registry] section, line 290
+Parsing [Registry] section, line 291
+Parsing [Registry] section, line 292
+Parsing [Registry] section, line 293
+Parsing [Registry] section, line 295
+Parsing [Registry] section, line 296
+Parsing [Registry] section, line 297
+Parsing [Registry] section, line 298
+Parsing [Registry] section, line 299
+Parsing [Registry] section, line 300
+Parsing [Registry] section, line 301
+Parsing [Registry] section, line 303
+Parsing [Registry] section, line 304
+Parsing [Registry] section, line 305
+Parsing [Registry] section, line 306
+Parsing [Registry] section, line 307
+Parsing [Registry] section, line 308
+Parsing [Registry] section, line 309
+Parsing [Registry] section, line 311
+Parsing [Registry] section, line 312
+Parsing [Registry] section, line 313
+Parsing [Registry] section, line 314
+Parsing [Registry] section, line 315
+Parsing [Registry] section, line 316
+Parsing [Registry] section, line 317
+Parsing [Registry] section, line 319
+Parsing [Registry] section, line 320
+Parsing [Registry] section, line 321
+Parsing [Registry] section, line 322
+Parsing [Registry] section, line 323
+Parsing [Registry] section, line 324
+Parsing [Registry] section, line 325
+Parsing [Registry] section, line 327
+Parsing [Registry] section, line 328
+Parsing [Registry] section, line 329
+Parsing [Registry] section, line 330
+Parsing [Registry] section, line 331
+Parsing [Registry] section, line 332
+Parsing [Registry] section, line 334
+Parsing [Registry] section, line 335
+Parsing [Registry] section, line 336
+Parsing [Registry] section, line 337
+Parsing [Registry] section, line 338
+Parsing [Registry] section, line 339
+Parsing [Registry] section, line 340
+Parsing [Registry] section, line 342
+Parsing [Registry] section, line 343
+Parsing [Registry] section, line 344
+Parsing [Registry] section, line 345
+Parsing [Registry] section, line 346
+Parsing [Registry] section, line 347
+Parsing [Registry] section, line 348
+Parsing [Registry] section, line 350
+Parsing [Registry] section, line 351
+Parsing [Registry] section, line 352
+Parsing [Registry] section, line 353
+Parsing [Registry] section, line 354
+Parsing [Registry] section, line 355
+Parsing [Registry] section, line 356
+Parsing [Registry] section, line 358
+Parsing [Registry] section, line 359
+Parsing [Registry] section, line 360
+Parsing [Registry] section, line 361
+Parsing [Registry] section, line 362
+Parsing [Registry] section, line 363
+Parsing [Registry] section, line 364
+Parsing [Registry] section, line 366
+Parsing [Registry] section, line 367
+Parsing [Registry] section, line 368
+Parsing [Registry] section, line 369
+Parsing [Registry] section, line 370
+Parsing [Registry] section, line 371
+Parsing [Registry] section, line 372
+Parsing [Registry] section, line 374
+Parsing [Registry] section, line 375
+Parsing [Registry] section, line 376
+Parsing [Registry] section, line 377
+Parsing [Registry] section, line 378
+Parsing [Registry] section, line 379
+Parsing [Registry] section, line 380
+Parsing [Registry] section, line 382
+Parsing [Registry] section, line 383
+Parsing [Registry] section, line 384
+Parsing [Registry] section, line 385
+Parsing [Registry] section, line 386
+Parsing [Registry] section, line 387
+Parsing [Registry] section, line 388
+Parsing [Registry] section, line 390
+Parsing [Registry] section, line 391
+Parsing [Registry] section, line 392
+Parsing [Registry] section, line 393
+Parsing [Registry] section, line 394
+Parsing [Registry] section, line 395
+Parsing [Registry] section, line 396
+Parsing [Registry] section, line 398
+Parsing [Registry] section, line 399
+Parsing [Registry] section, line 400
+Parsing [Registry] section, line 401
+Parsing [Registry] section, line 402
+Parsing [Registry] section, line 403
+Parsing [Registry] section, line 404
+Parsing [Registry] section, line 406
+Parsing [Registry] section, line 407
+Parsing [Registry] section, line 408
+Parsing [Registry] section, line 409
+Parsing [Registry] section, line 410
+Parsing [Registry] section, line 411
+Parsing [Registry] section, line 412
+Parsing [Registry] section, line 414
+Parsing [Registry] section, line 415
+Parsing [Registry] section, line 416
+Parsing [Registry] section, line 417
+Parsing [Registry] section, line 418
+Parsing [Registry] section, line 419
+Parsing [Registry] section, line 420
+Parsing [Registry] section, line 422
+Parsing [Registry] section, line 423
+Parsing [Registry] section, line 424
+Parsing [Registry] section, line 425
+Parsing [Registry] section, line 426
+Parsing [Registry] section, line 427
+Parsing [Registry] section, line 428
+Parsing [Registry] section, line 430
+Parsing [Registry] section, line 431
+Parsing [Registry] section, line 432
+Parsing [Registry] section, line 433
+Parsing [Registry] section, line 434
+Parsing [Registry] section, line 435
+Parsing [Registry] section, line 436
+Parsing [Registry] section, line 438
+Parsing [Registry] section, line 439
+Parsing [Registry] section, line 440
+Parsing [Registry] section, line 441
+Parsing [Registry] section, line 442
+Parsing [Registry] section, line 443
+Parsing [Registry] section, line 444
+Parsing [Registry] section, line 446
+Parsing [Registry] section, line 447
+Parsing [Registry] section, line 448
+Parsing [Registry] section, line 449
+Parsing [Registry] section, line 450
+Parsing [Registry] section, line 451
+Parsing [Registry] section, line 452
+Parsing [Registry] section, line 454
+Parsing [Registry] section, line 455
+Parsing [Registry] section, line 456
+Parsing [Registry] section, line 457
+Parsing [Registry] section, line 458
+Parsing [Registry] section, line 459
+Parsing [Registry] section, line 460
+Parsing [Registry] section, line 462
+Parsing [Registry] section, line 463
+Parsing [Registry] section, line 464
+Parsing [Registry] section, line 465
+Parsing [Registry] section, line 466
+Parsing [Registry] section, line 467
+Parsing [Registry] section, line 468
+Parsing [Registry] section, line 470
+Parsing [Registry] section, line 471
+Parsing [Registry] section, line 472
+Parsing [Registry] section, line 473
+Parsing [Registry] section, line 474
+Parsing [Registry] section, line 475
+Parsing [Registry] section, line 476
+Parsing [Registry] section, line 478
+Parsing [Registry] section, line 479
+Parsing [Registry] section, line 480
+Parsing [Registry] section, line 481
+Parsing [Registry] section, line 482
+Parsing [Registry] section, line 483
+Parsing [Registry] section, line 484
+Parsing [Registry] section, line 486
+Parsing [Registry] section, line 487
+Parsing [Registry] section, line 488
+Parsing [Registry] section, line 489
+Parsing [Registry] section, line 490
+Parsing [Registry] section, line 491
+Parsing [Registry] section, line 492
+Parsing [Registry] section, line 494
+Parsing [Registry] section, line 495
+Parsing [Registry] section, line 496
+Parsing [Registry] section, line 497
+Parsing [Registry] section, line 498
+Parsing [Registry] section, line 499
+Parsing [Registry] section, line 500
+Parsing [Registry] section, line 502
+Parsing [Registry] section, line 503
+Parsing [Registry] section, line 504
+Parsing [Registry] section, line 505
+Parsing [Registry] section, line 506
+Parsing [Registry] section, line 507
+Parsing [Registry] section, line 508
+Parsing [Registry] section, line 510
+Parsing [Registry] section, line 511
+Parsing [Registry] section, line 512
+Parsing [Registry] section, line 513
+Parsing [Registry] section, line 514
+Parsing [Registry] section, line 515
+Parsing [Registry] section, line 516
+Parsing [Registry] section, line 518
+Parsing [Registry] section, line 519
+Parsing [Registry] section, line 520
+Parsing [Registry] section, line 521
+Parsing [Registry] section, line 522
+Parsing [Registry] section, line 523
+Parsing [Registry] section, line 524
+Parsing [Registry] section, line 526
+Parsing [Registry] section, line 527
+Parsing [Registry] section, line 528
+Parsing [Registry] section, line 529
+Parsing [Registry] section, line 530
+Parsing [Registry] section, line 531
+Parsing [Registry] section, line 532
+Parsing [Registry] section, line 533
+Parsing [Registry] section, line 535
+Parsing [Registry] section, line 536
+Parsing [Registry] section, line 537
+Parsing [Registry] section, line 538
+Parsing [Registry] section, line 539
+Parsing [Registry] section, line 540
+Parsing [Registry] section, line 541
+Parsing [Registry] section, line 542
+Parsing [Registry] section, line 544
+Parsing [Registry] section, line 545
+Parsing [Registry] section, line 546
+Parsing [Registry] section, line 547
+Parsing [Registry] section, line 548
+Parsing [Registry] section, line 549
+Parsing [Registry] section, line 550
+Parsing [Registry] section, line 551
+Parsing [Registry] section, line 553
+Parsing [Registry] section, line 554
+Parsing [Registry] section, line 555
+Parsing [Registry] section, line 556
+Parsing [Registry] section, line 557
+Parsing [Registry] section, line 558
+Parsing [Registry] section, line 559
+Parsing [Registry] section, line 561
+Parsing [Registry] section, line 562
+Parsing [Registry] section, line 563
+Parsing [Registry] section, line 564
+Parsing [Registry] section, line 565
+Parsing [Registry] section, line 566
+Parsing [Registry] section, line 567
+Parsing [Registry] section, line 569
+Parsing [Registry] section, line 570
+Parsing [Registry] section, line 571
+Parsing [Registry] section, line 572
+Parsing [Registry] section, line 573
+Parsing [Registry] section, line 574
+Parsing [Registry] section, line 575
+Parsing [Registry] section, line 577
+Parsing [Registry] section, line 578
+Parsing [Registry] section, line 579
+Parsing [Registry] section, line 580
+Parsing [Registry] section, line 581
+Parsing [Registry] section, line 582
+Parsing [Registry] section, line 583
+Parsing [Registry] section, line 585
+Parsing [Registry] section, line 586
+Parsing [Registry] section, line 587
+Parsing [Registry] section, line 588
+Parsing [Registry] section, line 589
+Parsing [Registry] section, line 590
+Parsing [Registry] section, line 591
+Parsing [Registry] section, line 593
+Parsing [Registry] section, line 594
+Parsing [Registry] section, line 595
+Parsing [Registry] section, line 596
+Parsing [Registry] section, line 597
+Parsing [Registry] section, line 598
+Parsing [Registry] section, line 599
+Parsing [Registry] section, line 601
+Parsing [Registry] section, line 602
+Parsing [Registry] section, line 603
+Parsing [Registry] section, line 604
+Parsing [Registry] section, line 605
+Parsing [Registry] section, line 606
+Parsing [Registry] section, line 608
+Parsing [Registry] section, line 609
+Parsing [Registry] section, line 610
+Parsing [Registry] section, line 611
+Parsing [Registry] section, line 612
+Parsing [Registry] section, line 613
+Parsing [Registry] section, line 614
+Parsing [Registry] section, line 616
+Parsing [Registry] section, line 617
+Parsing [Registry] section, line 618
+Parsing [Registry] section, line 619
+Parsing [Registry] section, line 620
+Parsing [Registry] section, line 621
+Parsing [Registry] section, line 622
+Parsing [Registry] section, line 624
+Parsing [Registry] section, line 625
+Parsing [Registry] section, line 626
+Parsing [Registry] section, line 627
+Parsing [Registry] section, line 628
+Parsing [Registry] section, line 629
+Parsing [Registry] section, line 630
+Parsing [Registry] section, line 632
+Parsing [Registry] section, line 633
+Parsing [Registry] section, line 634
+Parsing [Registry] section, line 635
+Parsing [Registry] section, line 636
+Parsing [Registry] section, line 637
+Parsing [Registry] section, line 638
+Parsing [Registry] section, line 640
+Parsing [Registry] section, line 641
+Parsing [Registry] section, line 642
+Parsing [Registry] section, line 643
+Parsing [Registry] section, line 644
+Parsing [Registry] section, line 645
+Parsing [Registry] section, line 646
+Parsing [Registry] section, line 648
+Parsing [Registry] section, line 649
+Parsing [Registry] section, line 650
+Parsing [Registry] section, line 651
+Parsing [Registry] section, line 652
+Parsing [Registry] section, line 653
+Parsing [Registry] section, line 654
+Parsing [Registry] section, line 656
+Parsing [Registry] section, line 657
+Parsing [Registry] section, line 658
+Parsing [Registry] section, line 659
+Parsing [Registry] section, line 660
+Parsing [Registry] section, line 661
+Parsing [Registry] section, line 662
+Parsing [Registry] section, line 664
+Parsing [Registry] section, line 665
+Parsing [Registry] section, line 666
+Parsing [Registry] section, line 667
+Parsing [Registry] section, line 668
+Parsing [Registry] section, line 669
+Parsing [Registry] section, line 670
+Parsing [Registry] section, line 672
+Parsing [Registry] section, line 673
+Parsing [Registry] section, line 674
+Parsing [Registry] section, line 675
+Parsing [Registry] section, line 676
+Parsing [Registry] section, line 677
+Parsing [Registry] section, line 678
+Parsing [Registry] section, line 680
+Parsing [Registry] section, line 681
+Parsing [Registry] section, line 682
+Parsing [Registry] section, line 683
+Parsing [Registry] section, line 684
+Parsing [Registry] section, line 685
+Parsing [Registry] section, line 686
+Parsing [Registry] section, line 688
+Parsing [Registry] section, line 689
+Parsing [Registry] section, line 690
+Parsing [Registry] section, line 691
+Parsing [Registry] section, line 692
+Parsing [Registry] section, line 693
+Parsing [Registry] section, line 694
+Parsing [Registry] section, line 696
+Parsing [Registry] section, line 697
+Parsing [Registry] section, line 698
+Parsing [Registry] section, line 699
+Parsing [Registry] section, line 700
+Parsing [Registry] section, line 701
+Parsing [Registry] section, line 702
+Parsing [Registry] section, line 704
+Parsing [Registry] section, line 705
+Parsing [Registry] section, line 706
+Parsing [Registry] section, line 707
+Parsing [Registry] section, line 708
+Parsing [Registry] section, line 709
+Parsing [Registry] section, line 710
+Parsing [Registry] section, line 712
+Parsing [Registry] section, line 713
+Parsing [Registry] section, line 714
+Parsing [Registry] section, line 715
+Parsing [Registry] section, line 716
+Parsing [Registry] section, line 717
+Parsing [Registry] section, line 718
+Parsing [Registry] section, line 720
+Parsing [Registry] section, line 721
+Parsing [Registry] section, line 722
+Parsing [Registry] section, line 723
+Parsing [Registry] section, line 724
+Parsing [Registry] section, line 725
+Parsing [Registry] section, line 726
+Parsing [Registry] section, line 728
+Parsing [Registry] section, line 729
+Parsing [Registry] section, line 730
+Parsing [Registry] section, line 731
+Parsing [Registry] section, line 732
+Parsing [Registry] section, line 733
+Parsing [Registry] section, line 734
+Parsing [Registry] section, line 736
+Parsing [Registry] section, line 737
+Parsing [Registry] section, line 738
+Parsing [Registry] section, line 739
+Parsing [Registry] section, line 740
+Parsing [Registry] section, line 741
+Parsing [Registry] section, line 742
+Parsing [Registry] section, line 744
+Parsing [Registry] section, line 745
+Parsing [Registry] section, line 746
+Parsing [Registry] section, line 747
+Parsing [Registry] section, line 748
+Parsing [Registry] section, line 749
+Parsing [Registry] section, line 750
+Parsing [Registry] section, line 752
+Parsing [Registry] section, line 753
+Parsing [Registry] section, line 754
+Parsing [Registry] section, line 755
+Parsing [Registry] section, line 756
+Parsing [Registry] section, line 757
+Parsing [Registry] section, line 758
+Parsing [Registry] section, line 760
+Parsing [Registry] section, line 761
+Parsing [Registry] section, line 762
+Parsing [Registry] section, line 763
+Parsing [Registry] section, line 764
+Parsing [Registry] section, line 765
+Parsing [Registry] section, line 766
+Parsing [Registry] section, line 768
+Parsing [Registry] section, line 769
+Parsing [Registry] section, line 770
+Parsing [Registry] section, line 771
+Parsing [Registry] section, line 772
+Parsing [Registry] section, line 773
+Parsing [Registry] section, line 774
+Parsing [Registry] section, line 776
+Parsing [Registry] section, line 777
+Parsing [Registry] section, line 778
+Parsing [Registry] section, line 779
+Parsing [Registry] section, line 780
+Parsing [Registry] section, line 781
+Parsing [Registry] section, line 782
+Parsing [Registry] section, line 784
+Parsing [Registry] section, line 785
+Parsing [Registry] section, line 786
+Parsing [Registry] section, line 787
+Parsing [Registry] section, line 788
+Parsing [Registry] section, line 789
+Parsing [Registry] section, line 790
+Parsing [Registry] section, line 792
+Parsing [Registry] section, line 793
+Parsing [Registry] section, line 794
+Parsing [Registry] section, line 795
+Parsing [Registry] section, line 796
+Parsing [Registry] section, line 797
+Parsing [Registry] section, line 798
+Parsing [Registry] section, line 800
+Parsing [Registry] section, line 801
+Parsing [Registry] section, line 802
+Parsing [Registry] section, line 803
+Parsing [Registry] section, line 804
+Parsing [Registry] section, line 805
+Parsing [Registry] section, line 806
+Parsing [Registry] section, line 808
+Parsing [Registry] section, line 809
+Parsing [Registry] section, line 810
+Parsing [Registry] section, line 811
+Parsing [Registry] section, line 812
+Parsing [Registry] section, line 813
+Parsing [Registry] section, line 814
+Parsing [Registry] section, line 816
+Parsing [Registry] section, line 817
+Parsing [Registry] section, line 818
+Parsing [Registry] section, line 819
+Parsing [Registry] section, line 820
+Parsing [Registry] section, line 821
+Parsing [Registry] section, line 822
+Parsing [Registry] section, line 824
+Parsing [Registry] section, line 825
+Parsing [Registry] section, line 826
+Parsing [Registry] section, line 827
+Parsing [Registry] section, line 828
+Parsing [Registry] section, line 829
+Parsing [Registry] section, line 830
+Parsing [Registry] section, line 832
+Parsing [Registry] section, line 833
+Parsing [Registry] section, line 834
+Parsing [Registry] section, line 835
+Parsing [Registry] section, line 836
+Parsing [Registry] section, line 837
+Parsing [Registry] section, line 838
+Parsing [Registry] section, line 840
+Parsing [Registry] section, line 841
+Parsing [Registry] section, line 842
+Parsing [Registry] section, line 843
+Parsing [Registry] section, line 844
+Parsing [Registry] section, line 845
+Parsing [Registry] section, line 846
+Parsing [Registry] section, line 848
+Parsing [Registry] section, line 849
+Parsing [Registry] section, line 850
+Parsing [Registry] section, line 851
+Parsing [Registry] section, line 852
+Parsing [Registry] section, line 853
+Parsing [Registry] section, line 854
+Parsing [Registry] section, line 856
+Parsing [Registry] section, line 857
+Parsing [Registry] section, line 858
+Parsing [Registry] section, line 859
+Parsing [Registry] section, line 860
+Parsing [Registry] section, line 861
+Parsing [Registry] section, line 862
+Parsing [Registry] section, line 864
+Parsing [Registry] section, line 865
+Parsing [Registry] section, line 866
+Parsing [Registry] section, line 867
+Parsing [Registry] section, line 868
+Parsing [Registry] section, line 869
+Parsing [Registry] section, line 870
+Parsing [Registry] section, line 872
+Parsing [Registry] section, line 873
+Parsing [Registry] section, line 874
+Parsing [Registry] section, line 875
+Parsing [Registry] section, line 876
+Parsing [Registry] section, line 877
+Parsing [Registry] section, line 878
+Parsing [Registry] section, line 880
+Parsing [Registry] section, line 881
+Parsing [Registry] section, line 882
+Parsing [Registry] section, line 883
+Parsing [Registry] section, line 884
+Parsing [Registry] section, line 885
+Parsing [Registry] section, line 886
+Parsing [Registry] section, line 888
+Parsing [Registry] section, line 889
+Parsing [Registry] section, line 890
+Parsing [Registry] section, line 891
+Parsing [Registry] section, line 892
+Parsing [Registry] section, line 893
+Parsing [Registry] section, line 894
+Parsing [Registry] section, line 895
+Parsing [Registry] section, line 897
+Parsing [Registry] section, line 898
+Parsing [Registry] section, line 899
+Parsing [Registry] section, line 900
+Parsing [Registry] section, line 901
+Parsing [Registry] section, line 902
+Parsing [Registry] section, line 903
+Parsing [Registry] section, line 905
+Parsing [Registry] section, line 906
+Parsing [Registry] section, line 907
+Parsing [Registry] section, line 908
+Parsing [Registry] section, line 909
+Parsing [Registry] section, line 910
+Parsing [Registry] section, line 911
+Parsing [Registry] section, line 913
+Parsing [Registry] section, line 914
+Parsing [Registry] section, line 915
+Parsing [Registry] section, line 916
+Parsing [Registry] section, line 917
+Parsing [Registry] section, line 918
+Parsing [Registry] section, line 919
+Parsing [Registry] section, line 921
+Parsing [Registry] section, line 922
+Parsing [Registry] section, line 923
+Parsing [Registry] section, line 924
+Parsing [Registry] section, line 925
+Parsing [Registry] section, line 926
+Parsing [Registry] section, line 927
+Parsing [Registry] section, line 929
+Parsing [Registry] section, line 930
+Parsing [Registry] section, line 931
+Parsing [Registry] section, line 932
+Parsing [Registry] section, line 933
+Parsing [Registry] section, line 934
+Parsing [Registry] section, line 935
+Parsing [Registry] section, line 937
+Parsing [Registry] section, line 938
+Parsing [Registry] section, line 939
+Parsing [Registry] section, line 940
+Parsing [Registry] section, line 941
+Parsing [Registry] section, line 942
+Parsing [Registry] section, line 943
+Parsing [Registry] section, line 945
+Parsing [Registry] section, line 946
+Parsing [Registry] section, line 947
+Parsing [Registry] section, line 948
+Parsing [Registry] section, line 949
+Parsing [Registry] section, line 950
+Parsing [Registry] section, line 951
+Parsing [Registry] section, line 953
+Parsing [Registry] section, line 954
+Parsing [Registry] section, line 955
+Parsing [Registry] section, line 956
+Parsing [Registry] section, line 957
+Parsing [Registry] section, line 958
+Parsing [Registry] section, line 959
+Parsing [Registry] section, line 961
+Parsing [Registry] section, line 962
+Parsing [Registry] section, line 963
+Parsing [Registry] section, line 964
+Parsing [Registry] section, line 965
+Parsing [Registry] section, line 966
+Parsing [Registry] section, line 967
+Parsing [Registry] section, line 969
+Parsing [Registry] section, line 970
+Parsing [Registry] section, line 971
+Parsing [Registry] section, line 972
+Parsing [Registry] section, line 973
+Parsing [Registry] section, line 974
+Parsing [Registry] section, line 975
+Parsing [Registry] section, line 977
+Parsing [Registry] section, line 978
+Parsing [Registry] section, line 979
+Parsing [Registry] section, line 980
+Parsing [Registry] section, line 981
+Parsing [Registry] section, line 982
+Parsing [Registry] section, line 983
+Parsing [Registry] section, line 985
+Parsing [Registry] section, line 986
+Parsing [Registry] section, line 987
+Parsing [Registry] section, line 988
+Parsing [Registry] section, line 989
+Parsing [Registry] section, line 990
+Parsing [Registry] section, line 991
+Parsing [Registry] section, line 993
+Parsing [Registry] section, line 994
+Parsing [Registry] section, line 995
+Parsing [Registry] section, line 996
+Parsing [Registry] section, line 997
+Parsing [Registry] section, line 998
+Parsing [Registry] section, line 999
+Parsing [Registry] section, line 1001
+Parsing [Registry] section, line 1002
+Parsing [Registry] section, line 1003
+Parsing [Registry] section, line 1004
+Parsing [Registry] section, line 1005
+Parsing [Registry] section, line 1006
+Parsing [Registry] section, line 1007
+Parsing [Registry] section, line 1009
+Parsing [Registry] section, line 1010
+Parsing [Registry] section, line 1011
+Parsing [Registry] section, line 1012
+Parsing [Registry] section, line 1013
+Parsing [Registry] section, line 1014
+Parsing [Registry] section, line 1015
+Parsing [Registry] section, line 1017
+Parsing [Registry] section, line 1018
+Parsing [Registry] section, line 1019
+Parsing [Registry] section, line 1020
+Parsing [Registry] section, line 1021
+Parsing [Registry] section, line 1022
+Parsing [Registry] section, line 1023
+Parsing [Registry] section, line 1025
+Parsing [Registry] section, line 1026
+Parsing [Registry] section, line 1027
+Parsing [Registry] section, line 1028
+Parsing [Registry] section, line 1029
+Parsing [Registry] section, line 1030
+Parsing [Registry] section, line 1031
+Parsing [Registry] section, line 1033
+Parsing [Registry] section, line 1034
+Parsing [Registry] section, line 1035
+Parsing [Registry] section, line 1036
+Parsing [Registry] section, line 1037
+Parsing [Registry] section, line 1038
+Parsing [Registry] section, line 1039
+Parsing [Registry] section, line 1041
+Parsing [Registry] section, line 1042
+Parsing [Registry] section, line 1043
+Parsing [Registry] section, line 1044
+Parsing [Registry] section, line 1045
+Parsing [Registry] section, line 1046
+Parsing [Registry] section, line 1047
+Parsing [Registry] section, line 1049
+Parsing [Registry] section, line 1050
+Parsing [Registry] section, line 1051
+Parsing [Registry] section, line 1052
+Parsing [Registry] section, line 1053
+Parsing [Registry] section, line 1054
+Parsing [Registry] section, line 1055
+Parsing [Registry] section, line 1057
+Parsing [Registry] section, line 1058
+Parsing [Registry] section, line 1059
+Parsing [Registry] section, line 1060
+Parsing [Registry] section, line 1061
+Parsing [Registry] section, line 1062
+Parsing [Registry] section, line 1063
+Parsing [Registry] section, line 1065
+Parsing [Registry] section, line 1066
+Parsing [Registry] section, line 1067
+Parsing [Registry] section, line 1068
+Parsing [Registry] section, line 1069
+Parsing [Registry] section, line 1070
+Parsing [Registry] section, line 1071
+Parsing [Registry] section, line 1073
+Parsing [Registry] section, line 1074
+Parsing [Registry] section, line 1075
+Parsing [Registry] section, line 1076
+Parsing [Registry] section, line 1077
+Parsing [Registry] section, line 1078
+Parsing [Registry] section, line 1079
+Parsing [Registry] section, line 1081
+Parsing [Registry] section, line 1082
+Parsing [Registry] section, line 1083
+Parsing [Registry] section, line 1084
+Parsing [Registry] section, line 1085
+Parsing [Registry] section, line 1086
+Parsing [Registry] section, line 1087
+Parsing [Registry] section, line 1089
+Parsing [Registry] section, line 1090
+Parsing [Registry] section, line 1091
+Parsing [Registry] section, line 1092
+Parsing [Registry] section, line 1093
+Parsing [Registry] section, line 1094
+Parsing [Registry] section, line 1095
+Parsing [Registry] section, line 1097
+Parsing [Registry] section, line 1098
+Parsing [Registry] section, line 1099
+Parsing [Registry] section, line 1100
+Parsing [Registry] section, line 1101
+Parsing [Registry] section, line 1102
+Parsing [Registry] section, line 1103
+Parsing [Registry] section, line 1105
+Parsing [Registry] section, line 1106
+Parsing [Registry] section, line 1107
+Parsing [Registry] section, line 1108
+Parsing [Registry] section, line 1109
+Parsing [Registry] section, line 1110
+Parsing [Registry] section, line 1111
+Parsing [Registry] section, line 1113
+Parsing [Registry] section, line 1114
+Parsing [Registry] section, line 1115
+Parsing [Registry] section, line 1116
+Parsing [Registry] section, line 1117
+Parsing [Registry] section, line 1118
+Parsing [Registry] section, line 1119
+Parsing [Registry] section, line 1121
+Parsing [Registry] section, line 1122
+Parsing [Registry] section, line 1123
+Parsing [Registry] section, line 1124
+Parsing [Registry] section, line 1125
+Parsing [Registry] section, line 1126
+Parsing [Registry] section, line 1127
+Parsing [Registry] section, line 1129
+Parsing [Registry] section, line 1130
+Parsing [Registry] section, line 1131
+Parsing [Registry] section, line 1132
+Parsing [Registry] section, line 1133
+Parsing [Registry] section, line 1134
+Parsing [Registry] section, line 1135
+Parsing [Registry] section, line 1137
+Parsing [Registry] section, line 1138
+Parsing [Registry] section, line 1139
+Parsing [Registry] section, line 1140
+Parsing [Registry] section, line 1141
+Parsing [Registry] section, line 1142
+Parsing [Registry] section, line 1143
+Parsing [Registry] section, line 1145
+Parsing [Registry] section, line 1146
+Parsing [Registry] section, line 1147
+Parsing [Registry] section, line 1148
+Parsing [Registry] section, line 1149
+Parsing [Registry] section, line 1150
+Parsing [Registry] section, line 1151
+Parsing [Registry] section, line 1153
+Parsing [Registry] section, line 1154
+Parsing [Registry] section, line 1155
+Parsing [Registry] section, line 1156
+Parsing [Registry] section, line 1157
+Parsing [Registry] section, line 1158
+Parsing [Registry] section, line 1159
+Parsing [Registry] section, line 1161
+Parsing [Registry] section, line 1162
+Parsing [Registry] section, line 1163
+Parsing [Registry] section, line 1164
+Parsing [Registry] section, line 1165
+Parsing [Registry] section, line 1166
+Parsing [Registry] section, line 1167
+Parsing [Registry] section, line 1169
+Parsing [Registry] section, line 1170
+Parsing [Registry] section, line 1171
+Parsing [Registry] section, line 1172
+Parsing [Registry] section, line 1173
+Parsing [Registry] section, line 1174
+Parsing [Registry] section, line 1175
+Parsing [Registry] section, line 1177
+Parsing [Registry] section, line 1178
+Parsing [Registry] section, line 1179
+Parsing [Registry] section, line 1180
+Parsing [Registry] section, line 1181
+Parsing [Registry] section, line 1182
+Parsing [Registry] section, line 1183
+Parsing [Registry] section, line 1185
+Parsing [Registry] section, line 1186
+Parsing [Registry] section, line 1187
+Parsing [Registry] section, line 1188
+Parsing [Registry] section, line 1189
+Parsing [Registry] section, line 1190
+Parsing [Registry] section, line 1191
+Parsing [Registry] section, line 1193
+Parsing [Registry] section, line 1194
+Parsing [Registry] section, line 1195
+Parsing [Registry] section, line 1196
+Parsing [Registry] section, line 1197
+Parsing [Registry] section, line 1198
+Parsing [Registry] section, line 1199
+Parsing [Registry] section, line 1201
+Parsing [Registry] section, line 1202
+Parsing [Registry] section, line 1203
+Parsing [Registry] section, line 1204
+Parsing [Registry] section, line 1205
+Parsing [Registry] section, line 1206
+Parsing [Registry] section, line 1207
+Parsing [Registry] section, line 1209
+Parsing [Registry] section, line 1210
+Parsing [Registry] section, line 1211
+Parsing [Registry] section, line 1212
+Parsing [Registry] section, line 1213
+Parsing [Registry] section, line 1214
+Parsing [Registry] section, line 1215
+Parsing [Registry] section, line 1217
+Parsing [Registry] section, line 1218
+Parsing [Registry] section, line 1219
+Parsing [Registry] section, line 1220
+Parsing [Registry] section, line 1221
+Parsing [Registry] section, line 1222
+Parsing [Registry] section, line 1223
+Parsing [Registry] section, line 1225
+Parsing [Registry] section, line 1226
+Parsing [Registry] section, line 1227
+Parsing [Registry] section, line 1228
+Parsing [Registry] section, line 1229
+Parsing [Registry] section, line 1230
+Parsing [Registry] section, line 1231
+Parsing [Registry] section, line 1233
+Parsing [Registry] section, line 1234
+Parsing [Registry] section, line 1235
+Parsing [Registry] section, line 1236
+Parsing [Registry] section, line 1237
+Parsing [Registry] section, line 1238
+Parsing [Registry] section, line 1239
+Parsing [Registry] section, line 1241
+Parsing [Registry] section, line 1242
+Parsing [Registry] section, line 1243
+Parsing [Registry] section, line 1244
+Parsing [Registry] section, line 1245
+Parsing [Registry] section, line 1246
+Parsing [Registry] section, line 1247
+Parsing [Registry] section, line 1249
+Parsing [Registry] section, line 1250
+Parsing [Registry] section, line 1251
+Parsing [Registry] section, line 1252
+Parsing [Registry] section, line 1253
+Parsing [Registry] section, line 1254
+Parsing [Registry] section, line 1255
+Parsing [Registry] section, line 1257
+Parsing [Registry] section, line 1258
+Parsing [Registry] section, line 1259
+Parsing [Registry] section, line 1260
+Parsing [Registry] section, line 1261
+Parsing [Registry] section, line 1262
+Parsing [Registry] section, line 1263
+Parsing [Registry] section, line 1265
+Parsing [Registry] section, line 1266
+Parsing [Registry] section, line 1267
+Parsing [Registry] section, line 1268
+Parsing [Registry] section, line 1269
+Parsing [Registry] section, line 1270
+Parsing [Registry] section, line 1271
+Parsing [Registry] section, line 1273
+Parsing [Registry] section, line 1274
+Parsing [Registry] section, line 1275
+Parsing [Registry] section, line 1276
+Parsing [Registry] section, line 1278
+Parsing [Registry] section, line 1279
+Parsing [Registry] section, line 1280
+Parsing [Registry] section, line 1281
+Parsing [Registry] section, line 1283
+Parsing [Registry] section, line 1284
+Parsing [Registry] section, line 1285
+Parsing [Registry] section, line 1286
+Parsing [Registry] section, line 1287
+Parsing [Registry] section, line 1288
+Parsing [Registry] section, line 1289
+Parsing [Registry] section, line 1290
+Parsing [Registry] section, line 1291
+Parsing [Registry] section, line 1292
+Parsing [Registry] section, line 1293
+Parsing [Registry] section, line 1294
+Parsing [Registry] section, line 1295
+Parsing [Registry] section, line 1310
+Parsing [Registry] section, line 1313
+Parsing [Registry] section, line 1314
+Parsing [InstallDelete] section, line 70
+Parsing [InstallDelete] section, line 71
+Parsing [InstallDelete] section, line 72
+Parsing [InstallDelete] section, line 73
+Parsing [InstallDelete] section, line 74
+Parsing [InstallDelete] section, line 75
+Parsing [InstallDelete] section, line 76
+Parsing [UninstallDelete] section, line 79
+Parsing [UninstallDelete] section, line 80
+Parsing [UninstallDelete] section, line 81
+Parsing [UninstallDelete] section, line 82
+Parsing [UninstallDelete] section, line 83
+Parsing [Run] section, line 126
+Parsing [Run] section, line 127
+Parsing [Files] section, line 98
+Parsing [Files] section, line 99
+Parsing [Files] section, line 100
+Parsing [Files] section, line 104
+node.exe : Error on line 104 in C:\User
+s\Admin\Documents\CustomVsCode\build\wi
+n32\code.iss: No files found matching "
+C:\Users\Admin\Documents\VSCode-win32-x
+64\tools\*"
 At line:1 char:1
-+ & "C:\Program 
-Files\nodejs/node.exe" 
-"C:\Program 
-Files\nodejs/node_mo ...
-+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-~~~~~~~~~~~
-    + CategoryInfo          : 
-    NotSpecified: ([[90m17:  
-  38:07...red after 12 ms:   
- String) [], RemoteExcepti    
-on
-    + FullyQualifiedErrorId : 
-    NativeCommandError
++ & "C:\Program Files\nodejs/node.exe" 
+"C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpeci 
+   fied: (Error on line 1...32-x64\to  
+  ols\*":String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCo 
+   mmandError
  
-[[90m17:38:07[39m] Error: 
-ENOENT: no such file or 
-directory, open 'C:\Users\Admi
-n\Documents\VSCode-win32-x64\r
-esources\app\product.json'
-    at Module.readFileSync 
-(node:fs:440:20)
-    at C:\Users\Admin\Document
-s\CustomVsCode\build\gulpfile.
-vscode.win32.ts:81:37
-    at file:///C:/Users/Admin/
-Documents/CustomVsCode/build/l
-ib/task.ts:53:4
-    at new Promise 
-(<anonymous>)
-    at _doExecute (file:///C:/
-Users/Admin/Documents/CustomVs
-Code/build/lib/task.ts:50:9)
-    at _execute (file:///C:/Us
-ers/Admin/Documents/CustomVsCo
-de/build/lib/task.ts:40:8)
-    at result (file:///C:/User
-s/Admin/Documents/CustomVsCode
-/build/lib/task.ts:86:10)
+Compile aborted.
+[[90m14:00:39[39m] 
+'vscode-win32-x64-system-setup' 
+errored after 1.21 s
+[[90m14:00:39[39m] Error: InnoSetup 
+returned exit code: 2
+    at ChildProcess.<anonymous> (C:\Use
+rs\Admin\Documents\CustomVsCode\build\g
+ulpfile.vscode.win32.ts:57:8)
+    at ChildProcess.emit 
+(node:events:519:28)
+    at ChildProcess.emit 
+(node:domain:552:15)
+    at ChildProcess._handle.onexit 
+(node:internal/child_process:293:12)
+    at Process.callbackTrampoline 
+(node:internal/async_hooks:130:17)

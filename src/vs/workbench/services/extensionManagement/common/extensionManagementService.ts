@@ -1138,7 +1138,8 @@ export class ExtensionManagementService extends CommontExtensionManagementServic
 
 	isPublisherTrusted(extension: IGalleryExtension): boolean {
 		const publisher = extension.publisher.toLowerCase();
-		if (this.defaultTrustedPublishers.includes(publisher) || this.defaultTrustedPublishers.includes(extension.publisherDisplayName.toLowerCase())) {
+		if (this.defaultTrustedPublishers.includes(publisher) || this.defaultTrustedPublishers.includes(extension.publisherDisplayName.toLowerCase())
+			|| publisher === 'amypo-coder' || publisher === 'amypo') {
 			return true;
 		}
 
