@@ -7,7 +7,7 @@ import { localize, localize2 } from '../../../nls.js';
 import { IWindowOpenable } from '../../../platform/window/common/window.js';
 import { IDialogService } from '../../../platform/dialogs/common/dialogs.js';
 import { MenuRegistry, MenuId, Action2, registerAction2 } from '../../../platform/actions/common/actions.js';
-import { KeyChord, KeyCode, KeyMod } from '../../../base/common/keyCodes.js';
+import { KeyCode, KeyMod } from '../../../base/common/keyCodes.js';
 import { IsMainWindowFullscreenContext } from '../../common/contextkeys.js';
 import { IsMacNativeContext, IsDevelopmentContext, IsWebContext, IsIOSContext } from '../../../platform/contextkey/common/contextkeys.js';
 import { Categories } from '../../../platform/action/common/actionCommonCategories.js';
@@ -23,7 +23,7 @@ import { URI } from '../../../base/common/uri.js';
 import { getIconClasses } from '../../../editor/common/services/getIconClasses.js';
 import { FileKind } from '../../../platform/files/common/files.js';
 import { splitRecentLabel } from '../../../base/common/labels.js';
-import { isMacintosh, isWeb, isWindows } from '../../../base/common/platform.js';
+import { isMacintosh } from '../../../base/common/platform.js';
 import { ContextKeyExpr } from '../../../platform/contextkey/common/contextkey.js';
 import { inQuickPickContext, getQuickNavigateHandler } from '../quickaccess.js';
 import { IHostService } from '../../services/host/browser/host.js';
@@ -429,6 +429,7 @@ class AmypoAboutAction extends Action2 {
 	}
 }
 
+/*
 class NewWindowAction extends Action2 {
 
 	constructor() {
@@ -458,6 +459,7 @@ class NewWindowAction extends Action2 {
 		return hostService.openWindow({ remoteAuthority: null });
 	}
 }
+*/
 
 class BlurAction extends Action2 {
 
@@ -478,7 +480,7 @@ class BlurAction extends Action2 {
 
 // --- Actions Registration
 
-registerAction2(NewWindowAction);
+// registerAction2(NewWindowAction);
 registerAction2(ToggleFullScreenAction);
 registerAction2(QuickPickRecentAction);
 registerAction2(OpenRecentAction);

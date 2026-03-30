@@ -221,6 +221,16 @@ export class ExtensionsListView extends AbstractExtensionsListView<IExtension> {
 	}
 
 	async show(query: string, refresh?: boolean): Promise<IPagedModel<IExtension>> {
+		// Block @builtin searches in Amypo Coder
+		if (/@builtin/i.test(query)) {
+			return this.showEmptyModel();
+		}
+
+		// Block @installed @builtin combined searches
+		if (/@installed/i.test(query) && /@builtin/i.test(query)) {
+			return this.showEmptyModel();
+		}
+
 		if (this.queryRequest) {
 			if (!refresh && this.queryRequest.query === query) {
 				return this.queryRequest.request;
@@ -798,7 +808,7 @@ export class ExtensionsListView extends AbstractExtensionsListView<IExtension> {
 			}
 
 			const searchText = options.text.toLowerCase();
-			const localExtensions = this.extensionsWorkbenchService.local.filter(e => (e.name.toLowerCase().indexOf(searchText) > -1 || e.displayName.toLowerCase().indexOf(searchText) > -1 || e.description.toLowerCase().indexOf(searchText) > -1));
+			const localExtensions = this.extensionsWorkbenchService.local.filter(e => !e.isBuiltin && (e.name.toLowerCase().indexOf(searchText) > -1 || e.displayName.toLowerCase().indexOf(searchText) > -1 || e.description.toLowerCase().indexOf(searchText) > -1));
 			if (localExtensions.length) {
 				const message = this.getMessage(error);
 				return { model: new PagedModel(localExtensions), disposables: new DisposableStore(), message: { text: localize('showing local extensions only', "{0} Showing local extensions.", message.text), severity: message.severity } };
@@ -809,7 +819,7 @@ export class ExtensionsListView extends AbstractExtensionsListView<IExtension> {
 	}
 
 	private async getPreferredExtensions(searchText: string, token: CancellationToken): Promise<IExtension[]> {
-		const preferredExtensions = this.extensionsWorkbenchService.local.filter(e => (e.name.toLowerCase().indexOf(searchText) > -1 || e.displayName.toLowerCase().indexOf(searchText) > -1 || e.description.toLowerCase().indexOf(searchText) > -1));
+		const preferredExtensions = this.extensionsWorkbenchService.local.filter(e => !e.isBuiltin && (e.name.toLowerCase().indexOf(searchText) > -1 || e.displayName.toLowerCase().indexOf(searchText) > -1 || e.description.toLowerCase().indexOf(searchText) > -1));
 		const preferredExtensionUUIDs = new Set<string>();
 
 		if (preferredExtensions.length) {
@@ -1309,7 +1319,7 @@ export class DefaultRecommendedExtensionsView extends ExtensionsListView {
 	protected override renderBody(container: HTMLElement): void {
 		super.renderBody(container);
 
-		// ✅ Only refresh when an extension is actually INSTALLED or UNINSTALLED
+		// Only refresh when an extension is actually INSTALLED or UNINSTALLED
 		// NOT on every onChange (which fires too broadly)
 		this._register(Event.filter(
 			this.extensionsWorkbenchService.onChange,

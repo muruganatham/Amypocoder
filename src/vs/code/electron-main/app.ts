@@ -413,7 +413,7 @@ export class CodeApplication extends Disposable {
 				if ((process as INodeProcess).isEmbeddedApp || (this.environmentMainService.args['sessions'] && this.productService.quality !== 'stable')) {
 					await this.windowsMainService?.openSessionsWindow({ context: OpenContext.DOCK });
 				} else {
-					await this.windowsMainService?.openEmptyWindow({ context: OpenContext.DOCK });
+					// await this.windowsMainService?.openEmptyWindow({ context: OpenContext.DOCK });
 				}
 			}
 		});
@@ -501,9 +501,9 @@ export class CodeApplication extends Disposable {
 			}, 100);
 		});
 
-		app.on('new-window-for-tab', async () => {
-			await this.windowsMainService?.openEmptyWindow({ context: OpenContext.DESKTOP }); //macOS native tab "+" button
-		});
+		// app.on('new-window-for-tab', async () => {
+		// 	await this.windowsMainService?.openEmptyWindow({ context: OpenContext.DESKTOP }); //macOS native tab "+" button
+		// });
 
 		//#region Bootstrap IPC Handlers
 
