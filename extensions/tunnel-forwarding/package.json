@@ -19,9 +19,7 @@
     "resolvers",
     "tunnelFactory"
   ],
-  "activationEvents": [
-    "onTunnel"
-  ],
+  "activationEvents": [],
   "contributes": {
     "commands": [
       {

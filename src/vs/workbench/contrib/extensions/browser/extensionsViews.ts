@@ -1354,9 +1354,9 @@ export class DefaultRecommendedExtensionsView extends ExtensionsListView {
 			const notInstalledIds = AMYPO_RECOMMENDED_EXTENSIONS
 				.filter(id => !local.includes(id.toLowerCase()));
 
-			console.log('[Amypo] Installed count:', local.length);
-			console.log('[Amypo] Recommended total:', AMYPO_RECOMMENDED_EXTENSIONS.length);
-			console.log('[Amypo] Not installed count:', notInstalledIds.length);
+			// console.log('[Amypo] Installed count:', local.length);
+			// console.log('[Amypo] Recommended total:', AMYPO_RECOMMENDED_EXTENSIONS.length);
+			// console.log('[Amypo] Not installed count:', notInstalledIds.length);
 
 			if (notInstalledIds.length === 0) {
 				this.setExpanded(false);

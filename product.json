@@ -6,7 +6,7 @@
 			"scopes": ["user:email", "repo"]
 		}
 	},
-	"applicationName": "amypo-coder",
+	"applicationName": "amypocoder",
 	"debugExtensionId": "ms-vscode.js-debug",
 	"enabledApiProposals": [
 		"portAutoForward"
@@ -54,7 +54,7 @@
 	"licenseFileName": "LICENSE.txt",
 	"reportIssueUrl": "https://github.com/amypo-coder/amypo-coder/issues/new",
 	"nodejsRepository": "https://nodejs.org",
-	"urlProtocol": "amypo-coder",
+	"urlProtocol": "amypo",
 	"extensionsGallery": {
 		"serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery",
 		"cacheUrl": "https://vscode.blob.core.windows.net/gallery/index",

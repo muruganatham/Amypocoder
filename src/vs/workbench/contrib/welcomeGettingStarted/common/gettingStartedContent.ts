@@ -233,7 +233,7 @@ const Button = (title: string, href: string) => `[${title}](${href})`;
 export const walkthroughs: GettingStartedWalkthroughContent = [
 	{
 		id: 'Setup',
-		title: localize('gettingStarted.setup.title', "Welcome to Amypo Coder 🚀"),
+		title: localize('gettingStarted.setup.title', "Welcome to Amypo Coder - Ready!"),
 		description: localize('gettingStarted.setup.description', "Start coding instantly.\nNo AI. No clutter. Just code."),
 		isFeatured: true,
 		icon: setupIcon,

@@ -17,19 +17,6 @@ const showCommand = 'simpleBrowser.show';
 const integratedBrowserCommand = 'workbench.action.browser.open';
 const useIntegratedBrowserSetting = 'simpleBrowser.useIntegratedBrowser';
 
-const enabledHosts = new Set<string>([
-	'localhost',
-	// localhost IPv4
-	'127.0.0.1',
-	// localhost IPv6
-	'[0:0:0:0:0:0:0:1]',
-	'[::1]',
-	// all interfaces IPv4
-	'0.0.0.0',
-	// all interfaces IPv6
-	'[0:0:0:0:0:0:0:0]',
-	'[::]'
-]);
 
 const openerId = 'simpleBrowser.open';
 
@@ -38,13 +25,7 @@ const openerId = 'simpleBrowser.open';
  */
 async function shouldUseIntegratedBrowser(): Promise<boolean> {
 	const config = vscode.workspace.getConfiguration();
-	if (!config.get<boolean>(useIntegratedBrowserSetting, true)) {
-		return false;
-	}
-
-	// Verify that the integrated browser command is available
-	const commands = await vscode.commands.getCommands(true);
-	return commands.includes(integratedBrowserCommand);
+	return config.get<boolean>(useIntegratedBrowserSetting, true) ?? true;
 }
 
 /**
@@ -94,15 +75,8 @@ export function activate(context: vscode.ExtensionContext) {
 	}));
 
 	context.subscriptions.push(vscode.window.registerExternalUriOpener(openerId, {
-		canOpenExternalUri(uri: vscode.Uri) {
-			// We have to replace the IPv6 hosts with IPv4 because URL can't handle IPv6.
-			const originalUri = new URL(uri.toString(true));
-			if (enabledHosts.has(originalUri.hostname)) {
-				return isWeb()
-					? vscode.ExternalUriOpenerPriority.Default
-					: vscode.ExternalUriOpenerPriority.Option;
-			}
-
+		canOpenExternalUri(_uri: vscode.Uri) {
+			// ✅ Disabled - prevent auto-opening browser for localhost
 			return vscode.ExternalUriOpenerPriority.None;
 		},
 		async openExternalUri(resolveUri: vscode.Uri) {
@@ -120,6 +94,3 @@ export function activate(context: vscode.ExtensionContext) {
 	}));
 }
 
-function isWeb(): boolean {
-	return !(typeof process === 'object' && !!process.versions.node) && vscode.env.uiKind === vscode.UIKind.Web;
-}

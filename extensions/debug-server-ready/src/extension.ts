@@ -190,7 +190,8 @@ class ServerReadyDetector extends vscode.Disposable {
 		switch (args.action || 'openExternally') {
 
 			case 'openExternally':
-				await vscode.env.openExternal(vscode.Uri.parse(uri));
+				// ✅ Disabled - user opens browser manually
+				// await vscode.env.openExternal(vscode.Uri.parse(uri));
 				break;
 
 			case 'debugWithChrome':

@@ -374,5 +374,10 @@
     {
         "name":  "yaml",
         "version":  "10.0.0"
+    },
+    {
+        "name": "ms-vscode.js-debug",
+        "version": "2022.8.1217",
+        "repo": "https://github.com/microsoft/vscode-js-debug"
     }
 ]

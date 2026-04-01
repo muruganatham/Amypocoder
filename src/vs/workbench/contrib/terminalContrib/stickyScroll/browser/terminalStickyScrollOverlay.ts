@@ -431,11 +431,15 @@ export class TerminalStickyScrollOverlay extends Disposable {
 		});
 
 		this._xtermAddonLoader.importAddon('ligatures').then(LigaturesAddon => {
-			if (this._store.isDisposed || !this._stickyScrollOverlay) {
-				return;
+			try {
+				if (this._store.isDisposed || !this._stickyScrollOverlay) {
+					return;
+				}
+				this._ligaturesAddon = new LigaturesAddon();
+				this._stickyScrollOverlay.loadAddon(this._ligaturesAddon);
+			} catch {
+				return; // ✅ silently skip
 			}
-			this._ligaturesAddon = new LigaturesAddon();
-			this._stickyScrollOverlay.loadAddon(this._ligaturesAddon);
 		});
 
 		// Scroll to the command on click

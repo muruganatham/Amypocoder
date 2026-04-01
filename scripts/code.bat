@@ -34,7 +34,7 @@ for %%A in (%*) do (
 )
 
 :: Launch Code
-%CODE% . %DISABLE_TEST_EXTENSION% %*
+%CODE% . --disable-gpu %DISABLE_TEST_EXTENSION% %*
 goto end
 
 :builtin

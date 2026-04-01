@@ -883,16 +883,20 @@ export class XtermTerminal extends Disposable implements IXtermTerminal, IDetach
 				this._ligaturesAddon.clear();
 			}
 			if (!this._ligaturesAddon.value) {
-				const LigaturesAddon = await this._xtermAddonLoader.importAddon('ligatures');
-				if (this._store.isDisposed) {
-					return;
+				try {
+					const LigaturesAddon = await this._xtermAddonLoader.importAddon('ligatures');
+					if (this._store.isDisposed) {
+						return;
+					}
+					this._ligaturesAddon.value = this._instantiationService.createInstance(LigaturesAddon, {
+						fontFeatureSettings: ligaturesConfig.featureSettings,
+						fallbackLigatures: ligaturesConfig.fallbackLigatures,
+					});
+					this.raw.loadAddon(this._ligaturesAddon.value);
+					shouldRecreateWebglRenderer = true;
+				} catch {
+					// ✅ Ligatures not available, continue without them
 				}
-				this._ligaturesAddon.value = this._instantiationService.createInstance(LigaturesAddon, {
-					fontFeatureSettings: ligaturesConfig.featureSettings,
-					fallbackLigatures: ligaturesConfig.fallbackLigatures,
-				});
-				this.raw.loadAddon(this._ligaturesAddon.value);
-				shouldRecreateWebglRenderer = true;
 			}
 		} else {
 			if (!this._ligaturesAddon.value) {

@@ -5315,12 +5315,6 @@
 				]
 			},
 			{
-				"key": "miNewWindow",
-				"comment": [
-					"&& denotes a mnemonic"
-				]
-			},
-			{
 				"key": "miOpenRecent",
 				"comment": [
 					"&& denotes a mnemonic"
@@ -5332,7 +5326,6 @@
 					"&& denotes a mnemonic"
 				]
 			},
-			"newWindow",
 			"openedRecentlyOpenedFolder",
 			"openedRecentlyOpenedWorkspace",
 			"openRecent",
@@ -14163,9 +14156,6 @@
 			"accessDenied",
 			"availableUpdates",
 			"builtin",
-			"builtinFeatureExtensions",
-			"builtinProgrammingLanguageExtensions",
-			"builtInThemesExtensions",
 			"click show",
 			"deprecated",
 			"disabled",
@@ -18089,12 +18079,14 @@
 			"remote.tunnelsView.elevationButton",
 			"remote.tunnelsView.elevationMessage",
 			"remote.tunnelsView.makePublic",
+			"remote.tunnelsView.notification",
 			{
 				"key": "remote.tunnelsView.notificationLink2",
 				"comment": [
 					"[See all forwarded ports]({0}) is a link. Only translate `See all forwarded ports`. Do not change brackets and parentheses or {0}"
 				]
 			},
+			"remote.tunnelsView.openBrowser",
 			"remoteNoPorts",
 			"status.forwardedPorts"
 		],
@@ -29084,10 +29076,8 @@
 			"&&About",
 			"Confirm Before Close",
 			"&&More...",
-			"New &&Window",
 			"Open &&Recent",
 			"&&Full Screen",
-			"New Window",
 			"Folder Opened in a Window",
 			"Workspace Opened in a Window",
 			"Open Recent...",
@@ -36589,9 +36579,6 @@
 			"Access denied to marketplace",
 			"Available Updates",
 			"Builtin",
-			"Features",
-			"Programming Languages",
-			"Themes",
 			"Click to Show",
 			"Deprecated",
 			"Disabled",
@@ -39915,11 +39902,13 @@
 			"Undo",
 			"No Ports Forwarded",
 			"Forwarded Ports: {0}",
-			"Your application{0} running on port {1} is available.  ",
+			"AmypoCoder: Your application{0} on port {1} is ready!  ",
 			"Use Port {0} as Sudo...",
 			"You'll need to run as superuser to use port {0} locally.  ",
 			"Make Public",
+			"Amypo Coder: Your application on port {0} is ready!",
 			"[See all forwarded ports]({0})",
+			"Open in Browser",
 			"No forwarded ports. Forward a port to access your running services locally.\n[Forward a Port]({0})",
 			"Forwarded Ports"
 		],
@@ -43699,7 +43688,7 @@
 			"Start coding instantly.\nNo AI. No clutter. Just code.",
 			"Open up your code",
 			"You're all set to start coding. You can open a local project or a remote repository to get your files into Amypo Coder.\n{0}\n{1}",
-			"Welcome to Amypo Coder 🚀",
+			"Welcome to Amypo Coder - Ready!",
 			"Setup Amypo Coder",
 			"Learn the tools and shortcuts that make Amypo Coder accessible. Note that some actions are not actionable from within the context of the walkthrough.",
 			"Get Started with Accessibility Features",

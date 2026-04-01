@@ -35,6 +35,9 @@ export class UrlFinder extends Disposable {
 	 * https://github.com/microsoft/vscode-remote-release/issues/3949
 	 */
 	private static readonly localPythonServerRegex = /HTTP\son\s(127\.0\.0\.1|0\.0\.0\.0)\sport\s(\d+)/;
+	private static readonly localGenericPortRegex = /(?:listening on|port|at|started|running|available|server|bound|address|serving)\s+(?:http:\/\/\S+:)?(?::|#)?(\d{2,5})\b/i;
+	private static readonly localSpringBootRegex = /Tomcat started on port[s]?\s*[\(\[]?(\d{2,5})/i;
+	private static readonly localPhpRegex = /Development Server.*:(\d{2,5})/i;
 
 	private static readonly excludeTerminals = ['Dev Containers'];
 
@@ -160,10 +163,33 @@ export class UrlFinder extends Disposable {
 				}
 			});
 		} else {
+			// Try Spring Boot (Java)
+			const springMatch = data.match(UrlFinder.localSpringBootRegex);
+			if (springMatch) {
+				this._onDidMatchLocalUrl.fire({ host: 'localhost', port: Number(springMatch[1]) });
+				return;
+			}
+
+			// Try PHP/Laravel
+			const phpMatch = data.match(UrlFinder.localPhpRegex);
+			if (phpMatch) {
+				this._onDidMatchLocalUrl.fire({ host: 'localhost', port: Number(phpMatch[1]) });
+				return;
+			}
+
 			// Try special python case
 			const pythonMatch = data.match(UrlFinder.localPythonServerRegex);
 			if (pythonMatch && pythonMatch.length === 3) {
 				this._onDidMatchLocalUrl.fire({ host: pythonMatch[1], port: Number(pythonMatch[2]) });
+			} else {
+				// Try generic port case (e.g. "listening on 3000")
+				const genericMatch = data.match(UrlFinder.localGenericPortRegex);
+				if (genericMatch && genericMatch.length === 2) {
+					const port = parseInt(genericMatch[1], 10);
+					if (port > 0 && port <= 65535) {
+						this._onDidMatchLocalUrl.fire({ host: 'localhost', port });
+					}
+				}
 			}
 		}
 	}

@@ -1,4 +1,5 @@
 {
+	"thunder-client.launchOnStartup": false,
 	// --- Chat ---
 	"inlineChat.enableV2": true,
 	"inlineChat.affordance": "editor",
@@ -32,7 +33,7 @@
 		"editor.formatOnSave": true
 	},
 	"[rust]": {
-		"editor.defaultFormatter": "rust-lang.rust-analyzer",
+		"editor.defaultFormatter": null,
 		"editor.formatOnSave": true,
 	},
 	"[github-issues]": {
@@ -213,5 +214,10 @@
 		".github/skills/.local": true,
 		".agents/skills/.local": true,
 		".claude/skills/.local": true,
-	}
+	},
+	"remote.tunnels.access.hostNameOverride": "",
+	"remote.tunnels.access.preventSleep": false,
+	"terminal.integrated.fontLigatures": false,
+	"terminal.integrated.persistentSessionReviveProcess": "never",
+	"workbench.notifications.neverShowAgain": []
 }

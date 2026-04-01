@@ -202,7 +202,11 @@ export class CommandsQuickAccessProvider extends AbstractEditorCommandsQuickAcce
 			filter,
 			[RelatedInformationType.CommandInformation],
 			token
-		) as CommandInformationResult[];
+		) as CommandInformationResult[] | undefined;
+
+		if (!relatedInformation) {
+			return [];
+		}
 
 		// Sort by weight descending to get the most relevant results first
 		relatedInformation.sort((a, b) => b.weight - a.weight);

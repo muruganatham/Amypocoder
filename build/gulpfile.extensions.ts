@@ -85,6 +85,7 @@ const compilations = [
 	'extensions/references-view/tsconfig.json',
 	'extensions/search-result/tsconfig.json',
 	'extensions/simple-browser/tsconfig.json',
+	'extensions/studio-preview/tsconfig.json',
 	'extensions/tunnel-forwarding/tsconfig.json',
 	'extensions/typescript-language-features/web/tsconfig.json',
 	'extensions/typescript-language-features/tsconfig.json',
@@ -260,7 +261,7 @@ export const cleanExtensionsBuildTask = task.define('clean-extensions-build', ut
 /**
  * brings in the marketplace extensions for the build
  */
-const bundleMarketplaceExtensionsBuildTask = task.define('bundle-marketplace-extensions-build', gulp.series(
+const bundleMarketplaceExtensionsBuildTask = task.define('bundle-marketplace-extensions-build', task.series(
 	() => builtInExtensions.getBuiltInExtensions(),
 	() => ext.packageMarketplaceExtensionsStream(false).pipe(gulp.dest('.build'))
 ));

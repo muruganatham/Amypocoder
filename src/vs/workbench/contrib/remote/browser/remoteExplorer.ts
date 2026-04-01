@@ -8,7 +8,7 @@ import { IWorkbenchContribution } from '../../../common/contributions.js';
 import { Extensions, IViewContainersRegistry, IViewsRegistry, ViewContainer, ViewContainerLocation } from '../../../common/views.js';
 import { IRemoteExplorerService, PORT_AUTO_FALLBACK_SETTING, PORT_AUTO_FORWARD_SETTING, PORT_AUTO_SOURCE_SETTING, PORT_AUTO_SOURCE_SETTING_HYBRID, PORT_AUTO_SOURCE_SETTING_OUTPUT, PORT_AUTO_SOURCE_SETTING_PROCESS, PortsEnablement, TUNNEL_VIEW_CONTAINER_ID, TUNNEL_VIEW_ID } from '../../../services/remote/common/remoteExplorerService.js';
 import { Attributes, AutoTunnelSource, forwardedPortsFeaturesEnabled, forwardedPortsViewEnabled, makeAddress, mapHasAddressLocalhostOrAllInterfaces, OnPortForward, Tunnel, TunnelCloseReason, TunnelSource } from '../../../services/remote/common/tunnelModel.js';
-import { ForwardPortAction, OpenPortInBrowserAction, TunnelPanel, TunnelPanelDescriptor, TunnelViewModel, OpenPortInPreviewAction, openPreviewEnabledContext } from './tunnelView.js';
+import { ForwardPortAction, TunnelPanel, TunnelPanelDescriptor, TunnelViewModel } from './tunnelView.js';
 import { IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
 import { IWorkbenchEnvironmentService } from '../../../services/environment/common/environmentService.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
@@ -21,7 +21,7 @@ import { IOpenerService } from '../../../../platform/opener/common/opener.js';
 import { ITerminalService } from '../../terminal/browser/terminal.js';
 import { IDebugService } from '../../debug/common/debug.js';
 import { IRemoteAgentService } from '../../../services/remote/common/remoteAgentService.js';
-import { isWeb, OperatingSystem } from '../../../../base/common/platform.js';
+import { isWeb, OperatingSystem, isWindows, isMacintosh } from '../../../../base/common/platform.js';
 import { ITunnelService, RemoteTunnel, TunnelPrivacyId } from '../../../../platform/tunnel/common/tunnel.js';
 import { SyncDescriptor } from '../../../../platform/instantiation/common/descriptors.js';
 import { ViewPaneContainer } from '../../../browser/parts/views/viewPaneContainer.js';
@@ -203,7 +203,7 @@ export class AutomaticPortForwarding extends Disposable implements IWorkbenchCon
 		@IOpenerService private readonly openerService: IOpenerService,
 		@IExternalUriOpenerService private readonly externalOpenerService: IExternalUriOpenerService,
 		@IRemoteExplorerService private readonly remoteExplorerService: IRemoteExplorerService,
-		@IWorkbenchEnvironmentService environmentService: IWorkbenchEnvironmentService,
+		@IWorkbenchEnvironmentService private readonly environmentService: IWorkbenchEnvironmentService,
 		@IContextKeyService private readonly contextKeyService: IContextKeyService,
 		@IWorkbenchConfigurationService private readonly configurationService: IWorkbenchConfigurationService,
 		@IDebugService private readonly debugService: IDebugService,
@@ -215,20 +215,25 @@ export class AutomaticPortForwarding extends Disposable implements IWorkbenchCon
 		@IPreferencesService private readonly preferencesService: IPreferencesService,
 	) {
 		super();
-		if (!environmentService.remoteAuthority) {
-			return;
-		}
-
-		configurationService.whenRemoteConfigurationLoaded().then(() => remoteAgentService.getEnvironment()).then(environment => {
+		const setup = (environment: IRemoteAgentEnvironment | null) => {
 			this.setup(environment);
-			this._register(configurationService.onDidChangeConfiguration(e => {
+			this._register(this.configurationService.onDidChangeConfiguration(e => {
 				if (e.affectsConfiguration(PORT_AUTO_SOURCE_SETTING)) {
 					this.setup(environment);
 				} else if (e.affectsConfiguration(PORT_AUTO_FALLBACK_SETTING) && !this.portListener) {
 					this.listenForPorts();
 				}
 			}));
-		});
+		};
+
+		if (!environmentService.remoteAuthority) {
+			setup(null);
+			this.remoteExplorerService.enablePortsFeatures(false);
+		} else {
+			this.configurationService.whenRemoteConfigurationLoaded().then(() => remoteAgentService.getEnvironment()).then(environment => {
+				setup(environment);
+			});
+		}
 
 		if (!this.storageService.getBoolean('processPortForwardingFallback', StorageScope.WORKSPACE, true)) {
 			this.configurationService.updateValue(PORT_AUTO_FALLBACK_SETTING, 0, ConfigurationTarget.WORKSPACE);
@@ -311,24 +316,26 @@ export class AutomaticPortForwarding extends Disposable implements IWorkbenchCon
 		this.procForwarder = undefined;
 		this.outputForwarder?.dispose();
 		this.outputForwarder = undefined;
-		if (environment?.os !== OperatingSystem.Linux) {
+
+		const os = environment?.os ?? (isWeb ? OperatingSystem.Linux : (isWindows ? OperatingSystem.Windows : (isMacintosh ? OperatingSystem.Macintosh : OperatingSystem.Linux)));
+		if (os !== OperatingSystem.Linux) {
 			if (this.configurationService.inspect<string>(PORT_AUTO_SOURCE_SETTING).default?.value !== PORT_AUTO_SOURCE_SETTING_OUTPUT) {
 				Registry.as<IConfigurationRegistry>(ConfigurationExtensions.Configuration)
 					.registerDefaultConfigurations([{ overrides: { 'remote.autoForwardPortsSource': PORT_AUTO_SOURCE_SETTING_OUTPUT } }]);
 			}
 			this.outputForwarder = this._register(new OutputAutomaticPortForwarding(this.terminalService, this.notificationService, this.openerService, this.externalOpenerService,
-				this.remoteExplorerService, this.configurationService, this.debugService, this.tunnelService, this.hostService, this.logService, this.contextKeyService, () => false));
+				this.remoteExplorerService, this.configurationService, this.debugService, this.tunnelService, this.hostService, this.logService, this.contextKeyService, this.environmentService, () => false));
 		} else {
 			const useProc = () => (this.configurationService.getValue(PORT_AUTO_SOURCE_SETTING) === PORT_AUTO_SOURCE_SETTING_PROCESS);
 			if (useProc()) {
 				this.procForwarder = this._register(new ProcAutomaticPortForwarding(false, alreadyForwarded, !isSwitch, this.configurationService, this.remoteExplorerService, this.notificationService,
-					this.openerService, this.externalOpenerService, this.tunnelService, this.hostService, this.logService, this.contextKeyService));
+					this.openerService, this.externalOpenerService, this.tunnelService, this.hostService, this.logService, this.contextKeyService, this.environmentService));
 			} else if (this.configurationService.getValue(PORT_AUTO_SOURCE_SETTING) === PORT_AUTO_SOURCE_SETTING_HYBRID) {
 				this.procForwarder = this._register(new ProcAutomaticPortForwarding(true, alreadyForwarded, !isSwitch, this.configurationService, this.remoteExplorerService, this.notificationService,
-					this.openerService, this.externalOpenerService, this.tunnelService, this.hostService, this.logService, this.contextKeyService));
+					this.openerService, this.externalOpenerService, this.tunnelService, this.hostService, this.logService, this.contextKeyService, this.environmentService));
 			}
 			this.outputForwarder = this._register(new OutputAutomaticPortForwarding(this.terminalService, this.notificationService, this.openerService, this.externalOpenerService,
-				this.remoteExplorerService, this.configurationService, this.debugService, this.tunnelService, this.hostService, this.logService, this.contextKeyService, useProc));
+				this.remoteExplorerService, this.configurationService, this.debugService, this.tunnelService, this.hostService, this.logService, this.contextKeyService, this.environmentService, useProc));
 		}
 		this.listenForPorts();
 	}
@@ -345,18 +352,20 @@ class OnAutoForwardedAction extends Disposable {
 
 	constructor(private readonly notificationService: INotificationService,
 		private readonly remoteExplorerService: IRemoteExplorerService,
-		private readonly openerService: IOpenerService,
-		private readonly externalOpenerService: IExternalUriOpenerService,
+		openerService: IOpenerService,
+		externalOpenerService: IExternalUriOpenerService,
 		private readonly tunnelService: ITunnelService,
 		private readonly hostService: IHostService,
 		private readonly logService: ILogService,
-		private readonly contextKeyService: IContextKeyService) {
+		private readonly environmentService: IWorkbenchEnvironmentService) {
 		super();
 		this.lastNotifyTime = new Date();
 		this.lastNotifyTime.setFullYear(this.lastNotifyTime.getFullYear() - 1);
 	}
 
 	public async doAction(tunnels: RemoteTunnel[]): Promise<void> {
+		console.log('[Amypo] doAction triggered');
+		console.log('[Amypo] Tunnels received:', tunnels.map(t => t.tunnelRemotePort));
 		this.logService.trace(`ForwardedPorts: (OnAutoForwardedAction) Starting action for ${tunnels[0]?.tunnelRemotePort}`);
 		this.doActionTunnels = tunnels;
 		const tunnel = await this.portNumberHeuristicDelay();
@@ -365,6 +374,13 @@ class OnAutoForwardedAction extends Disposable {
 			const allAttributes = await this.remoteExplorerService.tunnelModel.getAttributes([{ port: tunnel.tunnelRemotePort, host: tunnel.tunnelRemoteHost }]);
 			const attributes = allAttributes?.get(tunnel.tunnelRemotePort)?.onAutoForward;
 			this.logService.trace(`ForwardedPorts: (OnAutoForwardedAction) onAutoForward action is ${attributes}`);
+			if (!this.environmentService.remoteAuthority) {
+				const elapsed = new Date().getTime() - this.lastNotifyTime.getTime();
+				if (elapsed > OnAutoForwardedAction.NOTIFY_COOL_DOWN) {
+					await this.showNotification(tunnel);
+				}
+				return;
+			}
 			switch (attributes) {
 				case OnPortForward.OpenBrowserOnce: {
 					if (this.alreadyOpenedOnce.has(tunnel.localAddress)) {
@@ -374,13 +390,11 @@ class OnAutoForwardedAction extends Disposable {
 					// Intentionally do not break so that the open browser path can be run.
 				}
 				case OnPortForward.OpenBrowser: {
-					const address = makeAddress(tunnel.tunnelRemoteHost, tunnel.tunnelRemotePort);
-					await OpenPortInBrowserAction.run(this.remoteExplorerService.tunnelModel, this.openerService, address);
+					// ✅ Disabled - user must manually open browser
 					break;
 				}
 				case OnPortForward.OpenPreview: {
-					const address = makeAddress(tunnel.tunnelRemoteHost, tunnel.tunnelRemotePort);
-					await OpenPortInPreviewAction.run(this.remoteExplorerService.tunnelModel, this.openerService, this.externalOpenerService, address);
+					// ✅ Disabled - user must manually open browser
 					break;
 				}
 				case OnPortForward.Silent: break;
@@ -442,7 +456,7 @@ class OnAutoForwardedAction extends Disposable {
 	private async basicMessage(tunnel: RemoteTunnel) {
 		const properties = await this.remoteExplorerService.tunnelModel.getAttributes([{ host: tunnel.tunnelRemoteHost, port: tunnel.tunnelRemotePort }], false);
 		const label = properties?.get(tunnel.tunnelRemotePort)?.label;
-		return nls.localize('remote.tunnelsView.automaticForward', "Your application{0} running on port {1} is available.  ",
+		return nls.localize('remote.tunnelsView.automaticForward', "AmypoCoder: Your application{0} on port {1} is ready!  ",
 			label ? ` (${label})` : '',
 			tunnel.tunnelRemotePort);
 	}
@@ -454,16 +468,24 @@ class OnAutoForwardedAction extends Disposable {
 	}
 
 	private async showNotification(tunnel: RemoteTunnel) {
-		if (!await this.hostService.hadLastFocus()) {
-			return;
-		}
+		console.log('[Amypo] ==============================');
+		console.log('[Amypo] Port detected!');
+		console.log('[Amypo] Remote Port:', tunnel.tunnelRemotePort);
+		console.log('[Amypo] Local Port:', tunnel.tunnelLocalPort);
+		console.log('[Amypo] Local Address:', tunnel.localAddress);
+		console.log('[Amypo] ==============================');
+
+		const hasFocus = await this.hostService.hadLastFocus();
+		console.log('[Amypo] Window has focus:', hasFocus);
+
+		// ✅ Always show notification regardless of focus
+		// if (!await this.hostService.hadLastFocus()) {
+		// 	return;
+		// }
 
 		this.lastNotification?.close();
 		let message = await this.basicMessage(tunnel);
-		const choices = [this.openBrowserChoice(tunnel)];
-		if (!isWeb || openPreviewEnabledContext.getValue(this.contextKeyService)) {
-			choices.push(this.openPreviewChoice(tunnel));
-		}
+		const choices: IPromptChoice[] = []; // ✅ Remove auto browser choice
 
 		if ((tunnel.tunnelLocalPort !== tunnel.tunnelRemotePort) && this.tunnelService.canElevate && this.tunnelService.isPortPrivileged(tunnel.tunnelRemotePort)) {
 			// Privileged ports are not on Windows, so it's safe to use "superuser"
@@ -477,6 +499,7 @@ class OnAutoForwardedAction extends Disposable {
 
 		message += this.linkMessage();
 
+		console.log('[Amypo] Showing notification...');
 		this.lastNotification = this.notificationService.prompt(Severity.Info, message, choices, { neverShowAgain: { id: 'remote.tunnelsView.autoForwardNeverShow', isSecondary: true } });
 		this.lastShownPort = tunnel.tunnelRemotePort;
 		this.lastNotifyTime = new Date();
@@ -504,22 +527,6 @@ class OnAutoForwardedAction extends Disposable {
 		};
 	}
 
-	private openBrowserChoice(tunnel: RemoteTunnel): IPromptChoice {
-		const address = makeAddress(tunnel.tunnelRemoteHost, tunnel.tunnelRemotePort);
-		return {
-			label: OpenPortInBrowserAction.LABEL,
-			run: () => OpenPortInBrowserAction.run(this.remoteExplorerService.tunnelModel, this.openerService, address)
-		};
-	}
-
-	private openPreviewChoice(tunnel: RemoteTunnel): IPromptChoice {
-		const address = makeAddress(tunnel.tunnelRemoteHost, tunnel.tunnelRemotePort);
-		return {
-			label: OpenPortInPreviewAction.LABEL,
-			run: () => OpenPortInPreviewAction.run(this.remoteExplorerService.tunnelModel, this.openerService, this.externalOpenerService, address)
-		};
-	}
-
 	private elevateChoice(tunnel: RemoteTunnel): IPromptChoice {
 		return {
 			// Privileged ports are not on Windows, so it's ok to stick to just "sudo".
@@ -539,7 +546,7 @@ class OnAutoForwardedAction extends Disposable {
 				this.lastShownPort = newTunnel.tunnelRemotePort;
 				this.lastNotification = this.notificationService.prompt(Severity.Info,
 					await this.basicMessage(newTunnel) + this.linkMessage(),
-					[this.openBrowserChoice(newTunnel), this.openPreviewChoice(tunnel)],
+					[this.elevateChoice(newTunnel)],
 					{ neverShowAgain: { id: 'remote.tunnelsView.autoForwardNeverShow', isSecondary: true } });
 				this.notificationDisposable.value = this.lastNotification.onDidClose(() => {
 					this.lastNotification = undefined;
@@ -554,6 +561,7 @@ class OutputAutomaticPortForwarding extends Disposable {
 	private portsFeatures?: IDisposable;
 	private urlFinder?: UrlFinder;
 	private notifier: OnAutoForwardedAction;
+	private notifiedPorts: Set<number> = new Set();
 
 	constructor(
 		private readonly terminalService: ITerminalService,
@@ -567,10 +575,11 @@ class OutputAutomaticPortForwarding extends Disposable {
 		readonly hostService: IHostService,
 		readonly logService: ILogService,
 		readonly contextKeyService: IContextKeyService,
+		readonly environmentService: IWorkbenchEnvironmentService,
 		readonly privilegedOnly: () => boolean
 	) {
 		super();
-		this.notifier = new OnAutoForwardedAction(notificationService, remoteExplorerService, openerService, externalOpenerService, tunnelService, hostService, logService, contextKeyService);
+		this.notifier = new OnAutoForwardedAction(notificationService, remoteExplorerService, openerService, externalOpenerService, tunnelService, hostService, logService, environmentService);
 		this._register(configurationService.onDidChangeConfiguration((e) => {
 			if (e.affectsConfiguration(PORT_AUTO_FORWARD_SETTING)) {
 				this.tryStartStopUrlFinder();
@@ -596,26 +605,57 @@ class OutputAutomaticPortForwarding extends Disposable {
 	}
 
 	private startUrlFinder() {
-		if (!this.urlFinder && (this.remoteExplorerService.portsFeaturesEnabled !== PortsEnablement.AdditionalFeatures)) {
+		// ✅ Amypo - Allow local port detection even without remote features
+		if (!this.urlFinder && !this.environmentService.remoteAuthority &&
+			(this.remoteExplorerService.portsFeaturesEnabled !== PortsEnablement.AdditionalFeatures)) {
+			// continue anyway for local machines
+		} else if (!this.urlFinder && this.environmentService.remoteAuthority &&
+			(this.remoteExplorerService.portsFeaturesEnabled !== PortsEnablement.AdditionalFeatures)) {
 			return;
 		}
 		this.portsFeatures?.dispose();
 		this.urlFinder = this._register(new UrlFinder(this.terminalService, this.debugService));
 		this._register(this.urlFinder.onDidMatchLocalUrl(async (localUrl) => {
-			if (mapHasAddressLocalhostOrAllInterfaces(this.remoteExplorerService.tunnelModel.detected, localUrl.host, localUrl.port)) {
+			if (this.notifiedPorts.has(localUrl.port)) {
+				console.log('[Amypo] Already notified for port:', localUrl.port);
+				return;
+			}
+			console.log('[Amypo] URL detected in terminal:', localUrl.host, localUrl.port);
+
+			console.log('[Amypo] Checking detected tunnels...');
+			const alreadyDetected = mapHasAddressLocalhostOrAllInterfaces(this.remoteExplorerService.tunnelModel.detected, localUrl.host, localUrl.port);
+			console.log('[Amypo] Already detected:', alreadyDetected);
+
+			if (alreadyDetected) {
 				return;
 			}
 			const attributes = (await this.remoteExplorerService.tunnelModel.getAttributes([localUrl]))?.get(localUrl.port);
+			console.log('[Amypo] Attributes:', attributes);
+
 			if (attributes?.onAutoForward === OnPortForward.Ignore) {
 				return;
 			}
 			if (this.privilegedOnly() && !this.tunnelService.isPortPrivileged(localUrl.port)) {
 				return;
 			}
-			const forwarded = await this.remoteExplorerService.forward({ remote: localUrl, source: AutoTunnelSource }, attributes ?? null);
-			if (forwarded && (typeof forwarded !== 'string')) {
-				this.notifier.doAction([forwarded]);
-			}
+			// ✅ Fixed - show notification directly for local ports
+			console.log('[Amypo] Showing notification for port:', localUrl.port);
+			this.notifiedPorts.add(localUrl.port);
+			this.notificationService.prompt(
+				Severity.Info,
+				nls.localize('remote.tunnelsView.notification', "Amypo Coder: Your application on port {0} is ready!", localUrl.port),
+				[
+					{
+						label: nls.localize('remote.tunnelsView.openBrowser', "Open in Browser"),
+						run: () => {
+							const url = `http://${localUrl.host}:${localUrl.port}`;
+							console.log('[Amypo] Opening browser:', url);
+							this.openerService.open(url, { openExternal: true });
+						}
+					}
+				],
+				{ sticky: true }
+			);
 		}));
 	}
 
@@ -623,6 +663,7 @@ class OutputAutomaticPortForwarding extends Disposable {
 		if (this.urlFinder) {
 			this.urlFinder.dispose();
 			this.urlFinder = undefined;
+			this.notifiedPorts.clear();
 		}
 	}
 }
@@ -648,9 +689,10 @@ class ProcAutomaticPortForwarding extends Disposable {
 		readonly hostService: IHostService,
 		readonly logService: ILogService,
 		readonly contextKeyService: IContextKeyService,
+		readonly environmentService: IWorkbenchEnvironmentService,
 	) {
 		super();
-		this.notifier = new OnAutoForwardedAction(notificationService, remoteExplorerService, openerService, externalOpenerService, tunnelService, hostService, logService, contextKeyService);
+		this.notifier = new OnAutoForwardedAction(notificationService, remoteExplorerService, openerService, externalOpenerService, tunnelService, hostService, logService, environmentService);
 		alreadyAutoForwarded?.forEach(port => this.autoForwarded.add(port));
 		this.initialize();
 	}
